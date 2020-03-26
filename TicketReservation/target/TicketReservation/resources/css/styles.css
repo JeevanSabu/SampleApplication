@@ -1,0 +1,52 @@
+body{
+    font-size:20px;
+}
+.login{
+    font-size: 20px;
+    background-image: url("images/login-banner.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    color:white;
+}
+.middle-align{
+    display: flex;
+    width: 100%;
+    height: -webkit-fill-available;
+    align-items: center;
+}
+.login-form{
+    margin: auto;
+    padding: 35px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 25px;
+    box-shadow: 1px 1px 5px 3px;
+}
+.no-border.ui-panelgrid>*>tr,
+.no-border.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+    background: none;
+    color: white;
+}
+.login-button.ui-button{
+    float:right;
+    margin:10px;
+}
+/*Media Queries*/
+@media only screen and (max-width: 991px){
+}
+@media only screen and (max-width: 767px){
+}
+@media only screen and (max-width: 640px){
+  .login{
+    font-size: 28px;
+  }
+  h2{
+    font-size: 40px;
+    font-weight: bold;
+  }
+}
+@media only screen and (max-width: 480px){
+}
+@media only screen and (max-width: 320px){
+}
