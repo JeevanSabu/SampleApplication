@@ -37,7 +37,7 @@ body{
     margin-right:0px;
 }
 
-.home-header{
+.header{
 	padding: 10px 20px;
     font-size: 35px;
     font-weight: bold;
@@ -67,6 +67,24 @@ body{
 .search-button.ui-button{
 	float:right;
 	margin:10px 21px 0px 0px;
+}
+
+.bus-seats{
+	margin:auto;
+	border:20px solid white;
+    box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.4);
+}
+.bus-seats a img{
+	border-bottom:4px solid white;
+}
+.bus-seats a.selected img{
+	border-bottom-color:red;
+}
+.bus-seats a.select img{
+	border-bottom-color:green;
+}
+.bus-image{
+    margin:10px 0px;
 }
 
 /*Media Queries*/

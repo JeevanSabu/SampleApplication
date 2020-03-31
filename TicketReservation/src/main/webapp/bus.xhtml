@@ -1,0 +1,163 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns = "http://www.w3.org/1999/xhtml"
+   xmlns:f = "http://java.sun.com/jsf/core"    
+   xmlns:h = "http://java.sun.com/jsf/html"
+   xmlns:p = "http://primefaces.org/ui">
+   
+   <h:head>
+      <title>Ticket Reservation|Login</title>
+      <h:outputStylesheet library = "css" name = "styles.css"  /> 
+      <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>	
+      <!-- 
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+       -->
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+      <h:outputScript library = "js" name = "script.js"  /> 
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"/>
+   </h:head>
+
+   <h:body>
+   	  
+	<header class="header bus-header">
+	    Ticket Reservation Seat Selection
+	    <i class="pi pi-user icon home-user-icon float-right"></i>
+	</header>
+	<div id="bus" class="bus middle-align">
+	<p:panelGrid id="bus_seats" columns="6" styleClass="bus-seats no-border">
+		<h:outputLink id="s1" value = "#" styleClass="selected"  onclick="selection('s1')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s2" value = "#" styleClass="not-selected" onclick="selection('s2')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<p:panelGrid/>
+		<h:outputLink id="s3" value = "#" styleClass="selected" onclick="selection('s3')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s4" value = "#" styleClass="not-selected" onclick="selection('s4')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s5" value = "#" styleClass="selected" onclick="selection('s5')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s6" value = "#" styleClass="not-selected" onclick="selection('s6')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s7" value = "#" styleClass="not-selected" onclick="selection('s7')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<p:panelGrid/>
+		<h:outputLink id="s8" value = "#" styleClass="not-selected" onclick="selection('s8')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s9" value = "#" styleClass="not-selected" onclick="selection('s9')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s10" value = "#" styleClass="not-selected" onclick="selection('s10')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s11" value = "#" styleClass="not-selected" onclick="selection('s11')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s12" value = "#" styleClass="not-selected" onclick="selection('s12')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<p:panelGrid/>
+		<h:outputLink id="s13" value = "#" styleClass="not-selected" onclick="selection('s13')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s14" value = "#" styleClass="not-selected" onclick="selection('s14')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s15" value = "#" styleClass="not-selected" onclick="selection('s15')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s16" value = "#" styleClass="not-selected" onclick="selection('s16')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s17" value = "#" styleClass="not-selected" onclick="selection('s17')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<p:panelGrid/>
+		<h:outputLink id="s18" value = "#" styleClass="not-selected" onclick="selection('s18')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s19" value = "#" styleClass="not-selected" onclick="selection('s19')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s20" value = "#" styleClass="not-selected" onclick="selection('s20')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s21" value = "#" styleClass="not-selected" onclick="selection('s21')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s22" value = "#" styleClass="not-selected" onclick="selection('s22')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<p:panelGrid/>
+		<h:outputLink id="s23" value = "#" styleClass="not-selected" onclick="selection('s23')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s24" value = "#" styleClass="not-selected" onclick="selection('s24')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s25" value = "#" styleClass="not-selected" onclick="selection('s25')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s26" value = "#" styleClass="not-selected" onclick="selection('s26')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s27" value = "#" styleClass="not-selected" onclick="selection('s27')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<p:panelGrid/>
+		<h:outputLink id="s28" value = "#" styleClass="not-selected" onclick="selection('s28')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s29" value = "#" styleClass="not-selected" onclick="selection('s29')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s30" value = "#" styleClass="not-selected" onclick="selection('s30')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s31" value = "#" styleClass="not-selected" onclick="selection('s31')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s32" value = "#" styleClass="not-selected" onclick="selection('s32')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<p:panelGrid/>
+		<h:outputLink id="s33" value = "#" styleClass="not-selected" onclick="selection('s33')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s34" value = "#" styleClass="not-selected" onclick="selection('s34')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s35" value = "#" styleClass="not-selected" onclick="selection('s35')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s36" value = "#" styleClass="not-selected" onclick="selection('s36')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s37" value = "#" styleClass="not-selected" onclick="selection('s37')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<p:panelGrid/>
+		<h:outputLink id="s38" value = "#" styleClass="not-selected" onclick="selection('s38')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s39" value = "#" styleClass="not-selected" onclick="selection('s39')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<h:outputLink id="s40" value = "#" styleClass="not-selected" onclick="selection('s40')">
+			<img class="bus-image" src="resources/images/chair.png"/>
+		</h:outputLink>
+		<!-- <i class="fas fa-couch"></i> -->
+	</p:panelGrid>
+	</div>
+   </h:body>
+</html>
