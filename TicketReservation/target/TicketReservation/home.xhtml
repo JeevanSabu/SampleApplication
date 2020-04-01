@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns = "http://www.w3.org/1999/xhtml"
+   xmlns:f = "http://java.sun.com/jsf/core"    
+   xmlns:h = "http://java.sun.com/jsf/html"
+   xmlns:p = "http://primefaces.org/ui">
+   
+   <h:head>
+      <title>Ticket Reservation|Home</title>
+      <h:outputStylesheet library = "css" name = "styles.css"  /> 
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>	
+      <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"/>
+    </h:head>
+ 
+    <h:body>
+	<header class="header home-header">
+	    Ticket Reservation Home
+	    <i class="pi pi-user icon home-user-icon float-right"></i>
+	</header>
+    <p:tabView orientation="left" styleClass="home-tabview">
+        <p:tab title="New Booking" styleClass="home-tab">
+            <h:panelGrid columns="2" cellpadding="10" styleClass="home-booking-panel">
+				<p:outputLabel for="from_field" value="Source:"/>
+				<p:inputText id="from_field" value="#{userBean.username}"/> 
+				<p:outputLabel for="to_field" value="Destination:"/>
+				<p:inputText id="to_field" value="#{userBean.password}"/>  
+				<p:outputLabel for="date_field" value="Date:" />
+        		<p:datePicker id="date_field" value="" showIcon="true" />
+        		<h:inputHidden></h:inputHidden>
+			    <p:commandButton id="search_button" value="Search" styleClass="search-button" action="#{homeModel.getResult()}"/>
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="My Bookings" styleClass="home-tab">
+            <h:panelGrid columns="2" cellpadding="10">
+		<h3>No bookings</h3>
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+    </h:body>
+</html>

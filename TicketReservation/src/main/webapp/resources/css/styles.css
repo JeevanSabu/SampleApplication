@@ -4,7 +4,8 @@ body{
 .float-right{
 	float:right;
 }
-.login{
+.login,
+.authentication{
     font-size: 20px;
     background-image: url("images/login-banner.jpg");
     background-repeat: no-repeat;
@@ -18,7 +19,8 @@ body{
     height: -webkit-fill-available;
     align-items: center;
 }
-.login-form{
+.login-form,
+.authentication-form{
     margin: auto;
     padding: 35px;
     background: rgba(0,0,0,0.6);
@@ -31,7 +33,8 @@ body{
     background: none;
     color: white;
 }
-.login-button.ui-button{
+.login-button.ui-button,
+.verify-button.ui-button{
     float:right;
     margin:10px;
     margin-right:0px;
@@ -74,6 +77,22 @@ body{
 	border:20px solid white;
     box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.4);
 }
+.bus-seats.ui-panelgrid .ui-panelgrid-cell{
+	color:black;
+	font-size:12px;
+}
+.color-dot.red{
+    border-left: 8px solid red;
+    border-right: 8px solid red;
+    margin-right: 5px;
+}
+.color-dot.green{
+    border-left: 8px solid green;
+    border-right: 8px solid green;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
 .bus-seats a img{
 	border-bottom:4px solid white;
 }
@@ -85,6 +104,10 @@ body{
 }
 .bus-image{
     margin:10px 0px;
+}
+
+.authentication{
+    background-image: url("../resources/images/banner2.jpg");
 }
 
 /*Media Queries*/

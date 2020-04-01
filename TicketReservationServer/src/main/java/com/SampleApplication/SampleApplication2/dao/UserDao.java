@@ -16,8 +16,18 @@ public class UserDao {
 		users.add(new UserPojo("Jeeson","Jeeson@123"));
 	}
 	public UserPojo getUser(String username, String password) {
+		LOGGER.trace("From arguments "+username);
 		for(UserPojo userPojo : users) {
 			if(userPojo.getUsername().equals(username)&&userPojo.getPassword().equals(password)){
+				return userPojo;
+			}
+		}
+		return null;
+	}
+	public UserPojo getList() {
+
+		for(UserPojo userPojo : users) {
+			if(userPojo.getUsername().equals("Jerin")&&userPojo.getPassword().equals("Jerin@123")){
 				return userPojo;
 			}
 		}

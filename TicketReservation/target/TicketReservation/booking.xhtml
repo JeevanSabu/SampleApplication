@@ -1,0 +1,109 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns = "http://www.w3.org/1999/xhtml"
+   xmlns:f = "http://java.sun.com/jsf/core"    
+   xmlns:h = "http://java.sun.com/jsf/html"
+   xmlns:p = "http://primefaces.org/ui">
+   
+   <h:head>
+      <title>Ticket Reservation|New Booking</title>
+      <h:outputStylesheet library = "css" name = "styles.css"  /> 
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>	
+      <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"/>
+   </h:head>
+ 
+   <h:body>
+	<header class="header booking-header">
+	    Ticket Reservation Booking Page
+	    <i class="pi pi-user icon home-user-icon float-right"></i>
+	</header>
+	<h:form id="booking-form">
+	 
+	 <!-- 
+	    <p:dataView var="bus" value="#{busView.buses}"
+	                gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+	 
+	        <p:dataViewGridItem>
+	            <p:panel header="#{bus.name}" style="text-align:center">
+	                <h:panelGrid columns="1" style="width:100%">
+	 
+	                    <h:outputText value="#{bus.name}" />
+	 
+	                    <p:commandLink update=":form:busDetail" oncomplete="PF('busDialog').show()" title="View Detail">
+	                        <h:outputText styleClass="ui-icon pi pi-search" style="margin:0 auto;" />
+	                        <f:setPropertyActionListener value="#{bus}" target="#{busView.selectedBus}" />
+	                    </p:commandLink>
+	                </h:panelGrid>
+	            </p:panel>
+	        </p:dataViewGridItem>
+	 
+	        <p:dataViewListItem>
+	            <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">
+	 
+	                <p:outputPanel>
+	                    <h:panelGrid columns="2" cellpadding="5">
+	                        <h:outputText value="Name:" />
+	                        <h:outputText value="#{bus.name}" style="font-weight: bold"/>
+	 
+	                        <h:outputText value="Time:" />
+	                        <h:outputText value="#{bus.runningtime}" style="font-weight: bold"/>
+	 
+	                        <h:outputText value="Price:" />
+	                        <h:outputText value="#{bus.price}" style="font-weight: bold"/>
+	                        
+	                        <h:outputText value="Available Seats:" />
+	                        <h:outputText value="#{bus.availableseats}" style="font-weight: bold"/>
+	                    </h:panelGrid>
+	                </p:outputPanel>
+	 
+	                <p:commandLink update=":form:busDetail" oncomplete="PF('busDialog').show()" title="View Detail">
+	                    <h:outputText styleClass="ui-icon pi pi-search" style="margin:0 auto;" />
+	                    <f:setPropertyActionListener value="#{bus}" target="#{busView.selectedBus}" />
+	                </p:commandLink>
+	            </h:panelGrid>
+	        </p:dataViewListItem>
+	    </p:dataView>
+	  -->
+	 	<p:dataTable var="bus" value="#{busView.getBuses()}">
+		    <p:column headerText="Name">
+	            <h:outputText value="#{bus.name}" style="font-weight: bold"/>
+		    </p:column>
+		 
+		    <p:column headerText="Time">
+	            <h:outputText value="#{bus.runningtime}" style="font-weight: bold"/>
+		    </p:column>
+		 
+		    <p:column headerText="Price">
+	            <h:outputText value="#{bus.price}" style="font-weight: bold"/>
+		    </p:column>
+		 
+		    <p:column headerText="Available Seats">
+	            <h:outputText value="#{bus.availableseats}" style="font-weight: bold"/>
+		    </p:column>
+		</p:dataTable>
+	 
+	 <!-- 
+	    <p:dialog header="Bus Info" widgetVar="busDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+	        <p:outputPanel id="busDetail" style="text-align:center;">
+	            <p:panelGrid  columns="2" rendered="#{not empty busView.selectedBus}" columnClasses="label,value">
+							<h:outputText value="Name:" />
+	                        <h:outputText value="#{busView.selectedBus.name}" style="font-weight: bold"/>
+	 
+	                        <h:outputText value="Time:" />
+	                        <h:outputText value="#{busView.selectedBus.runningtime}" style="font-weight: bold"/>
+	 
+	                        <h:outputText value="Price:" />
+	                        <h:outputText value="#{busView.selectedBus.price}" style="font-weight: bold"/>
+	                        
+	                        <h:outputText value="Available Seats:" />
+	                        <h:outputText value="#{busView.selectedBus.availableseats}" style="font-weight: bold"/>	
+	            </p:panelGrid>
+	        </p:outputPanel>
+	    </p:dialog>
+	  -->
+	</h:form>
+</h:body>
+</html>

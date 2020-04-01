@@ -1,0 +1,107 @@
+body{
+    font-size:20px;
+}
+.float-right{
+	float:right;
+}
+.login{
+    font-size: 20px;
+    background-image: url("images/login-banner.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    color:white;
+}
+.middle-align{
+    display: flex;
+    width: 100%;
+    height: -webkit-fill-available;
+    align-items: center;
+}
+.login-form{
+    margin: auto;
+    padding: 35px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 25px;
+    box-shadow: 1px 1px 5px 3px;
+}
+.no-border.ui-panelgrid>*>tr,
+.no-border.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+    background: none;
+    color: white;
+}
+.login-button.ui-button{
+    float:right;
+    margin:10px;
+    margin-right:0px;
+}
+
+.header{
+	padding: 10px 20px;
+    font-size: 35px;
+    font-weight: bold;
+    color:dodgerblue;
+}
+.home-user-icon{
+	font-size:52px;
+}
+.ui-tabs.home-tabview .ui-helper-reset{
+	padding:10px;
+}
+.ui-tabs.ui-tabs-left.home-tabview>.ui-tabs-nav li{
+    border: 1px solid black;
+    border-radius:3px;
+    margin: 25px .2em 0px .2em;
+}
+.ui-tabs.home-tabview .ui-tabs-nav .ui-tabs-selected{
+	background-color:dodgerblue;
+    box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.4);
+}
+.ui-tabs.home-tabview .ui-tabs-nav .ui-tabs-selected a{
+	color:white;
+}
+.home-booking-panel td{
+	padding:10px;
+}
+.search-button.ui-button{
+	float:right;
+	margin:10px 21px 0px 0px;
+}
+
+.bus-seats{
+	margin:auto;
+	border:20px solid white;
+    box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.4);
+}
+.bus-seats a img{
+	border-bottom:4px solid white;
+}
+.bus-seats a.selected img{
+	border-bottom-color:red;
+}
+.bus-seats a.select img{
+	border-bottom-color:green;
+}
+.bus-image{
+    margin:10px 0px;
+}
+
+/*Media Queries*/
+@media only screen and (max-width: 991px){
+}
+@media only screen and (max-width: 767px){
+}
+@media only screen and (max-width: 640px){
+  .login{
+    font-size: 28px;
+  }
+  h2{
+    font-size: 40px;
+    font-weight: bold;
+  }
+}
+@media only screen and (max-width: 480px){
+}
+@media only screen and (max-width: 320px){
+}

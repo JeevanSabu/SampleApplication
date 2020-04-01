@@ -8,7 +8,7 @@
    xmlns:p = "http://primefaces.org/ui">
    
    <h:head>
-      <title>Ticket Reservation|Login</title>
+      <title>Ticket Reservation|Bus Seat Selecetion</title>
       <h:outputStylesheet library = "css" name = "styles.css"  /> 
       <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>	
@@ -28,6 +28,9 @@
 	</header>
 	<div id="bus" class="bus middle-align">
 	<p:panelGrid id="bus_seats" columns="6" styleClass="bus-seats no-border">
+	    <f:facet name="header">
+    		<span class="color-dot red"/>booked seats<span class="color-dot green"/>Selected seats
+		</f:facet>
 		<h:outputLink id="s1" value = "#" styleClass="selected"  onclick="selection('s1')">
 			<img class="bus-image" src="resources/images/chair.png"/>
 		</h:outputLink>
