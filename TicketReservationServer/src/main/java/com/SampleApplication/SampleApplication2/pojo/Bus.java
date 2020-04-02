@@ -1,10 +1,5 @@
-package com.SampleApplication.SampleApplication2.tools;
+package com.SampleApplication.SampleApplication2.pojo;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
-@ManagedBean(name="bus" , eager=true)
-@SessionScoped
 public class Bus {
 	private String name;
 	private String runningtime;

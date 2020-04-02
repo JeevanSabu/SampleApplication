@@ -35,21 +35,17 @@ public class UserModel {
 	BarcodeBean barcodeBean = (BarcodeBean) context.getApplication().getExpressionFactory()
 	            .createValueExpression(context.getELContext(), "#{barcodeBean}", BarcodeBean.class)
 	              .getValue(context.getELContext());
-//	ELContext elContext = FacesContext.getCurrentInstance().getELContext();
-//	UserBean userBean
-//	    = (UserBean) FacesContext.getCurrentInstance().getApplication()
-//	    .getELResolver().getValue(elContext, null, "userBean");
-//	private UserBean userBean = (UserBean) FacesContext.getCurrentInstance().getExternalContext().getContext();
 	private User user = new User();
 	public String getResult() {
 		LOGGER.trace("Inside Usermodel");
 		LOGGER.trace("from userbean "+userBean.getUsername());
-		String uname= user.getUser(userBean.getUsername(),userBean.getPassword());
-		LOGGER.trace("UserName "+uname);
+		String uname = null;
 		try {
+		uname = user.getUser(userBean.getUsername(),userBean.getPassword());
+		LOGGER.trace("UserName "+uname);
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", userBean.getUsername());
 		}catch(Exception e) {
-			LOGGER.error(e.getMessage());
+			LOGGER.error("Exception "+e.getMessage());
 		}
 		if(null==uname) {
 			LOGGER.trace("No user Found");
@@ -68,8 +64,8 @@ public class UserModel {
 			
 			Random random = new Random();
 			int generatedId = random.nextInt(900000) + 100000;
-			result = "home";
 			barcodeBean.setGenId(generatedId);
+			result = "authentication";
 		}
 		return result;
 	}

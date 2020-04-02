@@ -15,6 +15,7 @@ public class User {
 	private static final Logger LOGGER = LogManager.getLogger(User.class);
 
 	public String getUser(String username,String password){
+		LOGGER.trace("Argument username "+username);
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client
 				.target("http://localhost:8080/TicketReservationServer/rest/user");

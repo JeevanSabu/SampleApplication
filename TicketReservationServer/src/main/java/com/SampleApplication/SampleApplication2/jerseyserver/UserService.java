@@ -14,7 +14,7 @@ import com.SampleApplication.SampleApplication2.dao.UserDao;
 import com.SampleApplication.SampleApplication2.pojo.UserPojo;
 @Path("/user")
 public class UserService {
-	private UserDao userDao;
+	private UserDao userDao = new UserDao();
 	private static final Logger LOGGER = LogManager.getLogger(UserService.class);
 	@GET
 	@Path("/userlogin")
@@ -23,6 +23,7 @@ public class UserService {
 		try {
 		LOGGER.trace("From query param "+ username);
 		UserPojo userPojo = userDao.getUser(username,password);
+		LOGGER.trace("From userPojo "+ userPojo.getUsername());
 		return userPojo;
 		}catch(Exception e) {
 			LOGGER.error("Exception "+e.getMessage());

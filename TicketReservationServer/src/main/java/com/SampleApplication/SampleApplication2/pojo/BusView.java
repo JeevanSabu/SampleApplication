@@ -1,11 +1,6 @@
-package com.SampleApplication.SampleApplication2.tools;
+package com.SampleApplication.SampleApplication2.pojo;
 
 import java.util.List;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-@ManagedBean(name="busView", eager=true)
-@SessionScoped
 public class BusView {
 	private List<Bus> buses;
 	private Bus selectedBus;
@@ -24,4 +19,5 @@ public class BusView {
 	public void setBuses(List<Bus> buses) {
 		this.buses = buses;
 	}
+
 }
