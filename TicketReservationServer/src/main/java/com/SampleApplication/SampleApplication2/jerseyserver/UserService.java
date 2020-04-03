@@ -30,11 +30,4 @@ public class UserService {
 			return null;
 		}
 	}
-	@GET
-	@Path("/listall")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getlist() {
-//		UserPojo userPojo = userDao.getList();
-		return "Testing";
-	}
 }

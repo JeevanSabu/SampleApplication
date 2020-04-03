@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 public class User {
 	private static final Logger LOGGER = LogManager.getLogger(User.class);
 
-	public String getUser(String username,String password){
+	public UserPojo getUser(String username,String password){
 		LOGGER.trace("Argument username "+username);
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client
@@ -35,14 +35,14 @@ public class User {
 //		InvocationBuilder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
 //		Response response = invocationBuilder.get();
 		
-		String status = response.readEntity(String.class);
-//		UserPojo userPojo = response.readEntity(UserPojo.class);
+//		String status = response.readEntity(String.class);
+		UserPojo userPojo = response.readEntity(UserPojo.class);
 //		LOGGER.trace("UserPojo "+userPojo.getUsername());
 //		return userPojo.getUsername();
 		LOGGER.trace("Status "+response.getStatus());
 		if(response.getStatus()!=200) {
 			return null;
 		}
-		return status;
+		return userPojo;
 	}
 }

@@ -7,7 +7,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class BarcodeBean {
 
-	private int genId;
+	private String genId;
 	private String id;
 
 	public String getId() {
@@ -18,11 +18,11 @@ public class BarcodeBean {
 		this.id = id;
 	}
 
-	public int getGenId() {
+	public String getGenId() {
 		return genId;
 	}
 
-	public void setGenId(int generatedId) {
-		this.genId = generatedId;
+	public void setGenId(String string) {
+		this.genId = string;
 	}
 }

@@ -17,6 +17,7 @@ import com.SampleApplication.SampleApplication2.tools.BusView;
 
 public class HomeClient {
 	private static final Logger LOGGER = LogManager.getLogger(HomeClient.class);
+	
 	public List<Bus> search(String source, String destination, Date date) {
 		
 		LOGGER.trace("argument date "+date);
@@ -31,10 +32,13 @@ public class HomeClient {
 					.queryParam("destination",destination)
 					.queryParam("date",date)
 					.request(MediaType.APPLICATION_JSON)
-					.get(Response.class);
+					.get();
+			LOGGER.trace("Status "+response.getStatus());
+//			BusView busView = response.readEntity(BusView.class);
+//			List<Bus> buses = busView.getBuses();
 			
-			BusView busView = response.readEntity(BusView.class);
-			List<Bus> buses = busView.getBuses();
+			List<Bus> buses = response.readEntity(BusView.class).getBuses();
+			
 			return buses;
 		}catch(Exception e) {
 			LOGGER.error("Exception "+e);

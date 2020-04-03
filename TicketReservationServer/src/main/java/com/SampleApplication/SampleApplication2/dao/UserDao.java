@@ -52,10 +52,10 @@ public class UserDao {
 	    	  userPojo.setPassword(resultSet.getString("userlogin_table_password"));			
 	        }
 	    	
-	    	String statement1 = "insert into bookings_table (bookings_table_username,bookings_table_fromto,bookings_table_journeydate,bookings_table_passengers) values('Jerin','Chennai-Kerala','25 April 2020 18:30','Jerin (23,male)')";
-	    	preparedStatement = connection.prepareStatement(statement1);
-	    	int row = preparedStatement.executeUpdate();
-	    	LOGGER.trace(row);
+//	    	String statement1 = "insert into bookings_table (bookings_table_username,bookings_table_fromto,bookings_table_journeydate,bookings_table_passengers) values('Jerin','Chennai-Kerala','25 April 2020 18:30','Jerin (23,male)')";
+//	    	preparedStatement = connection.prepareStatement(statement1);
+//	    	int row = preparedStatement.executeUpdate();
+//	    	LOGGER.trace(row);
 	    	
 	    } catch (SQLException e) {
 	         LOGGER.error("Table exception "+e.getMessage());

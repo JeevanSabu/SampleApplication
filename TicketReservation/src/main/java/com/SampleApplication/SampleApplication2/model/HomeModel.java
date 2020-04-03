@@ -27,14 +27,19 @@ public class HomeModel {
 	            .createValueExpression(context.getELContext(), "#{homeBean}", HomeBean.class)
 	              .getValue(context.getELContext());
 	private HomeClient homeClient = new HomeClient();
-//	BusView busview = (BusView) context.getApplication().getExpressionFactory()
-//            .createValueExpression(context.getELContext(), "#{busview}", BusView.class)
+//	BusView busView = (BusView) context.getApplication().getExpressionFactory()
+//            .createValueExpression(context.getELContext(), "#{busView}", BusView.class)
 //            .getValue(context.getELContext());
-	BusView busview = new BusView();
+	BusView busView = new BusView();
 	public String getResult() {
 		LOGGER.trace("Date "+homeBean.getDate());
-		List<Bus> buses = homeClient.search(homeBean.getSource(),homeBean.getDestination(),homeBean.getDate());
-		busview.setBuses(buses);
+		try {			
+			List<Bus> buses = homeClient.search(homeBean.getSource(),homeBean.getDestination(),homeBean.getDate());
+			busView.setBuses(buses);
+			LOGGER.trace("Buses "+busView.getBuses().get(1).getName());
+		} catch(Exception ex) {
+			LOGGER.error("Error"+ex.getMessage());
+		}
 		result = "booking";
 		return result;
 	}

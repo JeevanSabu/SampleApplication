@@ -18,10 +18,27 @@
     <h:body>
 	<header class="header home-header">
 	    Ticket Reservation Home
-	    <i class="pi pi-user icon home-user-icon float-right"></i>
+	    <h:form id="user_icon_form" styleClass="user-icon-form">  
+		    <p:commandLink id="user_icon_button">
+		    	<i class="pi pi-user icon home-user-icon float-right"></i>
+		    </p:commandLink>    
+		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
+		    	<h:form id="user_panel_form">      
+		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
+				        <h:outputText value="Username : " />
+				        <h:outputText value="#{userBean.username}" />
+				        <h:outputText value="Last Login : " />
+				        <h:outputText value=" " />
+				        <h:inputHidden/>
+			    		<p:commandButton value="LogOut" action="#{userModel.logout()}" id="logout_button" styleClass="logout-button"/>
+		    		</p:panelGrid>
+		    	</h:form>
+		    </p:overlayPanel>
+	    </h:form>
 	</header>
     <p:tabView orientation="left" styleClass="home-tabview">
         <p:tab title="New Booking" styleClass="home-tab">
+          <h:form id="booking_home_form" styleClass="booking-home-form">
             <h:panelGrid columns="2" cellpadding="10" styleClass="home-booking-panel">
 				<p:outputLabel for="from_field" value="Source:"/>
 				<p:inputText id="from_field" value="#{homeBean.source}"/> 
@@ -32,6 +49,7 @@
         		<h:inputHidden></h:inputHidden>
 			    <p:commandButton id="search_button" value="Search" styleClass="search-button" action="#{homeModel.getResult()}"/>
             </h:panelGrid>
+         </h:form>
         </p:tab>
         <p:tab title="My Bookings" styleClass="home-tab">
             <h:panelGrid columns="2" cellpadding="10">

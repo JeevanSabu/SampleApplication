@@ -8,7 +8,7 @@
    xmlns:p = "http://primefaces.org/ui">
    
    <h:head>
-      <title>Ticket Reservation|Login</title>
+      <title>Ticket Reservation|Bus Seat Selection</title>
       <h:outputStylesheet library = "css" name = "styles.css"  /> 
       <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>	
@@ -24,10 +24,29 @@
    	  
 	<header class="header bus-header">
 	    Ticket Reservation Seat Selection
-	    <i class="pi pi-user icon home-user-icon float-right"></i>
+	    <h:form id="user_icon_form" styleClass="user-icon-form">  
+		    <p:commandLink id="user_icon_button">
+		    	<i class="pi pi-user icon home-user-icon float-right"></i>
+		    </p:commandLink>    
+		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
+		    	<h:form id="user_panel_form">      
+		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
+				        <h:outputText value="Username : " />
+				        <h:outputText value="#{userBean.username}" />
+				        <h:outputText value="Last Login : " />
+				        <h:outputText value=" " />
+				        <h:inputHidden/>
+			    		<p:commandButton value="LogOut" action="#{userModel.logout()}" id="logout_button" styleClass="logout-button"/>
+		    		</p:panelGrid>
+		    	</h:form>
+		    </p:overlayPanel>
+	    </h:form>
 	</header>
 	<div id="bus" class="bus middle-align">
 	<p:panelGrid id="bus_seats" columns="6" styleClass="bus-seats no-border">
+	    <f:facet name="header">
+    		<span class="color-dot red"/>booked seats<span class="color-dot green"/>Selected seats
+		</f:facet>
 		<h:outputLink id="s1" value = "#" styleClass="selected"  onclick="selection('s1')">
 			<img class="bus-image" src="resources/images/chair.png"/>
 		</h:outputLink>

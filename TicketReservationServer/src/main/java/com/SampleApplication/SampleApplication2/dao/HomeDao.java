@@ -21,11 +21,11 @@ public class HomeDao {
 	DBConnections dbConnections = new DBConnections();
 	Connection connection = dbConnections.getConnection();
 
-	public BusView search(String source, String destination, Date date) {
+	public List<Bus> search(String source, String destination, Date date) {
 		LOGGER.trace("From arguments "+source);
 
 		BusView busView = new BusView();
-		Bus bus = new Bus();
+		busView.setBuses(new ArrayList<Bus>());
 		ResultSet resultSet = null;
 	    PreparedStatement preparedStatement = null;
 
@@ -37,16 +37,23 @@ public class HomeDao {
 	    	resultSet = preparedStatement.executeQuery();
 
 	    	while(resultSet.next()) {
-	    		bus.setName(resultSet.getString("buslist_table_name"));
-	    		bus.setRunningtime(resultSet.getString("buslist_table_sourcetime")+"-"+resultSet.getString("buslist_table_destinationtime"));
-	    		bus.setPrice(resultSet.getInt("buslist_table_price"));
-	    		bus.setAvailableseats(resultSet.getInt("buslist_table_availableseats"));
-	    		busView.getBuses().add(bus);
+//	    		Bus bus = new Bus();
+//	    		bus.setName(resultSet.getString("buslist_table_name"));
+//	    		bus.setRunningtime(resultSet.getString("buslist_table_sourcetime")+"-"+resultSet.getString("buslist_table_destinationtime"));
+//	    		bus.setPrice(resultSet.getInt("buslist_table_price"));
+//	    		bus.setAvailableseats(resultSet.getInt("buslist_table_availableseats"));
+//	    		busView.getBuses().add(bus);
+	    		busView.getBuses().add(new Bus(resultSet.getString("buslist_table_name"),
+	    				resultSet.getString("buslist_table_sourcetime")+"-"+resultSet.getString("buslist_table_destinationtime"),
+	    				resultSet.getInt("buslist_table_price"),
+	    				resultSet.getInt("buslist_table_availableseats")));
 	    	}
 	    } catch (SQLException e) {
 	         LOGGER.error("Table exception "+e.getMessage());
+	    } catch (Exception ex) {
+	    	LOGGER.error("Table exception "+ex.getMessage());
 	    }
-	    return busView;
+	    return busView.getBuses();
 	}
 
 }

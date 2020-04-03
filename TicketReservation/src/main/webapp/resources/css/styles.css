@@ -1,5 +1,6 @@
 body{
     font-size:20px;
+    height:100vh;
 }
 .float-right{
 	float:right;
@@ -31,7 +32,6 @@ body{
 .no-border.ui-panelgrid .ui-panelgrid-cell {
     border: none;
     background: none;
-    color: white;
 }
 .login-button.ui-button,
 .verify-button.ui-button{
@@ -46,8 +46,19 @@ body{
     font-weight: bold;
     color:dodgerblue;
 }
+.user-icon-form{
+	display:inline;
+}
 .home-user-icon{
 	font-size:52px;
+}
+.user-overlay-panel{
+	font-size:20px;
+	border-radius:10px;
+}
+.logout-button.ui-widget{
+	font-size:18px;
+	float:right;
 }
 .ui-tabs.home-tabview .ui-helper-reset{
 	padding:10px;
@@ -107,7 +118,11 @@ body{
 }
 
 .authentication{
-    background-image: url("../resources/images/banner2.jpg");
+    background-image: url("images/banner2.jpg");
+}
+.login-panel.ui-panelgrid .ui-panelgrid-cell,
+.barcode-panel.ui-panelgrid .ui-panelgrid-cell{
+	color:white;
 }
 
 /*Media Queries*/

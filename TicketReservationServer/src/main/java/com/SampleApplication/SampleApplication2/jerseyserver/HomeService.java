@@ -23,7 +23,15 @@ public class HomeService {
 	@Path("/search")
 	@Produces(MediaType.APPLICATION_JSON)
 	public BusView search(@QueryParam("source") String source,@QueryParam("destination") String destination,@QueryParam("date") Date date) {
-		BusView busView = homeDao.search(source,destination,date);
-		return busView;
+		try {
+			LOGGER.trace("Query param "+date);
+			BusView busView = new BusView();
+			busView.setBuses(homeDao.search(source,destination,date));
+			LOGGER.trace("BusView "+busView.getBuses().get(1).getName());
+			return busView;
+		} catch(Exception e) {
+			LOGGER.error("Error "+e.getMessage());
+		}
+		return null;
 	}
 }

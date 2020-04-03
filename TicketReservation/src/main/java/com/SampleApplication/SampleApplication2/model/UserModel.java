@@ -2,9 +2,9 @@ package com.SampleApplication.SampleApplication2.model;
 
 import java.util.Random;
 
+import javax.faces.application.FacesMessage;
 //import javax.el.ELContext;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -36,41 +36,53 @@ public class UserModel {
 	            .createValueExpression(context.getELContext(), "#{barcodeBean}", BarcodeBean.class)
 	              .getValue(context.getELContext());
 	private User user = new User();
+	private UserPojo userPojo = new UserPojo();
 	public String getResult() {
 		LOGGER.trace("Inside Usermodel");
 		LOGGER.trace("from userbean "+userBean.getUsername());
-		String uname = null;
+//		String uname = null;
 		try {
-		uname = user.getUser(userBean.getUsername(),userBean.getPassword());
-		LOGGER.trace("UserName "+uname);
+//		uname = user.getUser(userBean.getUsername(),userBean.getPassword());
+		userPojo = user.getUser(userBean.getUsername(),userBean.getPassword());
+		LOGGER.trace("UserName "+userPojo.getUsername());
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", userBean.getUsername());
 		}catch(Exception e) {
 			LOGGER.error("Exception "+e.getMessage());
 		}
-		if(null==uname) {
+		if((null!=userPojo.getUsername()&&userPojo.getUsername().equals(userBean.getUsername()))&&(null!=userPojo.getPassword()&&userPojo.getPassword().equalsIgnoreCase(userBean.getPassword()))) {
+//			HttpSession session = SessionUtils.getSession();
+//			session.setAttribute("username", userBean.getUsername());
+//			LOGGER.trace("Session user "+FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username"));
+			
+			Random random = new Random();
+			int generatedId = random.nextInt(900000) + 100000;
+			
+			barcodeBean.setGenId(Integer.toString(generatedId));
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("barcodeId", Integer.toString(generatedId));
+			}catch(Exception ex) {
+				LOGGER.error("BarcodeId setting in session error:"+ex.getMessage());
+			}
+			result = "authentication";
+		}
+		else {
 			LOGGER.trace("No user Found");
 			try {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Invalid Credentials","Username and Password incorrect"));
 				FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 			}catch(Exception ex) {
 				LOGGER.error("Invalidate session error:"+ex.getMessage());
 			}
 			result="login";
 		}
-		else {
-//			HttpSession session = SessionUtils.getSession();
-//			session.setAttribute("username", userBean.getUsername());
-//			LOGGER.trace("Session user "+FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username"));
-			// initialize a Random object somewhere; you should only need one
-			
-			Random random = new Random();
-			int generatedId = random.nextInt(900000) + 100000;
-			barcodeBean.setGenId(generatedId);
-			result = "authentication";
-		}
 		return result;
 	}
 	public String logout() {
+		try {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		} catch(Exception inv) {
+			LOGGER.error("Invalidating Error "+inv);
+		}
 		return "login";
 	}
 }
