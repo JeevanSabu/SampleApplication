@@ -26,7 +26,7 @@ public class HomeService {
 		try {
 			LOGGER.trace("Query param "+date);
 			BusView busView = new BusView();
-			busView.setBuses(homeDao.search(source,destination,date));
+			busView = homeDao.search(source,destination,date);
 			LOGGER.trace("BusView "+busView.getBuses().get(1).getName());
 			return busView;
 		} catch(Exception e) {

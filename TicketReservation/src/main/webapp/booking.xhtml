@@ -99,6 +99,9 @@
 		    <p:column headerText="Available Seats">
 	            <h:outputText value="#{bus.availableseats}" style="font-weight: bold"/>
 		    </p:column>
+		    <p:column headerText="book">
+	            <p:commandButton value="book" action="#{bookingModel.getResult()}"/>
+		    </p:column>
 		</p:dataTable>
 	 
 	 <!-- 

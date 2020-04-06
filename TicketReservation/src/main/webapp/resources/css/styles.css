@@ -116,6 +116,10 @@ body{
 .bus-image{
     margin:10px 0px;
 }
+.pay-button{
+	float:right;
+	visibility:hidden;
+}
 
 .authentication{
     background-image: url("images/banner2.jpg");

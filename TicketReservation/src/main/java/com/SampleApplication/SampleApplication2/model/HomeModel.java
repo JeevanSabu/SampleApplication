@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.SampleApplication.SampleApplication2.bean.HomeBean;
 import com.SampleApplication.SampleApplication2.bean.UserBean;
+import com.SampleApplication.SampleApplication2.jerseyclient.HomeClient;
 import com.SampleApplication.SampleApplication2.tools.Bus;
 import com.SampleApplication.SampleApplication2.tools.BusView;
 
@@ -26,10 +27,10 @@ public class HomeModel {
 	HomeBean homeBean = (HomeBean) context.getApplication().getExpressionFactory()
 	            .createValueExpression(context.getELContext(), "#{homeBean}", HomeBean.class)
 	              .getValue(context.getELContext());
-	private HomeClient homeClient = new HomeClient();
 //	BusView busView = (BusView) context.getApplication().getExpressionFactory()
 //            .createValueExpression(context.getELContext(), "#{busView}", BusView.class)
 //            .getValue(context.getELContext());
+	HomeClient homeClient = new HomeClient();
 	BusView busView = new BusView();
 	public String getResult() {
 		LOGGER.trace("Date "+homeBean.getDate());
