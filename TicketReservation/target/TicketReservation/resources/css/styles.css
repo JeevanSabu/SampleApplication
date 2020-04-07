@@ -21,7 +21,8 @@ body{
     align-items: center;
 }
 .login-form,
-.authentication-form{
+.authentication-form,
+.payment-form{
     margin: auto;
     padding: 35px;
     background: rgba(0,0,0,0.6);
@@ -34,7 +35,9 @@ body{
     background: none;
 }
 .login-button.ui-button,
-.verify-button.ui-button{
+.verify-button.ui-button,
+.validate-button.ui-button,
+.pay-amount-button.ui-button{
     float:right;
     margin:10px;
     margin-right:0px;
@@ -60,22 +63,27 @@ body{
 	font-size:18px;
 	float:right;
 }
-.ui-tabs.home-tabview .ui-helper-reset{
+.ui-tabs.home-tabview .ui-helper-reset,
+.ui-tabs.payment-tabview .ui-helper-reset{
 	padding:10px;
 }
-.ui-tabs.ui-tabs-left.home-tabview>.ui-tabs-nav li{
+.ui-tabs.ui-tabs-left.home-tabview>.ui-tabs-nav li,
+.ui-tabs.ui-tabs-left.payment-tabview>.ui-tabs-nav li{
     border: 1px solid black;
     border-radius:3px;
     margin: 25px .2em 0px .2em;
 }
-.ui-tabs.home-tabview .ui-tabs-nav .ui-tabs-selected{
+.ui-tabs.home-tabview .ui-tabs-nav .ui-tabs-selected,
+.ui-tabs.payment-tabview .ui-tabs-nav .ui-tabs-selected{
 	background-color:dodgerblue;
     box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.4);
 }
-.ui-tabs.home-tabview .ui-tabs-nav .ui-tabs-selected a{
+.ui-tabs.home-tabview .ui-tabs-nav .ui-tabs-selected a,
+.ui-tabs.payment-tabview .ui-tabs-nav .ui-tabs-selected a{
 	color:white;
 }
-.home-booking-panel td{
+.home-booking-panel td,
+.payments-panel td{
 	padding:10px;
 }
 .search-button.ui-button{
@@ -127,6 +135,10 @@ body{
 .login-panel.ui-panelgrid .ui-panelgrid-cell,
 .barcode-panel.ui-panelgrid .ui-panelgrid-cell{
 	color:white;
+}
+
+.otp{
+	visibility:hidden;
 }
 
 /*Media Queries*/

@@ -30,3 +30,21 @@ function selection(id){
 		}
 	}
 }
+function showDebitOtp(){
+	document.getElementById("payment_tabview:payment_debit_otp_form:debit_otp_header").style.visibility="visible";
+//	document.getElementById("payment_tabview:payment_debit_otp_form:debit_otp_header").value="123456";
+//	document.getElementById("payment_tabview:payment_debit_otp_form:debit_otp_header").innerHTML="123456";
+	document.getElementById("payment_tabview:payment_debit_otp_form:debit_otp_label").style.visibility="visible";
+	document.getElementById("payment_tabview:payment_debit_otp_form:debit_otp_field").style.visibility="visible";
+	document.getElementById("payment_tabview:payment_debit_otp_form:debit_regenerate_button").style.visibility="visible";
+	document.getElementById("payment_tabview:payment_debit_otp_form:debit_pay_button").style.visibility="visible";
+}
+function showCreditOtp(){
+	document.getElementById("payment_tabview:payment_credit_otp_form:credit_otp_header").style.visibility="visible";
+//	document.getElementById("payment_tabview:payment_credit_otp_form:credit_otp_header").value="123456";
+//	document.getElementById("payment_tabview:payment_credit_otp_form:credit_otp_header").innerHTML="123456";
+	document.getElementById("payment_tabview:payment_credit_otp_form:credit_otp_label").style.visibility="visible";
+	document.getElementById("payment_tabview:payment_credit_otp_form:credit_otp_field").style.visibility="visible";
+	document.getElementById("payment_tabview:payment_credit_otp_form:credit_regenerate_button").style.visibility="visible";
+	document.getElementById("payment_tabview:payment_credit_otp_form:credit_pay_button").style.visibility="visible";
+}

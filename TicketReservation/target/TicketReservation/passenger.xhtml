@@ -37,8 +37,8 @@
 	    </h:form>
 	</header>
 	<h:form id="passenger_details_form">
-	<p:dataView var="seats" value="#{passengerSeats.getSeats()}" listIcon="pi pi-bars">
-	                <!-- gridIcon="pi pi-th-large" -->
+	<p:dataView var="seats" value="#{passengerSeats.getSeats()}">
+	                <!--  listIcon="pi pi-bars" gridIcon="pi pi-th-large" -->
 	                 
 	 <!-- 
 	        <p:dataViewGridItem>
@@ -66,23 +66,23 @@
 	                <p:outputPanel>
 	                    <h:panelGrid columns="2" cellpadding="5">
 	                        <h:outputText value="Seat no :" />
-	                        <h:outputText value="#{seats.getSeatNo()}" style="font-weight: bold"/>
+	                        <h:outputText value="#{seats.seatNo}" style="font-weight: bold"/>
 	 
 	                        <h:outputText value="Passenger Name : " />
-	                        <h:inputText value="#{seats.passengerName}" style="font-weight: bold"/>
+	                        <p:inputText value="#{seats.passengerName}" style="font-weight: bold"/>
 	 
 	                        <h:outputText value="Age : " />
-	                        <h:inputText value="#{seats.passengerAge}" style="font-weight: bold"/>
+	                        <p:inputText value="#{seats.passengerAge}" style="font-weight: bold"/>
 	                        
 	                        <h:outputText value="Gender : " />
-	                        <h:inputText value="#{seats.passengerGender}" style="font-weight: bold"/>
+	                        <p:inputText value="#{seats.passengerGender}" style="font-weight: bold"/>
 	                    </h:panelGrid>
 	                </p:outputPanel>
 	 
 	            </h:panelGrid>
 	        </p:dataViewListItem>
 	    </p:dataView>
-	    
+	    <p:commandButton id="passenger_button" styleClass="passenger-button" value="Book" action="#{passengerModel.getResult()}"/>
 	</h:form>
    </h:body>
 </html>

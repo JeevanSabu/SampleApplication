@@ -32,14 +32,14 @@ public class BusModel {
 		LOGGER.trace("seats "+seatsString[0]);
 		try {
 //			PassengerSeats passengerSeats =new PassengerSeats();
-			passengerSeats.setSeats(new ArrayList<Seats>());
+//			passengerSeats.setSeats(new ArrayList<Seats>());
 			List<Seats> list = new ArrayList<Seats>();
 			for(int i=0;i<seatsString.length;i++) {
-				passengerSeats.getSeats().add(new Seats(seatsString[i],"",0,""));
-//				list.add(new Seats(seats[i],"",0,""));
+//				passengerSeats.getSeats().add(new Seats(seatsString[i],"",0,""));
+				list.add(new Seats(seatsString[i],"",0,""));
 //				list.add(seats);
 			}
-//			passengerSeats.setSeats(list);
+			passengerSeats.setSeats(list);
 			LOGGER.trace(passengerSeats.getSeats().get(1).getSeatNo());
 		} catch(Exception e) {
 			LOGGER.error(e.getMessage());
