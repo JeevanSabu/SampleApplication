@@ -35,8 +35,8 @@ public class BookingService {
 			LOGGER.trace("From query bookingsPojo "+ bookingsPojo.getBusname());
 			return bookingsPojo;
 		}catch(Exception e) {
-				LOGGER.error("Exception "+e.getMessage());			
+				LOGGER.error("Exception "+e.getMessage());	
+				return null;
 		}
-		return null;
 	}
 }

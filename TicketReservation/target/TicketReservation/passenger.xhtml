@@ -17,8 +17,8 @@
  
    <h:body>
 	<header class="header booking-header">
-	    Ticket Reservation Passenger Details Page
-	     <h:form id="user_icon_form" styleClass="user-icon-form">  
+	    Passenger Details Page
+	    <h:form id="user_icon_form" styleClass="user-icon-form">  
 		    <p:commandLink id="user_icon_button">
 		    	<i class="pi pi-user icon home-user-icon float-right"></i>
 		    </p:commandLink>    
@@ -69,13 +69,17 @@
 	                        <h:outputText value="#{seats.seatNo}" style="font-weight: bold"/>
 	 
 	                        <h:outputText value="Passenger Name : " />
-	                        <p:inputText value="#{seats.passengerName}" style="font-weight: bold"/>
+	                        <p:inputText value="#{seats.passengerName}" />
 	 
 	                        <h:outputText value="Age : " />
-	                        <p:inputText value="#{seats.passengerAge}" style="font-weight: bold"/>
+	                        <p:inputMask value="#{seats.passengerAge}" mask="99"/>
 	                        
 	                        <h:outputText value="Gender : " />
-	                        <p:inputText value="#{seats.passengerGender}" style="font-weight: bold"/>
+							<p:selectOneMenu value="#{seats.passengerGender}" style="width:150px">
+					            <f:selectItem itemLabel="Select One" itemValue="" />
+					            <f:selectItem itemLabel="male" itemValue="male" />
+					            <f:selectItem itemLabel="female" itemValue="female" />
+					        </p:selectOneMenu>
 	                    </h:panelGrid>
 	                </p:outputPanel>
 	 

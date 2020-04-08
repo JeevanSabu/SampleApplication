@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,6 +17,7 @@ import com.SampleApplication.SampleApplication2.bean.UserBean;
 import com.SampleApplication.SampleApplication2.jerseyclient.User;
 import com.SampleApplication.SampleApplication2.jerseyclient.UserPojo;
 //import com.SampleApplication.SampleApplication2.tools.SessionUtils;
+import com.SampleApplication.SampleApplication2.tools.SessionUtils;
 
 @ManagedBean( name = "userModel" , eager = true)
 @SessionScoped
@@ -45,7 +47,9 @@ public class UserModel {
 //		uname = user.getUser(userBean.getUsername(),userBean.getPassword());
 		userPojo = user.getUser(userBean.getUsername(),userBean.getPassword());
 		LOGGER.trace("UserName "+userPojo.getUsername());
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", userBean.getUsername());
+//			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", userBean.getUsername());
+			HttpSession session = SessionUtils.getSession();
+			session.setAttribute("username", userBean.getUsername());
 		}catch(Exception e) {
 			LOGGER.error("Exception "+e.getMessage());
 		}
@@ -59,7 +63,10 @@ public class UserModel {
 			
 			barcodeBean.setGenId(Integer.toString(generatedId));
 			try {
-				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("barcodeId", Integer.toString(generatedId));
+//				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("barcodeId", Integer.toString(generatedId));
+
+				HttpSession session = SessionUtils.getSession();
+				session.setAttribute("barcodeId", Integer.toString(generatedId));
 			}catch(Exception ex) {
 				LOGGER.error("BarcodeId setting in session error:"+ex.getMessage());
 			}
@@ -69,7 +76,9 @@ public class UserModel {
 			LOGGER.trace("No user Found");
 			try {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Invalid Credentials","Username and Password incorrect"));
+//				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Invalid Credentials","Please enter correct username and Password"));
 				FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+				
 			}catch(Exception ex) {
 				LOGGER.error("Invalidate session error:"+ex.getMessage());
 			}
@@ -78,10 +87,13 @@ public class UserModel {
 		return result;
 	}
 	public String logout() {
+		LOGGER.trace("Inside logout");
 		try {
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+	//		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+			HttpSession session = SessionUtils.getSession();
+			session.invalidate();
 		} catch(Exception inv) {
-			LOGGER.error("Invalidating Error "+inv);
+			LOGGER.error("Invalidating Error "+inv.getMessage());
 		}
 		return "login";
 	}

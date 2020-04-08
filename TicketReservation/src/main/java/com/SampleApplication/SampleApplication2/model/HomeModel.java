@@ -30,8 +30,8 @@ public class HomeModel {
 //	BusView busView = (BusView) context.getApplication().getExpressionFactory()
 //            .createValueExpression(context.getELContext(), "#{busView}", BusView.class)
 //            .getValue(context.getELContext());
-	HomeClient homeClient = new HomeClient();
-	BusView busView = new BusView();
+	private HomeClient homeClient = new HomeClient();
+	private BusView busView = new BusView();
 	public String getResult() {
 		LOGGER.trace("Date "+homeBean.getDate());
 		try {			

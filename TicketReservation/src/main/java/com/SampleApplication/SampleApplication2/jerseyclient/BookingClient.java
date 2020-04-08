@@ -10,32 +10,39 @@ import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.glassfish.jersey.message.internal.MessageBodyProviderNotFoundException;
 
 public class BookingClient {
 	private static final Logger LOGGER = LogManager.getLogger(BookingClient.class);
 
-	public BookingsPojo book(int busid, String username, List<String> seatnos, List<String> passname, List<Integer> passage, List<String> passgender) {
+	public BookingsPojo book(int busid, String username, List<String> seatnos, List<String> passname, List<Integer> passage, List<String> passgender) throws MessageBodyProviderNotFoundException{
 		LOGGER.trace("Argument "+seatnos.get(0));
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client
 				.target("http://localhost:8080/TicketReservationServer/rest/booking");
 		Response response =null;
+		BookingsPojo bookingsPojo = new BookingsPojo();
 		try {
-			response = webTarget.path("bookingseats")
+			response = webTarget.path("/bookingseats")
 					.queryParam("busid", busid)
 					.queryParam("username", username)
 					.queryParam("seatnos", seatnos)
 					.queryParam("passname", passname)
 					.queryParam("passage", passage)
 					.queryParam("passgender", passgender)
-					.request(MediaType.APPLICATION_JSON)
+					.request()
+					.accept(MediaType.APPLICATION_JSON)
 					.get(Response.class);
 			LOGGER.trace("Response "+response.getStatus());
-			BookingsPojo bookingsPojo = response.readEntity(BookingsPojo.class);
-			return bookingsPojo;
+			bookingsPojo = response.readEntity(BookingsPojo.class);
+//		} catch(MessageBodyProviderNotFoundException me) {
+//			LOGGER.error("Message error "+me.getMessage());
 		} catch(Exception e) {
 			LOGGER.error(e.getMessage());
 		}
-		return null;
+		if(response.getStatus()!=200) {
+			return null;
+		}
+		return bookingsPojo;
 	}
 }

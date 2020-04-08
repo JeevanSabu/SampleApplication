@@ -25,7 +25,7 @@
     				<p:barcode value="#{barcodeBean.genId}" type="qr"/>
 			    </f:facet>
 				<p:outputLabel for="barcode_id" value="Enter the id "/>
-				<p:inputText id="barcode_id" value="#{barcodeBean.id}"/>  
+				<p:inputMask id="barcode_id" value="#{barcodeBean.id}" mask="999999"/>  
 				<h:inputHidden/>
 			    <p:commandButton id="verify_button" action="#{barcodeModel.getResult()}" value="Verify Id" styleClass="verify-button"/>
 		    </p:panelGrid>

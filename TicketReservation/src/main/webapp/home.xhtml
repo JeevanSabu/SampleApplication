@@ -17,8 +17,8 @@
  
     <h:body>
 	<header class="header home-header">
-	    Ticket Reservation Home
-	    <h:form id="user_icon_form" styleClass="user-icon-form">  
+	   Ticket Reservation Home
+	   <h:form id="user_icon_form" styleClass="user-icon-form">  
 		    <p:commandLink id="user_icon_button">
 		    	<i class="pi pi-user icon home-user-icon float-right"></i>
 		    </p:commandLink>    
@@ -41,9 +41,17 @@
           <h:form id="booking_home_form" styleClass="booking-home-form">
             <h:panelGrid columns="2" cellpadding="10" styleClass="home-booking-panel">
 				<p:outputLabel for="from_field" value="Source:"/>
-				<p:inputText id="from_field" value="#{homeBean.source}"/> 
+				<p:selectOneMenu id="from_field" value="#{homeBean.source}" style="width:150px">
+		            <f:selectItem itemLabel="Select One" itemValue="" />
+		            <f:selectItem itemLabel="chennai" itemValue="chennai" />
+		            <f:selectItem itemLabel="kerala" itemValue="kerala" />
+		        </p:selectOneMenu>
 				<p:outputLabel for="to_field" value="Destination:"/>
-				<p:inputText id="to_field" value="#{homeBean.destination}"/>  
+				<p:selectOneMenu id="to_field" value="#{homeBean.destination}" style="width:150px">
+		            <f:selectItem itemLabel="Select One" itemValue="" />
+		            <f:selectItem itemLabel="chennai" itemValue="chennai" />
+		            <f:selectItem itemLabel="kerala" itemValue="kerala" />
+		        </p:selectOneMenu> 
 				<p:outputLabel for="date_field" value="Date:" />
         		<p:datePicker id="date_field" value="#{homeBean.date}" showIcon="true" />
         		<h:inputHidden></h:inputHidden>

@@ -31,7 +31,7 @@ public class HomeService {
 			return busView;
 		} catch(Exception e) {
 			LOGGER.error("Error "+e.getMessage());
+			return null;
 		}
-		return null;
 	}
 }

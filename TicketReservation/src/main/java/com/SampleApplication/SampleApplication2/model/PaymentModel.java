@@ -41,19 +41,21 @@ public class PaymentModel {
 	List<Integer> passage = new ArrayList<Integer>();
 	List<String> passgender = new ArrayList<String>();
 
+	private BookingsPojo bookingsPojo = new BookingsPojo();
+	private BookingClient bookingClient = new BookingClient();
 	public String getResult() {
-		BookingClient bookingClient = new BookingClient();
 		if(paymentBean.getOtp()==paymentBean.getVerifyOtp()) {
 		}
 		LOGGER.trace("Verification Successfull");
-		LOGGER.trace("passenger"+passengerSeats.getSeats().size());
+		LOGGER.trace("passengers "+passengerSeats.getSeats().size());
 		for(Seats seats:passengerSeats.getSeats()) {
 			seatnos.add(seats.getSeatNo());
 			passname.add(seats.getPassengerName());
 			passage.add(seats.getPassengerAge());
 			passgender.add(seats.getPassengerGender());
 		}
-		BookingsPojo bookingsPojo = bookingClient.book(1,userBean.getUsername(),seatnos,passname,passage,passgender);
+		bookingsPojo = bookingClient.book(1,userBean.getUsername(),seatnos,passname,passage,passgender);
+		LOGGER.trace("From BookingsPojo "+bookingsPojo.getBusname());
 		result="bookingsuccessfull";
 		return result;
 	}
