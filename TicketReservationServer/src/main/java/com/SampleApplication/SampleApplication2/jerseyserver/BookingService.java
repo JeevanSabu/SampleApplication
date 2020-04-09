@@ -12,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 
 @Path("/booking")
@@ -23,7 +24,7 @@ public class BookingService {
 	@GET
 	@Path("/bookingseats")
 	@Produces(MediaType.APPLICATION_JSON)
-	public BookingsPojo book(@QueryParam("busid") int busid,
+	public Response book(@QueryParam("busid") int busid,
 			@QueryParam("username") String username,
 			@QueryParam("seatnos") List<String> seatnos,
 			@QueryParam("passname") List<String> passname,
@@ -33,7 +34,10 @@ public class BookingService {
 			LOGGER.trace("From query param "+ seatnos.get(0));
 			BookingsPojo bookingsPojo = bookingDao.book(busid,username,seatnos,passname,passage,passgender);
 			LOGGER.trace("From query bookingsPojo "+ bookingsPojo.getBusname());
-			return bookingsPojo;
+			return Response
+	                .ok()
+	                .entity(bookingsPojo)
+	                .build();
 		}catch(Exception e) {
 				LOGGER.error("Exception "+e.getMessage());	
 				return null;

@@ -21,7 +21,7 @@ public class HomeDao {
 	DBConnections dbConnections = new DBConnections();
 	Connection connection = dbConnections.getConnection();
 
-	public BusView search(String source, String destination, Date date) {
+	public BusView getBuses(String source, String destination, Date date) {
 		LOGGER.trace("From arguments "+source);
 
 		BusView busView = new BusView();

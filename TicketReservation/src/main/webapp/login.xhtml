@@ -22,9 +22,9 @@
 		    <h2 class="text-center">Login</h2>
 		    <p:panelGrid columns="2" id="login_panel" styleClass="login-panel no-border">
 				<p:outputLabel for="username" value="Username:"/>
-				<p:inputText id="username" value="#{userBean.username}"/>     
+				<p:inputText id="username" value="#{userBean.username}" rendered="#{properties.loginusername}"/>     
 				<p:outputLabel for="password" value="Password:"/>
-				<p:password id="password" value="#{userBean.password}"/>  
+				<p:password id="password" value="#{userBean.password}" rendered="#{properties.loginpassword}"/>  
 				<h:inputHidden/>
 			    <p:commandButton id="login_button" action="#{userModel.getResult()}" value="login" styleClass="login-button"/>
 		    </p:panelGrid>

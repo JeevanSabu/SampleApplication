@@ -35,7 +35,7 @@ public class HomeModel {
 	public String getResult() {
 		LOGGER.trace("Date "+homeBean.getDate());
 		try {			
-			List<Bus> buses = homeClient.search(homeBean.getSource(),homeBean.getDestination(),homeBean.getDate());
+			List<Bus> buses = homeClient.getBuses(homeBean.getSource(),homeBean.getDestination(),homeBean.getDate());
 			busView.setBuses(buses);
 			LOGGER.trace("Buses "+busView.getBuses().get(1).getName());
 		} catch(Exception ex) {
