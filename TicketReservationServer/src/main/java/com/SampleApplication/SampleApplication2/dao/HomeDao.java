@@ -21,6 +21,7 @@ public class HomeDao {
 	DBConnections dbConnections = new DBConnections();
 	Connection connection = dbConnections.getConnection();
 
+	@SuppressWarnings("null")
 	public BusView getBuses(String source, String destination, Date date) {
 		LOGGER.trace("From arguments "+source);
 
@@ -30,7 +31,14 @@ public class HomeDao {
 	    PreparedStatement preparedStatement = null;
 
 	    try {   
-	    	String statement = "select buslist_table_name,buslist_table_sourcetime,buslist_table_destinationtime,buslist_table_source,buslist_table_destination,buslist_table_price,buslist_table_availableseats from buslist_table where buslist_table_source=? and buslist_table_destination=?";
+	    	String statement = "select buslist_table_name,"
+	    			+ "buslist_table_sourcetime,"
+	    			+ "buslist_table_destinationtime,"
+	    			+ "buslist_table_source,"
+	    			+ "buslist_table_destination,"
+	    			+ "buslist_table_price,"
+	    			+ "buslist_table_availableseats "
+	    			+ "from buslist_table where buslist_table_source=? and buslist_table_destination=?";
 	    	preparedStatement = connection.prepareStatement(statement);
 		    preparedStatement.setString(1, source);
 		    preparedStatement.setString(2, destination);
@@ -43,6 +51,37 @@ public class HomeDao {
 //	    		bus.setPrice(resultSet.getInt("buslist_table_price"));
 //	    		bus.setAvailableseats(resultSet.getInt("buslist_table_availableseats"));
 //	    		busView.getBuses().add(bus);
+	    		busView.getBuses().add(new Bus(resultSet.getString("buslist_table_name"),
+	    				resultSet.getString("buslist_table_sourcetime")+"-"+resultSet.getString("buslist_table_destinationtime"),
+	    				resultSet.getInt("buslist_table_price"),
+	    				resultSet.getInt("buslist_table_availableseats")));
+	    	}
+	    } catch (SQLException e) {
+	         LOGGER.error("Table exception "+e.getMessage());
+	    } catch (Exception ex) {
+	    	LOGGER.error("Table exception "+ex.getMessage());
+	    }
+	    return busView;
+	}
+
+	public BusView getBuses() {
+		BusView busView = new BusView();
+		busView.setBuses(new ArrayList<Bus>());
+		ResultSet resultSet = null;
+	    PreparedStatement preparedStatement = null;
+	
+	    try {   
+	    	String statement = "select buslist_table_name,buslist_table_sourcetime,buslist_table_destinationtime,buslist_table_source,buslist_table_destination,buslist_table_price,buslist_table_availableseats from buslist_table";
+	    	preparedStatement = connection.prepareStatement(statement);
+	    	resultSet = preparedStatement.executeQuery();
+	
+	    	while(resultSet.next()) {
+	//    		Bus bus = new Bus();
+	//    		bus.setName(resultSet.getString("buslist_table_name"));
+	//    		bus.setRunningtime(resultSet.getString("buslist_table_sourcetime")+"-"+resultSet.getString("buslist_table_destinationtime"));
+	//    		bus.setPrice(resultSet.getInt("buslist_table_price"));
+	//    		bus.setAvailableseats(resultSet.getInt("buslist_table_availableseats"));
+	//    		busView.getBuses().add(bus);
 	    		busView.getBuses().add(new Bus(resultSet.getString("buslist_table_name"),
 	    				resultSet.getString("buslist_table_sourcetime")+"-"+resultSet.getString("buslist_table_destinationtime"),
 	    				resultSet.getInt("buslist_table_price"),

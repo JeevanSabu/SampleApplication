@@ -15,7 +15,7 @@ public class PropertiesLoading {
 
 	public Properties getProperties() {
 		try  {
-			InputStream inputStream = Properties.class.getClassLoader().getResourceAsStream("component.properties");
+			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("component.properties");
 
             Properties properties = new Properties();
 
@@ -23,7 +23,7 @@ public class PropertiesLoading {
             properties.load(inputStream);
 
 
-        } catch (IOException ex) {
+        } catch (Exception ex) {
         	LOGGER.error(ex.getMessage());
         }
 		return null;

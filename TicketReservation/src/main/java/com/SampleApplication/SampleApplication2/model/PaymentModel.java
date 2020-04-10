@@ -54,8 +54,12 @@ public class PaymentModel {
 			passage.add(seats.getPassengerAge());
 			passgender.add(seats.getPassengerGender());
 		}
-		bookingsPojo = bookingClient.book(1,userBean.getUsername(),seatnos,passname,passage,passgender);
-		LOGGER.trace("From BookingsPojo "+bookingsPojo.getBusname());
+		try {
+			bookingsPojo = bookingClient.getBookings(1, userBean.getUsername(), seatnos, passname, passage, passgender);
+			LOGGER.trace("From BookingsPojo "+bookingsPojo.getBusname());
+		} catch(Exception e) {
+			LOGGER.error(e.getMessage());
+		}
 		result="bookingsuccessfull";
 		return result;
 	}

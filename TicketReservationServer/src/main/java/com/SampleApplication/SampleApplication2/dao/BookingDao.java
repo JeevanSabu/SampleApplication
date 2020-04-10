@@ -23,7 +23,7 @@ public class BookingDao {
 	
 	PassengerSeats passengerSeats = new PassengerSeats();
 	BookingsPojo bookingsPojo = new BookingsPojo();
-	public BookingsPojo book(int busid, String username, List<String> seatnos, List<String> passname, List<Integer> passage, List<String> passgender) {
+	public BookingsPojo getBookings(int busid, String username, List<String> seatnos, List<String> passname, List<Integer> passage, List<String> passgender) {
 		LOGGER.trace("From arguments "+seatnos.get(0));
 
 		bookingsPojo.setUsername(username);

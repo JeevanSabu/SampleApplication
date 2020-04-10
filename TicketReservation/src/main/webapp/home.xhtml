@@ -60,9 +60,29 @@
          </h:form>
         </p:tab>
         <p:tab title="My Bookings" styleClass="home-tab">
-            <h:panelGrid columns="2" cellpadding="10">
-		<h3>No bookings</h3>
-            </h:panelGrid>
+            <p:dataTable var="list" value="#{bookingListPojo.bookingList}">
+			    <p:column headerText="Username">
+		            <h:outputText value="#{list.username}" style="font-weight: bold"/>
+			    </p:column>
+			 
+			    <p:column headerText="Busname">
+		            <h:outputText value="#{list.busname}" style="font-weight: bold"/>
+			    </p:column>
+			 
+			    <p:column headerText="from-to ">
+		            <h:outputText value="#{list.fromto}" style="font-weight: bold"/>
+			    </p:column>
+			 
+			    <p:column headerText="Date and ime">
+		            <h:outputText value="#{list.date}" style="font-weight: bold"/>
+			    </p:column>
+			    <p:column headerText="Booked on">
+		            <h:outputText "#{list.bookingtime}"/>
+			    </p:column>
+			    <p:column headerText="Passengers">
+		            <h:outputText value="#{list.passengers}"/>
+			    </p:column>
+			</p:dataTable>
         </p:tab>
     </p:tabView>
     </h:body>

@@ -22,19 +22,23 @@ import com.SampleApplication.SampleApplication2.tools.PropertiesLoading;
 public class HomeClient{
 	private static final Logger LOGGER = LogManager.getLogger(HomeClient.class);
 	
-	public List<Bus> getBuses(String source, String destination, Date date) throws MessageBodyProviderNotFoundException{
+	private List<Bus> buses = new ArrayList<Bus>();
+	
+	public List<Bus> getBuses(String source, String destination, Date date){
 		
 		LOGGER.trace("argument date "+date);
-		PropertiesLoading propertiesLoading = new PropertiesLoading();
-
-        Properties properties = propertiesLoading.getProperties();
-		LOGGER.trace("Properties "+properties.getProperty("loginpassword"));              
+		try {
+			PropertiesLoading propertiesLoading = new PropertiesLoading();
+			
+			Properties properties = propertiesLoading.getProperties();
+			LOGGER.trace("Properties "+properties.getProperty("loginpassword"));              
+		}catch(Exception e) {
+			LOGGER.error("Error at properties "+e.getMessage());
+		}
         
 		Client client = ClientBuilder.newClient();
-		WebTarget webTarget = client
-				.target("http://localhost:8080/TicketReservationServer/rest/home");
+		WebTarget webTarget = client.target("http://localhost:8080/TicketReservationServer/rest/home");
 		Response response =null;
-		List<Bus> buses = new ArrayList<Bus>();
 		try {
 			response = webTarget.path("/search")
 					.queryParam("source",source)
@@ -43,15 +47,19 @@ public class HomeClient{
 					.request(MediaType.APPLICATION_JSON)
 					.get(Response.class);
 			LOGGER.trace("Status "+response.getStatus());
-//			BusView busView = response.readEntity(BusView.class);
-//			List<Bus> buses = busView.getBuses();
+			BusView busView = response.readEntity(BusView.class);
+			buses = busView.getBuses();
 			
-			buses = response.readEntity(BusView.class).getBuses();
+//			buses = response.readEntity(BusView.class).getBuses();
 			
-//		}catch(MessageBodyProviderNotFoundException me) {
-//			LOGGER.error("Message error "+me.getMessage());
-		}catch(Exception e) {
-			LOGGER.error("Exception "+e);
+		}catch(MessageBodyProviderNotFoundException me) {
+			LOGGER.error("Message error "+me.getMessage());
+		}catch(Exception ex) {
+			LOGGER.error("Exception "+ex.getMessage());
+		}
+		if(response.getStatus()!=200) {
+			LOGGER.trace(response.getStatus());
+			return null;
 		}
 		return buses;
 	}

@@ -5,7 +5,17 @@ public class BookingsPojo {
 	private String busname;
 	private String fromto;
 	private String date;
+	private String bookingtime;
 	private String passengers;
+	public BookingsPojo() {}
+	public BookingsPojo(String username, String busname, String fromto, String date, String bookingtime, String passengers) {
+		this.username = username;
+		this.busname = busname;
+		this.fromto = fromto;
+		this.date = date;
+		this.setBookingtime(bookingtime);
+		this.passengers = passengers;
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -35,5 +45,11 @@ public class BookingsPojo {
 	}
 	public void setBusname(String busname) {
 		this.busname = busname;
+	}
+	public String getBookingtime() {
+		return bookingtime;
+	}
+	public void setBookingtime(String bookingtime) {
+		this.bookingtime = bookingtime;
 	}
 }

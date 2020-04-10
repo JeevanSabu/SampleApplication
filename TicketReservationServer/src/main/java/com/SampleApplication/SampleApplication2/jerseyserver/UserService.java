@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.SampleApplication.SampleApplication2.dao.UserDao;
 import com.SampleApplication.SampleApplication2.pojo.UserPojo;
+
 @Path("/user")
 public class UserService {
 	private UserDao userDao = new UserDao();

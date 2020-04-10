@@ -9,6 +9,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.SampleApplication.SampleApplication2.bean.BarcodeBean;
+import com.SampleApplication.SampleApplication2.bean.UserBean;
+import com.SampleApplication.SampleApplication2.jerseyclient.BookingListClient;
+import com.SampleApplication.SampleApplication2.jerseyclient.BookingListPojo;
 
 @ManagedBean(name = "barcodeModel" , eager = true)
 @SessionScoped
@@ -18,15 +21,20 @@ public class BarcodeModel {
 	private String result = "authentication";
 
 	FacesContext context = FacesContext.getCurrentInstance();
+	UserBean userBean = (UserBean) context.getApplication().getExpressionFactory()
+            .createValueExpression(context.getELContext(), "#{userBean}", UserBean.class)
+              .getValue(context.getELContext());
 	BarcodeBean barcodeBean = (BarcodeBean) context.getApplication().getExpressionFactory()
             .createValueExpression(context.getELContext(), "#{barcodeBean}", BarcodeBean.class)
               .getValue(context.getELContext());
-	
+	private BookingListClient bookingListClient = new BookingListClient();
+	private BookingListPojo bookingListPojo = new BookingListPojo();
 	public String getResult() {
 		try {
 			String barcodeId = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("barcodeId");
 			LOGGER.trace("BarcodeId from session "+barcodeId);
 			if(barcodeBean.getId().equals(barcodeId)) {
+				bookingListPojo.setBookingList(bookingListClient.getBookingList(userBean.getUsername()));
 				result="home";
 			}
 			else {
