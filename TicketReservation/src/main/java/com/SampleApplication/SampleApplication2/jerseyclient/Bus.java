@@ -1,22 +1,15 @@
-package com.SampleApplication.SampleApplication2.tools;
+package com.SampleApplication.SampleApplication2.jerseyclient;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
-@ManagedBean(name="bus" , eager=true)
-@SessionScoped
 public class Bus {
 	private String name;
 	private String runningtime;
 	private int price;
 	private int availableseats;
-	public Bus(){
-		
-	}
+	public Bus(){}
 	public Bus(String name , String runningtime , int price , int availableseats){
 		this.name = name;
 		this.runningtime = runningtime;
-		this.setPrice(price);
+		this.price = price;
 		this.availableseats = availableseats;
 	}
 	public String getName() {

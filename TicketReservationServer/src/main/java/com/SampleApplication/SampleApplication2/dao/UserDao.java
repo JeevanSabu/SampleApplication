@@ -60,7 +60,7 @@ public class UserDao {
 //	    	preparedStatement = connection.prepareStatement(statement1);
 //	    	int row = preparedStatement.executeUpdate();
 //	    	LOGGER.trace(row);
-	    	
+//	    	
 	    } catch (SQLException e) {
 	         LOGGER.error("Table exception "+e.getMessage());
 	    }

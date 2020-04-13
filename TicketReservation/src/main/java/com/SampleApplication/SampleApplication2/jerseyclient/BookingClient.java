@@ -20,7 +20,7 @@ public class BookingClient {
 			List<String> seatnos,
 			List<String> passname,
 			List<Integer> passage,
-			List<String> passgender) throws MessageBodyProviderNotFoundException{
+			List<String> passgender){
 		LOGGER.trace("Argument "+seatnos.get(0));
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client

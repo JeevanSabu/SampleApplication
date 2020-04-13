@@ -13,9 +13,9 @@ import com.SampleApplication.SampleApplication2.dao.BookingListDao;
 import com.SampleApplication.SampleApplication2.pojo.BookingListPojo;
 
 @Path("/bookinglist")
-public class BookingListServer {
+public class BookingListService {
 	
-	private static final Logger LOGGER = LogManager.getLogger(BookingListServer.class);
+	private static final Logger LOGGER = LogManager.getLogger(BookingListService.class);
  
 	private BookingListDao bookingListDao = new BookingListDao();
 	

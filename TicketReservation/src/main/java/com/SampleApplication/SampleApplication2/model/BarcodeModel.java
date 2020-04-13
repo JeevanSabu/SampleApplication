@@ -27,14 +27,18 @@ public class BarcodeModel {
 	BarcodeBean barcodeBean = (BarcodeBean) context.getApplication().getExpressionFactory()
             .createValueExpression(context.getELContext(), "#{barcodeBean}", BarcodeBean.class)
               .getValue(context.getELContext());
+	BookingListPojo bookingListPojo = (BookingListPojo) context.getApplication().getExpressionFactory()
+            .createValueExpression(context.getELContext(), "#{bookingListPojo}", BookingListPojo.class)
+              .getValue(context.getELContext());
 	private BookingListClient bookingListClient = new BookingListClient();
-	private BookingListPojo bookingListPojo = new BookingListPojo();
+//	private BookingListPojo bookingListPojo = new BookingListPojo();
 	public String getResult() {
 		try {
 			String barcodeId = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("barcodeId");
 			LOGGER.trace("BarcodeId from session "+barcodeId);
 			if(barcodeBean.getId().equals(barcodeId)) {
 				bookingListPojo.setBookingList(bookingListClient.getBookingList(userBean.getUsername()));
+				LOGGER.trace("From bookinListPojo "+bookingListPojo.getBookingList().get(1).getBusname());
 				result="home";
 			}
 			else {

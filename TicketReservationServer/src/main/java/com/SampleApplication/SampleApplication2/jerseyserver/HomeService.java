@@ -12,38 +12,22 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.SampleApplication.SampleApplication2.dao.HomeDao;
-import com.SampleApplication.SampleApplication2.pojo.BusView;
+import com.SampleApplication.SampleApplication2.pojo.BusViewPojo;
 
-@Path("/home")
+@Path("/buslist")
 public class HomeService {
 	private static final Logger LOGGER = LogManager.getLogger(HomeService.class);
 	
 	private HomeDao homeDao = new HomeDao();
-	
 	@GET
-	@Path("/search")
 	@Produces(MediaType.APPLICATION_JSON)
-	public BusView getBus(@QueryParam("source") String source,@QueryParam("destination") String destination,@QueryParam("date") Date date) {
-		LOGGER.trace("Query param "+date);
+	public BusViewPojo getBuses(@QueryParam("source") String source, @QueryParam("destination") String destination) {
+		LOGGER.trace("From query param "+ source);
 		try {
-			BusView busView = homeDao.getBuses(source,destination,date);
-			LOGGER.trace("BusView "+busView.getBuses().get(1).getName());
+			BusViewPojo busView = homeDao.getBuses(source,destination);
 			return busView;
 		} catch(Exception e) {
-			LOGGER.error("Error "+e.getMessage());
-			return null;
-		}
-	}
-	@GET
-	@Path("/listall")
-	@Produces(MediaType.APPLICATION_JSON)
-	public BusView getBus() {
-		try {
-			BusView busView = homeDao.getBuses();
-			LOGGER.trace("BusView "+busView.getBuses().get(1).getName());
-			return busView;
-		} catch(Exception e) {
-			LOGGER.error("Error "+e.getMessage());
+			LOGGER.error(e.getMessage());
 			return null;
 		}
 	}

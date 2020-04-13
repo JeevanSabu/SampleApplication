@@ -24,7 +24,7 @@ public class BookingListDao {
 		LOGGER.trace("From arguments "+username);
 		
 		BookingListPojo bookingListPojo = new BookingListPojo();
-
+		bookingListPojo.setBookingList(new ArrayList<BookingsPojo>());
 		ResultSet resultSet = null;
 	    PreparedStatement preparedStatement = null;
 
@@ -42,14 +42,16 @@ public class BookingListDao {
 	    	resultSet = preparedStatement.executeQuery();
 
 	    	while(resultSet.next()) {
-	    		bookingListPojo.getBookingList().add(new BookingsPojo(
-	    				resultSet.getString("bookings_table_username"),
+	    		bookingListPojo.getBookingList().add(new BookingsPojo(resultSet.getString("bookings_table_username"),
 	    				resultSet.getString("bookings_table_busname"),
 	    				resultSet.getString("bookings_table_fromto"),
 	    				resultSet.getString("bookings_table_journeydate"),
 	    				resultSet.getString("bookings_table_bookingtime"),
 	    				resultSet.getString("bookings_table_passengers")));
 	        }
+	    	
+	    	LOGGER.trace("From BookingsListPojo "+bookingListPojo.getBookingList());
+	    	
 	    } catch (SQLException se) {
 	    	LOGGER.error(se.getMessage());
 	    } catch (Exception e) {

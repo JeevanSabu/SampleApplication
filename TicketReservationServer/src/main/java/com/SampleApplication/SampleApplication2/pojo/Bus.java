@@ -5,13 +5,11 @@ public class Bus {
 	private String runningtime;
 	private int price;
 	private int availableseats;
-	public Bus(){
-		
-	}
+	public Bus(){}
 	public Bus(String name , String runningtime , int price , int availableseats){
 		this.name = name;
 		this.runningtime = runningtime;
-		this.setPrice(price);
+		this.price = price;
 		this.availableseats = availableseats;
 	}
 	public String getName() {

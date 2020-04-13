@@ -21,8 +21,8 @@ public class UserService {
 	@Path("/userlogin")
 	@Produces(MediaType.APPLICATION_JSON)
 	public UserPojo getUser(@QueryParam("username") String username,@QueryParam("password") String password) {
-		try {
 		LOGGER.trace("From query param "+ username);
+		try {
 		UserPojo userPojo = userDao.getUser(username,password);
 		LOGGER.trace("From userPojo "+ userPojo.getUsername());
 		return userPojo;

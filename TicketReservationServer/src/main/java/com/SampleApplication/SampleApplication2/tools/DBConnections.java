@@ -13,7 +13,7 @@ public class DBConnections {
 	
 	public Connection getConnection() {
 	      Connection con = null;
-	      String url = "jdbc:mysql://localhost:3307/ticket_reservation";
+	      String url = "jdbc:mysql://localhost:3306/ticket_reservation";
 	      String user = "root";
 	      String password = "root";
 	      try {
