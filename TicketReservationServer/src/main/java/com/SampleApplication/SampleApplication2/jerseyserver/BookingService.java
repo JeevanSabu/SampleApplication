@@ -7,6 +7,7 @@ import com.SampleApplication.SampleApplication2.dao.UserDao;
 import com.SampleApplication.SampleApplication2.pojo.BookingsPojo;
 import com.SampleApplication.SampleApplication2.pojo.UserPojo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -27,15 +28,26 @@ public class BookingService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public BookingsPojo getBookings(@QueryParam("busid") int busid,
 			@QueryParam("username") String username,
-			@QueryParam("seatnos") List<String> seatnos,
-			@QueryParam("passname") List<String> passname,
-			@QueryParam("passage") List<Integer> passage,
-			@QueryParam("passgender") List<String> passgender) {
+			@QueryParam("seatnos") String seatnos,
+			@QueryParam("passname") String passname,
+			@QueryParam("passage") String passage,
+			@QueryParam("passgender") String passgender) {
 		try {
-			LOGGER.trace("From query param "+ seatnos.get(0));
-			BookingsPojo bookingsPojo = bookingDao.getBookings(busid,username,seatnos,passname,passage,passgender);
+			seatnos = seatnos.replaceAll("[\\[\\]]", "");
+			passname = passname.replaceAll("[\\[\\]]", "");
+			passage = passage.replaceAll("[\\[\\]]", "");
+			passgender =passgender.replaceAll("[\\[\\]]", "");
+			String[] seatnoslist = seatnos.split(",");
+			String[] passnamelist = passname.split(",");
+			String[] passagelist = passage.split(",");
+			String[] passgenderlist = passgender.split(",");
+			LOGGER.trace("From query param "+ seatnos);
+			BookingsPojo bookingsPojo = bookingDao.getBookings(busid,username,seatnoslist,passnamelist,passagelist,passgenderlist);
 			LOGGER.trace("From query bookingsPojo "+ bookingsPojo.getBusname());
 			return bookingsPojo;
+		}catch(NullPointerException ne) {
+			LOGGER.error("Exception "+ne.getMessage());	
+			return null;
 		}catch(Exception e) {
 				LOGGER.error("Exception "+e.getMessage());	
 				return null;

@@ -10,7 +10,7 @@ import com.SampleApplication.SampleApplication2.jerseyclient.Bus;
 @SessionScoped
 public class BusView {
 	private List<Bus> buses;
-	private String selectedBus;
+	private Bus selectedBus;
 
 	public List<Bus> getBuses() {
 		return buses;
@@ -20,11 +20,11 @@ public class BusView {
 		this.buses = buses;
 	}
 
-	public String getSelectedBus() {
+	public Bus getSelectedBus() {
 		return selectedBus;
 	}
 
-	public void setSelectedBus(String selectedBus) {
+	public void setSelectedBus(Bus selectedBus) {
 		this.selectedBus = selectedBus;
 	}
 }

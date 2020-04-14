@@ -13,6 +13,7 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>	
       <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"/>
+      <h:outputScript library = "js" name = "script.js"  /> 
    </h:head>
  
    <h:body>
@@ -36,31 +37,18 @@
 		    </p:overlayPanel>
 	    </h:form>
 	</header>
-	<h:form id="booking-form">
+	<h:form id="booking_form">
 	 
-	 <!-- 
-	    <p:dataView var="bus" value="#{busView.buses}"
-	                gridIcon="pi pi-th-large" listIcon="pi pi-bars">
-	 
-	        <p:dataViewGridItem>
-	            <p:panel header="#{bus.name}" style="text-align:center">
-	                <h:panelGrid columns="1" style="width:100%">
-	 
-	                    <h:outputText value="#{bus.name}" />
-	 
-	                    <p:commandLink update=":form:busDetail" oncomplete="PF('busDialog').show()" title="View Detail">
-	                        <h:outputText styleClass="ui-icon pi pi-search" style="margin:0 auto;" />
-	                        <f:setPropertyActionListener value="#{bus}" target="#{busView.selectedBus}" />
-	                    </p:commandLink>
-	                </h:panelGrid>
-	            </p:panel>
-	        </p:dataViewGridItem>
+	    <p:dataView var="bus" value="#{busView.buses}">
 	 
 	        <p:dataViewListItem>
 	            <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">
 	 
 	                <p:outputPanel>
 	                    <h:panelGrid columns="2" cellpadding="5">
+	                        <h:outputText value="Bus Id" />
+	                        <h:outputText value="#{bus.id}" style="font-weight: bold"/>
+	                        
 	                        <h:outputText value="Name:" />
 	                        <h:outputText value="#{bus.name}" style="font-weight: bold"/>
 	 
@@ -75,15 +63,22 @@
 	                    </h:panelGrid>
 	                </p:outputPanel>
 	 
-	                <p:commandLink update=":form:busDetail" oncomplete="PF('busDialog').show()" title="View Detail">
-	                    <h:outputText styleClass="ui-icon pi pi-search" style="margin:0 auto;" />
-	                    <f:setPropertyActionListener value="#{bus}" target="#{busView.selectedBus}" />
-	                </p:commandLink>
+	                 <!-- 
+	                    <p:commandLink update="booking_form:busDetail" oncomplete="PF('busDialog').show()" title="View Detail">
+	                    <p:commandLink action="#{bookingModel.getResult()}">
+	                        <h:outputText styleClass="ui-icon pi pi-search" style="margin:0 auto;" />
+	                    </p:commandLink>
+						   		<f:param name = "busid" value = "#{bus.id}" /> 
+	                    --> 
+	                    
+	                        <h:commandButton value="book" action="#{selectedBusModel.getResult()}">
+	                        	<f:setPropertyActionListener value="#{bus}" target="#{selectedBusBean.selectedBus}" />
+						   	</h:commandButton>
 	            </h:panelGrid>
 	        </p:dataViewListItem>
 	    </p:dataView>
-	  -->
-	 	<p:dataTable var="bus" value="#{busView.getBuses()}">
+	 <!-- 
+	 	<p:dataTable id="booking_table" var="bus" value="#{busView.buses}">
 		    <p:column headerText="Name">
 	            <h:outputText value="#{bus.name}" style="font-weight: bold"/>
 		    </p:column>
@@ -100,14 +95,18 @@
 	            <h:outputText value="#{bus.availableseats}" style="font-weight: bold"/>
 		    </p:column>
 		    <p:column headerText="book">
-	            <p:commandButton value="book" action="#{bookingModel.getResult()}"/>
+	            <p:commandButton value="book" onclick="selectedBusFunction('#{bus.id}')" action="#{bookingModel.getResult()}"/>
 		    </p:column>
+	    <f:facet name="footer">
+			<p:inputText id="selected_bus_field" styleClass="hidden" value="#{busView.selectedBus}"/>
+		</f:facet>
 		</p:dataTable>
+	  -->
 	 
-	 <!-- 
 	    <p:dialog header="Bus Info" widgetVar="busDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 	        <p:outputPanel id="busDetail" style="text-align:center;">
-	            <p:panelGrid  columns="2" rendered="#{not empty busView.selectedBus}" columnClasses="label,value">
+	        <h:form>
+	            <p:panelGrid  columns="2" columnClasses="label,value">
 							<h:outputText value="Name:" />
 	                        <h:outputText value="#{busView.selectedBus.name}" style="font-weight: bold"/>
 	 
@@ -119,9 +118,16 @@
 	                        
 	                        <h:outputText value="Available Seats:" />
 	                        <h:outputText value="#{busView.selectedBus.availableseats}" style="font-weight: bold"/>	
+	                        
+	                        <h:inputHidden/>
+	                        <h:commandButton value="book" action="#{bookingModel.getResult()}">
+						   		<f:param name = "busid" value = "#{busView.selectedBus.id}" /> 
+						   	</h:commandButton>
 	            </p:panelGrid>
+	        </h:form>
 	        </p:outputPanel>
 	    </p:dialog>
+	 <!-- 
 	  -->
 	</h:form>
 </h:body>

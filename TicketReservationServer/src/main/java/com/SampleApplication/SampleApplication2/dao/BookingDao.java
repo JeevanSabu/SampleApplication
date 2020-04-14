@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -21,18 +22,29 @@ public class BookingDao {
 	DBConnections dbConnections = new DBConnections();
 	Connection connection = dbConnections.getConnection();
 	
-	PassengerSeats passengerSeats = new PassengerSeats();
-	BookingsPojo bookingsPojo = new BookingsPojo();
-	public BookingsPojo getBookings(int busid, String username, List<String> seatnos, List<String> passname, List<Integer> passage, List<String> passgender) {
-		LOGGER.trace("From arguments "+seatnos.get(0));
-
-		bookingsPojo.setUsername(username);
-		
-		for(int i=0;i<seatnos.size();i++) {
-			passengerSeats.getSeats().add(new Seats(seatnos.get(i),
-					passname.get(i),
-					passage.get(i),
-					passgender.get(i)));
+	
+	public BookingsPojo getBookings(int busid, String username, String[] seatnoslist, String[] passnamelist, String[] passagelist, String[] passgenderlist) {
+		LOGGER.trace("From arguments "+busid);
+		LOGGER.trace("From arguments "+username);
+		LOGGER.trace("From arguments "+seatnoslist[1].trim());
+		LOGGER.trace("From arguments "+passnamelist[1].trim());
+		LOGGER.trace("From arguments "+Integer.parseInt(passagelist[1].trim()));
+		LOGGER.trace("From arguments "+passgenderlist[1].trim());
+		PassengerSeats passengerSeats = new PassengerSeats();
+		passengerSeats.setSeats(new ArrayList<Seats>());
+		BookingsPojo bookingsPojo = new BookingsPojo();
+		try {
+			
+			bookingsPojo.setUsername(username);
+			
+			for(int i=0;i<seatnoslist.length;i++) {
+				passengerSeats.getSeats().add(new Seats(seatnoslist[i].trim(),
+						passnamelist[i].trim(),
+						Integer.parseInt(passagelist[i].trim()),
+						passgenderlist[i].trim()));
+			}
+		} catch(Exception fe) {
+			LOGGER.error("At for "+fe.getMessage());
 		}
 		LOGGER.trace(passengerSeats.getSeats().get(0).getPassengerName());
 		
@@ -63,16 +75,15 @@ public class BookingDao {
 	    	passengers = passengers
 	    			+seats.getPassengerName()
 	    			+"("
-	    			+seats.getPassengerAge()
-	    			+" , "
-	    			+seats.getPassengerGender()
+	    			+seats.getSeatNo()
 	    			+") ";
+	    	
 	    	try {   
 	    		String statement = "insert into busseats_table (busseats_table_busid,"
 	    				+ "busseats_table_seatno,"
 	    				+ "busseats_table_passangername,"
 	    				+ "busseats_table_passengerage,"
-	    				+ "busseats_table_passengergender) values(?,?,?,?)";
+	    				+ "busseats_table_passengergender) values(?,?,?,?,?)";
 	    		preparedStatement = connection.prepareStatement(statement);
 	    		preparedStatement.setInt(1, busid);
 	    		preparedStatement.setString(2, seats.getSeatNo());

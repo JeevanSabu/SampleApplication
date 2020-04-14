@@ -1,5 +1,7 @@
 package com.SampleApplication.SampleApplication2.model;
 
+import java.text.SimpleDateFormat;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -32,8 +34,13 @@ public class HomeModel {
 	private HomeClient homeClient = new HomeClient();
 	public String getResult() {
 		LOGGER.trace("HomeBean "+homeBean.getDate());
+
+	      SimpleDateFormat ft = 
+	      new SimpleDateFormat ("d MMMM y");
+	      String date = ft.format(homeBean.getDate()).toString();
+	      LOGGER.trace("Formatted Date "+date);
 		try {
-			BusViewPojo busViewPojo = homeClient.getBuses(homeBean.getSource(),homeBean.getDestination());
+			BusViewPojo busViewPojo = homeClient.getBuses(homeBean.getSource(),homeBean.getDestination(),date);
 			busView.setBuses(busViewPojo.getBuses());
 			LOGGER.trace(busView.getBuses());
 		} catch(Exception e) {

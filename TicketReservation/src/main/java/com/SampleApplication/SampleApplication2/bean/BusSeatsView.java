@@ -9,6 +9,8 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class BusSeatsView {
 	private List<BusSeats> busSeats;
+	private String busName;
+	private int busId;
 
 	public List<BusSeats> getBusSeats() {
 		return busSeats;
@@ -17,4 +19,21 @@ public class BusSeatsView {
 	public void setBusSeats(List<BusSeats> busSeats) {
 		this.busSeats = busSeats;
 	}
+
+	public String getBusName() {
+		return busName;
+	}
+
+	public void setBusName(String busName) {
+		this.busName = busName;
+	}
+
+	public int getBusId() {
+		return busId;
+	}
+
+	public void setBusId(int busId) {
+		this.busId = busId;
+	}
+
 }

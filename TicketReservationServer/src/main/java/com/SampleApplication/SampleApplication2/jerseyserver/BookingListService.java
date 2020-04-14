@@ -18,7 +18,6 @@ public class BookingListService {
 	private static final Logger LOGGER = LogManager.getLogger(BookingListService.class);
  
 	private BookingListDao bookingListDao = new BookingListDao();
-	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public BookingListPojo getBookinglist(@QueryParam("username") String username) {

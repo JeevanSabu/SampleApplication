@@ -45,11 +45,12 @@
 	<div id="bus" class="bus middle-align">
 	<p:dataGrid id="bus_seats" var="busSeat" value="#{busSeatsView.busSeats}" styleClass="bus-seats" columns="4" layout="grid">
 	    <f:facet name="header">
+	    	<h:outputText value="#{busSeatsView.busName}"/>
     		<span class="color-dot red"/>booked seats<span class="color-dot green"/>Selected seats
 		</f:facet>
 		
 		<h:outputLink value = "#" styleClass="#{busSeat.status}" onclick="selection(this,'#{busSeat.seatNo}')">
-			<img class="bus-image" src="resources/images/chair.png"/>
+			<img class="bus-image" src="/TicketReservation/resources/images/chair.png"/>
 		</h:outputLink>
 		
         <f:facet name="footer">

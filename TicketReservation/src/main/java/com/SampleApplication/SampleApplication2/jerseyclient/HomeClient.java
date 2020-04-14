@@ -19,7 +19,7 @@ public class HomeClient {
 
 	private static final Logger LOGGER = LogManager.getLogger(HomeClient.class);
 
-	public BusViewPojo getBuses(String source, String destination) {
+	public BusViewPojo getBuses(String source, String destination, String date) {
 
 		LOGGER.trace("Argument source "+source);
 		Client client = ClientBuilder.newClient();
@@ -30,6 +30,7 @@ public class HomeClient {
 			response = webTarget.path("/buslist")
 					.queryParam("source",source)
 					.queryParam("destination",destination)
+					.queryParam("date",date)
 					.request(MediaType.APPLICATION_JSON)
 					.get(Response.class);
 			LOGGER.trace("Status "+response.getStatus());

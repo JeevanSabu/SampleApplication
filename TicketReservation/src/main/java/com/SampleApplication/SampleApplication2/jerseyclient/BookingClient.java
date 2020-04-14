@@ -64,29 +64,23 @@ public class BookingClient {
 		response = webTarget.path("/bookingseats")
 				.queryParam("busid", busid)
 				.queryParam("username", username)
-				.queryParam("seatnos", seatnos)
-				.queryParam("passname", passname)
-				.queryParam("passage", passage)
-				.queryParam("passgender", passgender)
+				.queryParam("seatnos", seatnos.toString())
+				.queryParam("passname", passname.toString())
+				.queryParam("passage", passage.toString())
+				.queryParam("passgender", passgender.toString())
 				.request(MediaType.APPLICATION_JSON)
 				.get(Response.class);
-		}catch(Exception e) {
-			LOGGER.error("Error:"+e.getMessage());
-		}
-//		Client client = ClientBuilder.newClient( new ClientConfig().register( LoggingFilter.class ) );
-//		WebTarget webTarget = client.target("http://localhost:8080/TicketReservationServer/rest/user").path("userlogin");
-//		 
-//		InvocationBuilder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
-//		Response response = invocationBuilder.get();
-		
-//		String status = response.readEntity(String.class);
-		BookingsPojo bookingsPojo = response.readEntity(BookingsPojo.class);
-//		LOGGER.trace("UserPojo "+userPojo.getUsername());
-//		return userPojo.getUsername();
+
 		LOGGER.trace("Status "+response.getStatus());
 		if(response.getStatus()!=200) {
 			return null;
 		}
+		BookingsPojo bookingsPojo = response.readEntity(BookingsPojo.class);
 		return bookingsPojo;
+		}catch(Exception e) {
+			LOGGER.error("Error:"+e.getMessage());
+			return null;
+		}
+		
 	}
 }

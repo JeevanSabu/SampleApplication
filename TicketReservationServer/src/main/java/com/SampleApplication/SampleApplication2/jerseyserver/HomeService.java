@@ -21,10 +21,10 @@ public class HomeService {
 	private HomeDao homeDao = new HomeDao();
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public BusViewPojo getBuses(@QueryParam("source") String source, @QueryParam("destination") String destination) {
+	public BusViewPojo getBuses(@QueryParam("source") String source, @QueryParam("destination") String destination, @QueryParam("date") String date) {
 		LOGGER.trace("From query param "+ source);
 		try {
-			BusViewPojo busView = homeDao.getBuses(source,destination);
+			BusViewPojo busView = homeDao.getBuses(source,destination,date);
 			return busView;
 		} catch(Exception e) {
 			LOGGER.error(e.getMessage());
