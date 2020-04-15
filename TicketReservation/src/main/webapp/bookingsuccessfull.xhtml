@@ -16,19 +16,18 @@
    </h:head>
  
    <h:body>
-   	<div id="info" class="info middle-align">
-    	  <p:growl id="growl" showDetail="true" sticky="true" />
+   		<div id="info" class="info middle-align">
           <h:form id="info_form" styleClass="info-form">
 		    <h2 class="text-center">Booking Successfull</h2>
-		    <p:panelGrid columns="2" id="login_panel" styleClass="login-panel no-border">
+		    <p:panelGrid columns="2" id="login_panel" styleClass="info-panel no-border">
 				<h:outputText value="Username"/>
 				<h:outputText id="username" value="#{bookingsPojo.username}"/>     
 				<h:outputText value="Bus"/>
 				<h:outputText id="busname" value="#{bookingsPojo.busName}"/>   
 				<h:outputText value="Date"/>
-				<h:outputText id="busname" value="#{bookingsPojo.date}"/>    
+				<h:outputText id="date" value="#{bookingsPojo.date}"/>    
 				<h:outputText value="Journey"/> 
-				<h:outputText id="busname" value="#{bookingsPojo.fromto}"/> 
+				<h:outputText id="fromto" value="#{bookingsPojo.fromto}"/> 
 		    </p:panelGrid>
 		  </h:form>
 		</div>

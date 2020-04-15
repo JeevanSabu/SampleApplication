@@ -23,16 +23,14 @@
 		    	<i class="pi pi-user icon home-user-icon float-right"></i>
 		    </p:commandLink>    
 		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
-		    	<h:form id="user_panel_form">      
 		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
 				        <h:outputText value="Username : " />
 				        <h:outputText value="#{userBean.username}" />
 				        <h:outputText value="Last Login : " />
-				        <h:outputText value=" " />
+				        <h:outputText value="#{userBean.lastLogin}" />
 				        <h:inputHidden/>
-			    		<p:commandButton value="LogOut" action="#{userModel.logout()}" id="logout_button" styleClass="logout-button"/>
+				        <p:commandButton id="logout_button" value="Log Out" action="#{userModel.logout}" styleClass="logout-button"/>
 		    		</p:panelGrid>
-		    	</h:form>
 		    </p:overlayPanel>
 	    </h:form>
 	</header>

@@ -17,15 +17,15 @@
  
     <h:body>
 		<div id="authentication" class="authentication middle-align">
-    	  <p:growl id="growl" showDetail="true" sticky="true" />
           <h:form id="authentication_form" styleClass="authentication-form">
+    	  	<p:growl id="growl" showDetail="true" sticky="true" />
 		    <h2 class="text-center">User Authentication</h2>
 		    <p:panelGrid columns="2" id="barcode_panel" styleClass="barcode-panel no-border">
 			    <f:facet name="header">
     				<p:barcode value="#{barcodeBean.genId}" type="qr"/>
 			    </f:facet>
 				<p:outputLabel for="barcode_id" value="Enter the id "/>
-				<p:inputMask id="barcode_id" value="#{barcodeBean.id}" mask="999999"/>  
+				<p:inputMask id="barcode_id" value="#{barcodeBean.id}" mask="999999" styleClass="barcode-id"/>  
 				<h:inputHidden/>
 			    <p:commandButton id="verify_button" action="#{barcodeModel.getResult()}" value="Verify Id" styleClass="verify-button"/>
 		    </p:panelGrid>

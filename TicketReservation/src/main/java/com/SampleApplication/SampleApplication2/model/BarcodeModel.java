@@ -38,7 +38,7 @@ public class BarcodeModel {
 			LOGGER.trace("BarcodeId from session "+barcodeId);
 			if(barcodeBean.getId().equals(barcodeId)) {
 				bookingListPojo.setBookingList(bookingListClient.getBookingList(userBean.getUsername()));
-				LOGGER.trace("From bookinListPojo "+bookingListPojo.getBookingList().get(1).getBusname());
+				LOGGER.trace("From bookinListPojo "+bookingListPojo.getBookingList());
 				result="home";
 			}
 			else {

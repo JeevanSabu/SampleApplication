@@ -26,6 +26,7 @@ public class User {
 				.queryParam("password",password)
 				.request(MediaType.APPLICATION_JSON)
 				.get(Response.class);
+		LOGGER.trace("Status "+response.getStatus());
 		}catch(Exception e) {
 			LOGGER.error("Error:"+e.getMessage());
 		}

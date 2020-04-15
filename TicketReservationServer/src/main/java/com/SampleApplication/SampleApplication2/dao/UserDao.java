@@ -42,7 +42,8 @@ public class UserDao {
 
 	    try {   
 	    	String statement = "select userlogin_table_username,"
-	    			+ "userlogin_table_password from userlogin_table "
+	    			+ "userlogin_table_password,"
+	    			+ "userlogin_table_lastlogin from userlogin_table "
 	    			+ "where userlogin_table_username=? and userlogin_table_password=?";
 	    	preparedStatement = connection.prepareStatement(statement);
 		    preparedStatement.setString(1, username);
@@ -51,7 +52,8 @@ public class UserDao {
 
 	    	while(resultSet.next()) {
 	    	  userPojo.setUsername(resultSet.getString("userlogin_table_username"));
-	    	  userPojo.setPassword(resultSet.getString("userlogin_table_password"));			
+	    	  userPojo.setPassword(resultSet.getString("userlogin_table_password"));	
+	    	  userPojo.setLastlogin(resultSet.getString("userlogin_table_lastlogin"));
 	        }
 	    	
 //	    	String statement1 = "insert into bookings_table (bookings_table_username,bookings_table_busname,"

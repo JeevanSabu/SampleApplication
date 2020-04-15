@@ -1,5 +1,7 @@
 package com.SampleApplication.SampleApplication2.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 import javax.faces.application.FacesMessage;
@@ -14,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.SampleApplication.SampleApplication2.bean.BarcodeBean;
 import com.SampleApplication.SampleApplication2.bean.UserBean;
+import com.SampleApplication.SampleApplication2.jerseyclient.LastLoginClient;
 import com.SampleApplication.SampleApplication2.jerseyclient.User;
 import com.SampleApplication.SampleApplication2.jerseyclient.UserPojo;
 //import com.SampleApplication.SampleApplication2.tools.SessionUtils;
@@ -57,7 +60,7 @@ public class UserModel {
 //			HttpSession session = SessionUtils.getSession();
 //			session.setAttribute("username", userBean.getUsername());
 //			LOGGER.trace("Session user "+FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username"));
-			
+			userBean.setLastLogin(userPojo.getLastlogin());
 			Random random = new Random();
 			int generatedId = random.nextInt(900000) + 100000;
 			
@@ -75,26 +78,33 @@ public class UserModel {
 		else {
 			LOGGER.trace("No user Found");
 			try {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Invalid Credentials","Username and Password incorrect"));
-//				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Invalid Credentials","Please enter correct username and Password"));
 				FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-				
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Invalid Credentials","Username and Password incorrect"));
+				result="login";
 			}catch(Exception ex) {
 				LOGGER.error("Invalidate session error:"+ex.getMessage());
 			}
-			result="login";
 		}
 		return result;
 	}
 	public String logout() {
 		LOGGER.trace("Inside logout");
 		try {
-	//		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-			HttpSession session = SessionUtils.getSession();
-			session.invalidate();
+			Date date = new Date();
+		    SimpleDateFormat ft = new SimpleDateFormat ("E d MMMM y HH:mm:ss.SSS z");
+		    String formatteddate = ft.format(date).toString();
+		    LOGGER.trace("Logout at "+formatteddate);
+		    LastLoginClient lastLoginClient = new LastLoginClient();
+		    int status = lastLoginClient.logout(userBean.getUsername(),userBean.getPassword(),formatteddate);
+		    if(status==200) {
+		     	LOGGER.trace("lastlogin saved");
+		    }
+			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+//			HttpSession session = SessionUtils.getSession();
+//			session.invalidate();
 		} catch(Exception inv) {
 			LOGGER.error("Invalidating Error "+inv.getMessage());
 		}
-		return "login";
+        return "/login.xhtml?faces-redirect=true";
 	}
 }

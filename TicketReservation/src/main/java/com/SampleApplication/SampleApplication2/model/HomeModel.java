@@ -43,10 +43,11 @@ public class HomeModel {
 			BusViewPojo busViewPojo = homeClient.getBuses(homeBean.getSource(),homeBean.getDestination(),date);
 			busView.setBuses(busViewPojo.getBuses());
 			LOGGER.trace(busView.getBuses());
+			result="booking";
 		} catch(Exception e) {
 			LOGGER.trace(e.getMessage());
+			result="home";
 		}
-		result="booking";
 		return result;
 	}
 
