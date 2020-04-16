@@ -19,15 +19,15 @@
 		<div id="login" class="login middle-align">
     	  <p:growl id="growl" showDetail="true" sticky="true" />
           <h:form id="login_form" styleClass="login-form">
-			<p:growl id="messageGrowl" showDetail="true" sticky="false" />
+			<h:message id="messageGrowl" for="login_form" showDetail="true" sticky="true" />
 		    <h2 class="text-center">Login</h2>
 		    <p:panelGrid columns="2" id="login_panel" styleClass="login-panel no-border" columnClasses="ui-g-12 ui-md-4, ui-g-12 ui-md-8">
 				<p:outputLabel for="username" value="Username:"/>
-				<p:inputText id="username" value="#{userBean.username}" rendered="#{properties.loginusername}" styleClass="username"/>     
+				<p:inputText id="username" value="#{userBean.username}" rendered="#{properties.loginusername}" styleClass="username" required="true"/>     
 				<p:outputLabel for="password" value="Password:"/>
-				<p:password id="password" value="#{userBean.password}" rendered="#{properties.loginpassword}"  styleClass="password"/>  
+				<p:password id="password" value="#{userBean.password}" rendered="#{properties.loginpassword}"  styleClass="password" required="true"/>  
 				<h:inputHidden/>
-			    <p:commandButton id="login_button" action="#{userModel.getResult()}" value="login" styleClass="login-button"/>
+			    <p:commandButton id="login_button" onclick="validateuser()" action="#{userModel.getResult()}" value="login" styleClass="login-button"/>
 		    </p:panelGrid>
 		  </h:form>
 		</div>

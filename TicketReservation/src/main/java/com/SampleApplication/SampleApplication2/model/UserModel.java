@@ -65,6 +65,7 @@ public class UserModel {
 			int generatedId = random.nextInt(900000) + 100000;
 			
 			barcodeBean.setGenId(Integer.toString(generatedId));
+			LOGGER.error("BarcodeId "+generatedId);
 			try {
 //				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("barcodeId", Integer.toString(generatedId));
 
@@ -91,7 +92,7 @@ public class UserModel {
 		LOGGER.trace("Inside logout");
 		try {
 			Date date = new Date();
-		    SimpleDateFormat ft = new SimpleDateFormat ("E d MMMM y HH:mm:ss.SSS z");
+		    SimpleDateFormat ft = new SimpleDateFormat ("d MMMM y HH:mm:ss.SSS");
 		    String formatteddate = ft.format(date).toString();
 		    LOGGER.trace("Logout at "+formatteddate);
 		    LastLoginClient lastLoginClient = new LastLoginClient();

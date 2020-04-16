@@ -35,12 +35,12 @@
 		    </p:overlayPanel>
 	    </h:form>
 	</header>
-	<h:form id="booking_form">
+	<h:form id="booking_form" sgtyleClass="booking-form">
 	 
-	    <p:dataView var="bus" value="#{busView.buses}">
+	    <p:dataView id="bus_list" styleClass="bus-list" var="bus" value="#{busView.buses}">
 	 
-	        <p:dataViewListItem>
-	            <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">
+	        <p:dataViewListItem styleClass="bus-list-dataview">
+	            <h:panelGrid columns="3" style="width:100%" styleClass="bus-list-dataview-panel" columnClasses="busitem,detail">
 	 
 	                <p:outputPanel>
 	                    <h:panelGrid columns="2" cellpadding="5">
@@ -55,9 +55,10 @@
 	 
 	                        <h:outputText value="Price:" />
 	                        <h:outputText value="#{bus.price}" style="font-weight: bold"/>
-	                        
+	                        <!-- 
 	                        <h:outputText value="Available Seats:" />
 	                        <h:outputText value="#{bus.availableseats}" style="font-weight: bold"/>
+	                         -->
 	                    </h:panelGrid>
 	                </p:outputPanel>
 	 
@@ -69,7 +70,7 @@
 						   		<f:param name = "busid" value = "#{bus.id}" /> 
 	                    --> 
 	                    
-	                        <h:commandButton value="book" action="#{selectedBusModel.getResult()}">
+	                        <h:commandButton value="book" action="#{selectedBusModel.getResult()}" styleClass="booking-page-button">
 	                        	<f:setPropertyActionListener value="#{bus}" target="#{selectedBusBean.selectedBus}" />
 						   	</h:commandButton>
 	            </h:panelGrid>
@@ -126,5 +127,6 @@
 	 <!-- 
 	  -->
 	</h:form>
+	<footer class="footer center">&copy;SampleApplication.com</footer>
 </h:body>
 </html>

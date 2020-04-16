@@ -11,6 +11,7 @@ public class BusSeatsView {
 	private List<BusSeats> busSeats;
 	private String busName;
 	private int busId;
+	private int price;
 
 	public List<BusSeats> getBusSeats() {
 		return busSeats;
@@ -34,6 +35,14 @@ public class BusSeatsView {
 
 	public void setBusId(int busId) {
 		this.busId = busId;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 }

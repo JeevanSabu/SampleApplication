@@ -16,18 +16,36 @@
    </h:head>
  
    <h:body>
+	<header class="header booking-header">
+	    Passenger Details
+	   <h:form id="user_icon_form" styleClass="user-icon-form">  
+		    <p:commandLink id="user_icon_button">
+		    	<i class="pi pi-user icon home-user-icon float-right"></i>
+		    </p:commandLink>    
+		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
+		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
+				        <h:outputText value="Username : " />
+				        <h:outputText value="#{userBean.username}" />
+				        <h:outputText value="Last Login : " />
+				        <h:outputText value="#{userBean.lastLogin}" />
+				        <p:commandButton id="logout_button" value="Home" action="home" styleClass="logout-button"/>
+				        <p:commandButton id="logout_button" value="Log Out" action="#{userModel.logout}" styleClass="logout-button"/>
+		    		</p:panelGrid>
+		    </p:overlayPanel>
+	    </h:form>
+	</header>
    		<div id="info" class="info middle-align">
           <h:form id="info_form" styleClass="info-form">
 		    <h2 class="text-center">Booking Successfull</h2>
 		    <p:panelGrid columns="2" id="login_panel" styleClass="info-panel no-border">
 				<h:outputText value="Username"/>
-				<h:outputText id="username" value="#{bookingsPojo.username}"/>     
+				<h:outputText id="username" value="#{bookingSuccessfullBean.username}"/>     
 				<h:outputText value="Bus"/>
-				<h:outputText id="busname" value="#{bookingsPojo.busName}"/>   
+				<h:outputText id="busname" value="#{bookingSuccessfullBean.busname}"/>   
 				<h:outputText value="Date"/>
-				<h:outputText id="date" value="#{bookingsPojo.date}"/>    
+				<h:outputText id="date" value="#{bookingSuccessfullBean.date}"/>    
 				<h:outputText value="Journey"/> 
-				<h:outputText id="fromto" value="#{bookingsPojo.fromto}"/> 
+				<h:outputText id="fromto" value="#{bookingSuccessfullBean.fromto}"/> 
 		    </p:panelGrid>
 		  </h:form>
 		</div>

@@ -2,6 +2,7 @@ package com.SampleApplication.SampleApplication2.model;
 
 import java.text.SimpleDateFormat;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -40,12 +41,21 @@ public class HomeModel {
 	      String date = ft.format(homeBean.getDate()).toString();
 	      LOGGER.trace("Formatted Date "+date);
 		try {
+			if(homeBean.getSource().equals(homeBean.getDestination())) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Data error","Source and Destination can't be same"));
+				return "home";
+			}
 			BusViewPojo busViewPojo = homeClient.getBuses(homeBean.getSource(),homeBean.getDestination(),date);
 			busView.setBuses(busViewPojo.getBuses());
 			LOGGER.trace(busView.getBuses());
+			if(null==busView.getBuses()||busView.getBuses().size()<=0) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"No buses Found","Try another search"));
+				return "home";
+			}
 			result="booking";
 		} catch(Exception e) {
 			LOGGER.trace(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"No buses Found","Try another search"));
 			result="home";
 		}
 		return result;

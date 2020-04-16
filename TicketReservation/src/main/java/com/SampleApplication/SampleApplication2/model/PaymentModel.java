@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.SampleApplication.SampleApplication2.bean.BookingSuccessfullBean;
 import com.SampleApplication.SampleApplication2.bean.BusSeatsView;
 import com.SampleApplication.SampleApplication2.bean.PassengerSeats;
 import com.SampleApplication.SampleApplication2.bean.PaymentBean;
@@ -40,6 +41,10 @@ public class PaymentModel {
 	BusSeatsView busSeatsView = (BusSeatsView) context.getApplication().getExpressionFactory()
             .createValueExpression(context.getELContext(), "#{busSeatsView}", BusSeatsView.class)
             .getValue(context.getELContext()); 
+	BookingSuccessfullBean bookingSuccessfullBean = (BookingSuccessfullBean) context.getApplication().getExpressionFactory()
+            .createValueExpression(context.getELContext(), "#{bookingSuccessfullBean}", BookingSuccessfullBean.class)
+            .getValue(context.getELContext()); 
+	
 	List<String> seatnos = new ArrayList<String>();
 	List<String> passname = new ArrayList<String>();
 	List<Integer> passage = new ArrayList<Integer>();
@@ -63,6 +68,12 @@ public class PaymentModel {
 		try {
 			bookingsPojo = bookingClient.getBookings(busSeatsView.getBusId(), userBean.getUsername(), seatnos, passname, passage, passgender);
 			LOGGER.trace("From BookingsPojo "+bookingsPojo.getBusname());
+			bookingSuccessfullBean.setUsername(bookingsPojo.getUsername());
+			bookingSuccessfullBean.setBusname(bookingsPojo.getBusname());
+			bookingSuccessfullBean.setFromto(bookingsPojo.getFromto());
+			bookingSuccessfullBean.setBookingtime(bookingsPojo.getBookingtime());
+			bookingSuccessfullBean.setPassengers(bookingsPojo.getPassengers());
+			bookingSuccessfullBean.setDate(bookingsPojo.getDate());
 		} catch(Exception e) {
 			LOGGER.error(e.getMessage());
 		}

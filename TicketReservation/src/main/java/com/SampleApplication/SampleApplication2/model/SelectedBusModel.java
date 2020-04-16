@@ -40,6 +40,7 @@ public class SelectedBusModel {
 			LOGGER.trace("Booked Bus id "+selectedBusBean.getSelectedBus().getId());
 			busSeatsView.setBusId(Integer.parseInt(selectedBusBean.getSelectedBus().getId()));
 			busSeatsView.setBusName(selectedBusBean.getSelectedBus().getName());
+			busSeatsView.setPrice(selectedBusBean.getSelectedBus().getPrice());
 			busSeatsView.setBusSeats(selectedBusClient.getSelectedBus(selectedBusBean.getSelectedBus().getId(),selectedBusBean.getSelectedBus().getName()));
 			LOGGER.trace("busSeatsView "+busSeatsView.getBusSeats().get(1).getSeatNo());
 		} catch(Exception e) {
