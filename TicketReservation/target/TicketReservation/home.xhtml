@@ -17,45 +17,47 @@
  
     <h:body>
 	<header class="header home-header">
-	   Ticket Reservation Home
+	   Home
 	   <h:form id="user_icon_form" styleClass="user-icon-form">  
 		    <p:commandLink id="user_icon_button">
 		    	<i class="pi pi-user icon home-user-icon float-right"></i>
 		    </p:commandLink>    
 		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
-		    	<h:form id="user_panel_form">      
 		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
 				        <h:outputText value="Username : " />
 				        <h:outputText value="#{userBean.username}" />
 				        <h:outputText value="Last Login : " />
-				        <h:outputText value=" " />
+				        <h:outputText value="#{userBean.lastLogin}" />
 				        <h:inputHidden/>
-			    		<p:commandButton value="LogOut" action="#{userModel.logout()}" id="logout_button" styleClass="logout-button"/>
+				        <p:commandButton id="logout_button" value="Log Out" action="#{userModel.logout}" styleClass="logout-button"/>
 		    		</p:panelGrid>
-		    	</h:form>
 		    </p:overlayPanel>
 	    </h:form>
 	</header>
-    <p:tabView orientation="left" styleClass="home-tabview">
+    <p:tabView id="home_tabview" orientation="left" styleClass="home-tabview">
         <p:tab title="New Booking" styleClass="home-tab">
+    	  <p:growl id="growl" showDetail="true" sticky="true" />
           <h:form id="booking_home_form" styleClass="booking-home-form">
-            <h:panelGrid columns="2" cellpadding="10" styleClass="home-booking-panel">
+			<h:message for="booking_home_form" showDetail="true" sticky="true" />
+            <h:panelGrid columns="2" cellpadding="10" styleClass="home-booking-panel" columnClasses="ui-g-12 ui-md-4, ui-g-12 ui-md-8">
 				<p:outputLabel for="from_field" value="Source:"/>
-				<p:selectOneMenu id="from_field" value="#{homeBean.source}" style="width:150px">
+				<p:selectOneMenu id="from_field" value="#{homeBean.source}" styleClass="width100" required="true">
 		            <f:selectItem itemLabel="Select One" itemValue="" />
 		            <f:selectItem itemLabel="chennai" itemValue="chennai" />
 		            <f:selectItem itemLabel="kerala" itemValue="kerala" />
+		            <f:selectItem itemLabel="bangalore" itemValue="bangalore" />
 		        </p:selectOneMenu>
 				<p:outputLabel for="to_field" value="Destination:"/>
-				<p:selectOneMenu id="to_field" value="#{homeBean.destination}" style="width:150px">
+				<p:selectOneMenu id="to_field" value="#{homeBean.destination}" styleClass="width100" required="true">
 		            <f:selectItem itemLabel="Select One" itemValue="" />
 		            <f:selectItem itemLabel="chennai" itemValue="chennai" />
 		            <f:selectItem itemLabel="kerala" itemValue="kerala" />
+		            <f:selectItem itemLabel="bangalore" itemValue="bangalore" />
 		        </p:selectOneMenu> 
 				<p:outputLabel for="date_field" value="Date:" />
-        		<p:datePicker id="date_field" value="#{homeBean.date}" showIcon="true" />
+        		<p:datePicker id="date_field" value="#{homeBean.date}" showIcon="true" styleClass="width100" required="true"/>
         		<h:inputHidden></h:inputHidden>
-			    <p:commandButton id="search_button" value="Search" styleClass="search-button" action="#{homeModel.getResult()}"/>
+			    <p:commandButton id="search_button" onclick="validatehome()" value="Search" styleClass="search-button" action="#{homeModel.getResult()}"/>
             </h:panelGrid>
          </h:form>
         </p:tab>
@@ -85,5 +87,6 @@
 			</p:dataTable>
         </p:tab>
     </p:tabView>
+	<footer class="footer center fixed-footer">&copy;SampleApplication.com</footer>
     </h:body>
 </html>

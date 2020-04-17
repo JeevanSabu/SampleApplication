@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.owasp.esapi.ESAPI;
 
 import com.SampleApplication.SampleApplication2.bean.BusView;
 import com.SampleApplication.SampleApplication2.bean.HomeBean;
@@ -35,11 +36,21 @@ public class HomeModel {
 	private HomeClient homeClient = new HomeClient();
 	public String getResult() {
 		LOGGER.trace("HomeBean "+homeBean.getDate());
-
-	      SimpleDateFormat ft = 
-	      new SimpleDateFormat ("d MMMM y");
-	      String date = ft.format(homeBean.getDate()).toString();
-	      LOGGER.trace("Formatted Date "+date);
+		try {
+			boolean isvalidsource = ESAPI.validator().isValidInput("placename", homeBean.getSource(), "placename", 30, false);
+			boolean isvaliddestination = ESAPI.validator().isValidInput("placename", homeBean.getDestination(), "placename", 30, false);
+			LOGGER.trace("is valid "+isvalidsource+" "+isvaliddestination);
+			if(isvalidsource==false||isvaliddestination==false) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Data error","Invalid data"));
+				return "home";
+			}
+		} catch(Exception esapiex) {
+			LOGGER.error(esapiex.getMessage());
+		}
+		LOGGER.trace("unformatted date "+homeBean.getDate());
+	    SimpleDateFormat ft = new SimpleDateFormat ("d MMMM y");
+	    String date = ft.format(homeBean.getDate()).toString();
+	    LOGGER.trace("Formatted Date "+date);
 		try {
 			if(homeBean.getSource().equals(homeBean.getDestination())) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Data error","Source and Destination can't be same"));

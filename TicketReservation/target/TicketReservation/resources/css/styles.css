@@ -2,6 +2,39 @@ body{
     font-size:20px;
     height:100vh;
 }
+.user-icon-form td,
+.home-tabview label,
+.home-tabview .ui-selectonemenu .ui-selectonemenu-label,
+.home-tabview .p-datepicker>input,
+.bus-list-dataview-panel td,
+.passenger-list-dataview-panel td
+.bus .ui-datagrid label,
+.payment-tabview label,
+.payment-tabview td,
+.payment-tabview .ui-selectonemenu .ui-selectonemenu-label,
+.payment-tabview .ui-widget-content .ui-inputfield{
+    color:rgb(32, 87, 141);
+}
+.bus .ui-datagrid .ui-datagrid-header,
+.bus .ui-datagrid .ui-datagrid-footer{
+	background-color:white;
+    color:rgb(32, 87, 141);
+}
+.footer{
+    left: 0;
+    bottom: 0;
+    width: 100%;
+   	background-color: rgb(32, 87, 141);
+    color: white; 
+    text-align: center;
+	text-align:center;
+	padding:8px;
+    margin-top: 7px;
+    box-shadow: 1px 1px 0px 4px rgba(62, 101, 138, 0.66);    
+}
+.fixed-footer{
+    position: fixed;
+}
 .float-right{
 	float:right;
 }
@@ -9,7 +42,8 @@ body{
 	visibility:hidden;
 }
 .login,
-.authentication{
+.authentication,
+.info{
     font-size: 20px;
     background-image: url("images/login-banner.jpg");
     background-repeat: no-repeat;
@@ -25,7 +59,8 @@ body{
 }
 .login-form,
 .authentication-form,
-.payment-form{
+.payment-form,
+.info-form{
     margin: auto;
     padding: 35px;
     background: rgba(0,0,0,0.6);
@@ -50,7 +85,9 @@ body{
 	padding: 10px 20px;
     font-size: 35px;
     font-weight: bold;
-    color:dodgerblue;
+    color: rgb(32, 87, 141);
+    margin-bottom: 5px;
+    box-shadow: 6px 2px 7px 3px;
 }
 .user-icon-form{
 	display:inline;
@@ -58,9 +95,11 @@ body{
 .home-user-icon{
 	font-size:52px;
 }
-.user-overlay-panel{
+.user-overlay-panel.ui-overlaypanel{
 	font-size:20px;
 	border-radius:10px;
+	left:auto!important;
+	right:30px;
 }
 .logout-button.ui-widget{
 	font-size:18px;
@@ -78,30 +117,104 @@ body{
 }
 .ui-tabs.home-tabview .ui-tabs-nav .ui-tabs-selected,
 .ui-tabs.payment-tabview .ui-tabs-nav .ui-tabs-selected{
-	background-color:dodgerblue;
+	background-color: rgb(32, 87, 141);
     box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.4);
 }
 .ui-tabs.home-tabview .ui-tabs-nav .ui-tabs-selected a,
 .ui-tabs.payment-tabview .ui-tabs-nav .ui-tabs-selected a{
 	color:white;
 }
+.ui-selectonemenu.width100,
+.p-datepicker.width100{
+	width:100%;
+}
+.p-datepicker.width100>input{
+	width:65%;
+}
 .home-booking-panel td,
 .payments-panel td{
 	padding:10px;
 }
-.search-button.ui-button{
+.search-button.ui-button,
+.passenger-button.ui-button{
 	float:right;
 	margin:10px 21px 0px 0px;
 }
 
+.bus-list-dataview-panel,
+.passenger-list-dataview-panel{
+	font-size:17px;
+	box-shadow:1px 1px 4px 2px rgba(0,0,0,0.5);
+	margin:12px 0px 12px 0px;
+}
+.bus-list-dataview-panel:hover{
+	border:1px solid rgb(32, 87, 141);
+	box-shadow:1px 1px 4px 2px rgb(32, 87, 141);
+}
+.passenger-details-form .ui-widget-content,
+.payment-tabview.ui-widget-content
+{
+	border:none;
+}
+.bus-list-dataview-panel td,
+.passenger-list-dataview-panel td{
+	padding:6px;
+}
+.ui-widget-content .ui-state-default.pay-button,
+.ui-widget-header .ui-state-default.pay-button,
+.booking-page-button,
+.passenger-button,
+.search-button.ui-button,
+.logout-button.ui-widget,
+.validate-button.ui-button,
+.pay-amount-button.ui-button,
+.regenerate-button.ui-button{
+    background: rgb(32, 87, 141);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 4px 10px 4px 10px;
+}
+.search-button.ui-button{
+	margin-right:0px;
+}
+.booking-page-button:hover,
+.search-button.ui-button:hover,
+.ui-widget-content .ui-state-default.pay-button:hover,
+.ui-widget-header .ui-state-default.pay-button:hover,
+.validate-button.ui-button:hover,
+.pay-amount-button.ui-button:hover,
+.regenerate-button.ui-button:hover{
+    border-radius: 5px;
+	border:1px solid rgb(32, 87, 141);
+    background: white;
+    color: rgb(32, 87, 141);
+}
+/*
+.ui-widget-content .ui-state-default.pay-button:hover,
+.ui-widget-header .ui-state-default.pay-button:hover{
+    background: rgb(32, 87, 141);
+    color: white;
+}*/
+.bus{
+	height:auto;
+}
 .bus-seats{
 	margin:auto;
 	border:20px solid white;
+	border-radius:15px;
     box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.4);
+}
+.bus-seats .ui-g .ui-md-3:nth-of-type(1),
+.bus-seats .ui-g .ui-md-3:nth-of-type(3){
+	text-align:right;
 }
 .bus-seats.ui-panelgrid .ui-panelgrid-cell{
 	color:black;
 	font-size:12px;
+}
+.bus-name-header{
+	font-size:25px;
 }
 .color-dot.red{
     border-left: 8px solid red;
@@ -114,7 +227,9 @@ body{
     margin-right: 5px;
     margin-left: 10px;
 }
-
+.booked-seats-br{
+	display:none;
+}
 .bus-seats a img{
 	border-bottom:4px solid white;
 }
@@ -127,6 +242,9 @@ body{
 .bus-image{
     margin:10px 0px;
 }
+.selected-seats{
+	width:100%;
+}
 .pay-button{
 	float:right;
 	visibility:hidden;
@@ -136,29 +254,160 @@ body{
     background-image: url("images/banner2.jpg");
 }
 .login-panel.ui-panelgrid .ui-panelgrid-cell,
-.barcode-panel.ui-panelgrid .ui-panelgrid-cell{
+.barcode-panel.ui-panelgrid .ui-panelgrid-cell,
+.info-panel.ui-panelgrid .ui-panelgrid-cell{
 	color:white;
 }
 
 .otp{
 	visibility:hidden;
 }
+.otp-header{
+	visibility:hidden;
+}
+
+.visibleat640{
+  	display:none;
+}
+
+.info{
+	background-image: url("images/banner3.jpg");
+}
+.info-form,
+.info-form h2{
+	font-weight:800;
+}
+
+.login .ui-outputlabel.ui-state-error,
+.authentication .ui-outputlabel.ui-state-error{
+	background:none;
+	color:white;
+}
+.ui-outputlabel .ui-outputlabel-rfi{
+	color:red;
+}
+.login .ui-outputlabel .ui-outputlabel-rfi,
+.authentication .ui-outputlabel .ui-outputlabel-rfi{
+	display:none;
+}
 
 /*Media Queries*/
 @media only screen and (max-width: 991px){
 }
 @media only screen and (max-width: 767px){
+	.ui-tabs.ui-tabs-left.home-tabview>.ui-tabs-left>.ui-tabs-nav{
+		width:100%;
+		height:50px;
+	}
+	.ui-tabs.home-tabview .ui-helper-reset,
+	.ui-tabs.payment-tabview .ui-helper-reset{
+		width:100%;
+		height:65px;
+	}
+	.ui-tabs.ui-tabs-left.home-tabview>.ui-tabs-nav li,
+	.ui-tabs.ui-tabs-left.payment-tabview>.ui-tabs-nav li{
+		width:48%;
+		margin:0px 5px 0px 0px;
+	}
+	.ui-tabs.ui-tabs-left.home-tabview>.ui-tabs-panels,
+	.ui-tabs.ui-tabs-left.payment-tabview>.ui-tabs-panels{
+		float:left;
+		width:100%;
+	}
+  	.home-booking-panel,
+  	.payments-panel{
+  		margin:auto;
+  	}
 }
 @media only screen and (max-width: 640px){
+  /*
   .login{
     font-size: 28px;
   }
+  */
   h2{
     font-size: 40px;
     font-weight: bold;
   }
+  .login-form, .authentication-form, .payment-form, .info-form{
+  	padding:15px;
+  }
+  .p-datepicker.width100>input{
+	width:88%;
+  }
+  .bus-seats>.ui-widget-content>.ui-g>.ui-datagrid-column.ui-g-12{
+  	width:25%;
+  }
+  .noneat640{
+  	display:none;
+  }
+  .visibleat640{
+  	display:block;
+  }
+  .payment-tabview .ui-widget-content .ui-inputfield {
+    width: 100%;
+  }
 }
 @media only screen and (max-width: 480px){
+  .header{
+  	font-size:30px;
+  }
+  .login-form, .authentication-form, .payment-form, .info-form{
+  	width:90%;
+  }
+  .ui-widget-content .username.ui-inputfield,
+  .ui-widget-content .password.ui-inputfield,
+  .ui-widget-content .barcode-id.ui-inputfield{
+  	width:100%;
+  }
+  .home-user-icon {
+    font-size: 45px;
+  }
+  .p-datepicker.width100>input {
+    width: 87%;
+  }
+  .bus-list-dataview-panel{
+	font-size:15px;
+  }
+  .bus-seats{
+	width:75%;
+  }
+  .booked-seats-br{
+	display:block;
+  }
+  .booked-seats-header,
+  .selected-seats-header{
+	font-size:20px;
+  }
+}
+@media only screen and (max-width: 380px){
+	.header{
+		font-size:24px;
+	}
+	.ui-tabs.ui-tabs-left.home-tabview>.ui-tabs-nav li a,
+	.ui-tabs.ui-tabs-left.payment-tabview>.ui-tabs-nav li a{
+		width:100%;
+	}
+	.p-datepicker.width100>input {
+	    width: 85%;
+	}
+	.bus-list-dataview-panel td,
+	.passenger-list-dataview-panel td{
+		padding:4px;
+		font-size:16px;
+	}
 }
 @media only screen and (max-width: 320px){
+	.header{
+		font-size:22px;
+	}
+	.ui-tabs.ui-tabs-left.home-tabview>.ui-tabs-panels>.ui.tabs-panel{
+		padding:0px;
+	}
+	.ui-tabs.home-tabview .ui.tabs-panel{
+		padding:0px;
+	}
+	.ui-tabs.ui-tabs-left.home-tabview>.ui-tabs-nav li a{
+		padding:7px;
+	}
 }

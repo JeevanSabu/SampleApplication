@@ -10,10 +10,18 @@ import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.message.internal.MessageBodyProviderNotFoundException;
+
+import com.SampleApplication.SampleApplication2.tools.PropertiesLoading;
 
 public class BookingClient {
 	private static final Logger LOGGER = LogManager.getLogger(BookingClient.class);
+	private PropertiesLoading propertiesLoading = new PropertiesLoading();
+	private String BASE_URL = propertiesLoading.getProperties("resturl");
+	private String handshake_user = propertiesLoading.getProperties("user");
+	private String handshake_password = propertiesLoading.getProperties("password");
 
 	public BookingsPojo book(int busid,
 			String username,
@@ -22,9 +30,13 @@ public class BookingClient {
 			List<Integer> passage,
 			List<String> passgender){
 		LOGGER.trace("Argument "+seatnos.get(0));
-		Client client = ClientBuilder.newClient();
-		WebTarget webTarget = client
-				.target("http://localhost:8080/TicketReservationServer/rest/booking");
+
+		ClientConfig clientConfig = new ClientConfig();	
+	    HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(handshake_user, handshake_password);
+	    clientConfig.register( feature) ;
+		Client client = ClientBuilder.newClient(clientConfig);
+		
+		WebTarget webTarget = client.target(BASE_URL).path("/booking");
 		Response response =null;
 		BookingsPojo bookingsPojo = new BookingsPojo();
 		try {
@@ -56,9 +68,13 @@ public class BookingClient {
 			List<Integer> passage,
 			List<String> passgender){
 		LOGGER.trace("Argument username "+username);
-		Client client = ClientBuilder.newClient();
-		WebTarget webTarget = client
-				.target("http://localhost:8080/TicketReservationServer/rest/booking");
+		
+		ClientConfig clientConfig = new ClientConfig();	
+	    HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(handshake_user, handshake_password);
+	    clientConfig.register( feature) ;
+		Client client = ClientBuilder.newClient(clientConfig);
+		
+		WebTarget webTarget = client.target(BASE_URL).path("/booking");
 		Response response =null;
 		try {
 		response = webTarget.path("/bookingseats")

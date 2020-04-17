@@ -41,6 +41,7 @@
 	    </h:form>
 	</header>
 	<div id="bus" class="bus middle-align">
+    <p:growl id="growl" showDetail="true" sticky="true" />
 	<p:dataGrid id="bus_seats" var="busSeat" value="#{busSeatsView.busSeats}" styleClass="bus-seats" columns="4" layout="grid">
 	    <f:facet name="header" styleClass="white facet-header">
 	    	<h:outputText value="#{busSeatsView.busName}" styleClass="bus-name-header"/><br/>

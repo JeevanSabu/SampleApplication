@@ -17,27 +17,26 @@
  
    <h:body>
 	<header class="header booking-header">
-	    Passenger Details Page
-	    <h:form id="user_icon_form" styleClass="user-icon-form">  
+	    Passenger Details
+       <p:growl id="growl" showDetail="true" sticky="true" />
+	   <h:form id="user_icon_form" styleClass="user-icon-form">  
 		    <p:commandLink id="user_icon_button">
 		    	<i class="pi pi-user icon home-user-icon float-right"></i>
 		    </p:commandLink>    
 		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
-		    	<h:form id="user_panel_form">      
 		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
 				        <h:outputText value="Username : " />
 				        <h:outputText value="#{userBean.username}" />
 				        <h:outputText value="Last Login : " />
-				        <h:outputText value=" " />
+				        <h:outputText value="#{userBean.lastLogin}" />
 				        <h:inputHidden/>
-			    		<p:commandButton value="LogOut" action="#{userModel.logout()}" id="logout_button" styleClass="logout-button"/>
+				        <p:commandButton id="logout_button" value="Log Out" action="#{userModel.logout}" styleClass="logout-button"/>
 		    		</p:panelGrid>
-		    	</h:form>
 		    </p:overlayPanel>
 	    </h:form>
 	</header>
-	<h:form id="passenger_details_form">
-	<p:dataView var="seats" value="#{passengerSeats.getSeats()}">
+	<h:form id="passenger_details_form" styleClass="passenger-details-form">
+	<p:dataView id="passenger_dataview" var="seats" styleClasss="passenger-dataview" value="#{passengerSeats.getSeats()}">
 	                <!--  listIcon="pi pi-bars" gridIcon="pi pi-th-large" -->
 	                 
 	 <!-- 
@@ -60,8 +59,8 @@
 	        </p:dataViewGridItem>
 	  -->
 	 
-	        <p:dataViewListItem>
-	            <h:panelGrid columns="3" style="width:100%" columnClasses="seatNo,detail">
+	        <p:dataViewListItem styleClass="passenger-list-dataviewlistitem">
+	            <h:panelGrid columns="3" style="width:100%" styleClass="passenger-list-dataview-panel" columnClasses="seatNo,detail">
 	 
 	                <p:outputPanel>
 	                    <h:panelGrid columns="2" cellpadding="5">
@@ -69,14 +68,14 @@
 	                        <h:outputText value="#{seats.seatNo}" style="font-weight: bold"/>
 	 
 	                        <h:outputText value="Passenger Name : " />
-	                        <p:inputText value="#{seats.passengerName}" />
+	                        <p:inputText value="#{seats.passengerName}" required="true" />
 	 
 	                        <h:outputText value="Age : " />
-	                        <p:inputMask value="#{seats.passengerAge}" mask="99"/>
+	                        <p:inputMask value="#{seats.passengerAge}" mask="99" required="true" />
 	                        
 	                        <h:outputText value="Gender : " />
-							<p:selectOneMenu value="#{seats.passengerGender}" style="width:150px">
-					            <f:selectItem itemLabel="Select One" itemValue="" />
+							<p:selectOneMenu value="#{seats.passengerGender}" style="width:150px" required="true">
+					            <f:selectItem itemLabel="select one" itemValue="" />
 					            <f:selectItem itemLabel="male" itemValue="male" />
 					            <f:selectItem itemLabel="female" itemValue="female" />
 					        </p:selectOneMenu>
@@ -88,5 +87,6 @@
 	    </p:dataView>
 	    <p:commandButton id="passenger_button" styleClass="passenger-button" value="Book" action="#{passengerModel.getResult()}"/>
 	</h:form>
+	<footer class="footer center fixed-header">&copy;SampleApplication.com</footer>
    </h:body>
 </html>

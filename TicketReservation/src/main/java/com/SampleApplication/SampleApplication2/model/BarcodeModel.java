@@ -7,6 +7,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.owasp.esapi.ESAPI;
 
 import com.SampleApplication.SampleApplication2.bean.BarcodeBean;
 import com.SampleApplication.SampleApplication2.bean.UserBean;
@@ -33,6 +34,16 @@ public class BarcodeModel {
 	private BookingListClient bookingListClient = new BookingListClient();
 //	private BookingListPojo bookingListPojo = new BookingListPojo();
 	public String getResult() {
+		try {
+			boolean isvalidid = ESAPI.validator().isValidInput("barcodeid", barcodeBean.getId(), "barcodeid", 6, false);
+			LOGGER.trace("is valid "+isvalidid);
+			if(isvalidid==false) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Authentication failed","Id field possess invalid data"));
+				return "authentication";
+			}
+		}catch(Exception esapiex) {
+			LOGGER.error(esapiex.getMessage());
+		}
 		try {
 			String barcodeId = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("barcodeId");
 			LOGGER.trace("BarcodeId from session "+barcodeId);

@@ -3,6 +3,7 @@ package com.SampleApplication.SampleApplication2.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
 //import javax.el.ELContext;
@@ -13,13 +14,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.owasp.esapi.ESAPI;
 
 import com.SampleApplication.SampleApplication2.bean.BarcodeBean;
 import com.SampleApplication.SampleApplication2.bean.UserBean;
 import com.SampleApplication.SampleApplication2.jerseyclient.LastLoginClient;
 import com.SampleApplication.SampleApplication2.jerseyclient.User;
 import com.SampleApplication.SampleApplication2.jerseyclient.UserPojo;
-//import com.SampleApplication.SampleApplication2.tools.SessionUtils;
 import com.SampleApplication.SampleApplication2.tools.SessionUtils;
 
 @ManagedBean( name = "userModel" , eager = true)
@@ -45,6 +46,23 @@ public class UserModel {
 	public String getResult() {
 		LOGGER.trace("Inside Usermodel");
 		LOGGER.trace("from userbean "+userBean.getUsername());
+		try {
+			String validusername = ESAPI.encoder().canonicalize(userBean.getUsername());
+			String validpassword = ESAPI.encoder().canonicalize(userBean.getPassword());
+			boolean isvaliduser = ESAPI.validator().isValidInput("username", userBean.getUsername(), "username", 30, false);
+			boolean isvalidpassword = ESAPI.validator().isValidInput("password", userBean.getPassword(), "password", 30, false);
+			LOGGER.trace("user "+validusername+" password "+validpassword);
+			LOGGER.trace("is valid "+isvaliduser+" "+isvalidpassword);
+			if(isvaliduser==false||isvalidpassword==false) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Invalid Credentials","Username and Password possess values that are not allowed"));
+				return "login";
+			}
+//			for (Pattern scriptPattern : patterns){
+//				validpassword = scriptPattern.matcher(validpassword).replaceAll("");
+//	        }
+		}catch(Exception esapiex) {
+			LOGGER.error(esapiex.getMessage());
+		}
 //		String uname = null;
 		try {
 //		uname = user.getUser(userBean.getUsername(),userBean.getPassword());
@@ -92,7 +110,7 @@ public class UserModel {
 		LOGGER.trace("Inside logout");
 		try {
 			Date date = new Date();
-		    SimpleDateFormat ft = new SimpleDateFormat ("d MMMM y HH:mm:ss.SSS");
+		    SimpleDateFormat ft = new SimpleDateFormat ("d MMM y HH:mm:ss");
 		    String formatteddate = ft.format(date).toString();
 		    LOGGER.trace("Logout at "+formatteddate);
 		    LastLoginClient lastLoginClient = new LastLoginClient();

@@ -3,6 +3,10 @@ package com.SampleApplication.SampleApplication2.jerseyclient;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
+
+import com.SampleApplication.SampleApplication2.tools.PropertiesLoading;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -13,12 +17,21 @@ import javax.ws.rs.core.Response;
 
 public class User {
 	private static final Logger LOGGER = LogManager.getLogger(User.class);
+	private PropertiesLoading propertiesLoading = new PropertiesLoading();
+	private String BASE_URL = propertiesLoading.getProperties("resturl");
+	private String handshake_user = propertiesLoading.getProperties("user");
+	private String handshake_password = propertiesLoading.getProperties("password");
 
 	public UserPojo getUser(String username,String password){
+		LOGGER.trace(BASE_URL);
 		LOGGER.trace("Argument username "+username);
-		Client client = ClientBuilder.newClient();
-		WebTarget webTarget = client
-				.target("http://localhost:8080/TicketReservationServer/rest/user");
+
+		ClientConfig clientConfig = new ClientConfig();	
+	    HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(handshake_user, handshake_password);
+	    clientConfig.register( feature) ;
+		Client client = ClientBuilder.newClient(clientConfig);
+		
+		WebTarget webTarget = client.target(BASE_URL).path("/user");
 		Response response =null;
 		try {
 		response = webTarget.path("/userlogin")

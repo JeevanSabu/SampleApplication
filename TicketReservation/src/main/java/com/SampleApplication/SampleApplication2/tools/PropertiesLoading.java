@@ -1,7 +1,5 @@
 package com.SampleApplication.SampleApplication2.tools;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -13,20 +11,20 @@ public class PropertiesLoading {
 
 	private static final Logger LOGGER = LogManager.getLogger(PropertiesLoading.class);
 
-	public Properties getProperties() {
+	public String getProperties(String prop) {
 		try  {
-			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("component.properties");
+			InputStream inputStream = PropertiesLoading.class.getClassLoader().getResourceAsStream("handshake.properties");
 
             Properties properties = new Properties();
 
             // load a properties file
             properties.load(inputStream);
-
+            return properties.getProperty(prop);
 
         } catch (Exception ex) {
         	LOGGER.error(ex.getMessage());
+        	return null;
         }
-		return null;
 	}
 	
 }
