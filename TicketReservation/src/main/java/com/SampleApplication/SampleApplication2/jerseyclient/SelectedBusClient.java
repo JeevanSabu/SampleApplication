@@ -26,6 +26,12 @@ public class SelectedBusClient {
 	private String handshake_user = propertiesLoading.getProperties("user");
 	private String handshake_password = propertiesLoading.getProperties("password");
 	
+	/**
+	 * 
+	 * @param id
+	 * @param name
+	 * @return
+	 */
 	public List<BusSeats> getSelectedBus(String id, String name) {
 		LOGGER.trace("Argument name "+name);
 		

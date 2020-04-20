@@ -34,7 +34,7 @@
 				        <h:outputText value="#{userBean.username}" />
 				        <h:outputText value="Last Login : " />
 				        <h:outputText value="#{userBean.lastLogin}" />
-				        <h:inputHidden/>
+				        <p:commandButton id="home_redirect_button" value="Home" action="home" styleClass="home-redirect-button logout-button"/>
 				        <p:commandButton id="logout_button" value="Log Out" action="#{userModel.logout}" styleClass="logout-button"/>
 		    		</p:panelGrid>
 		    </p:overlayPanel>
@@ -42,7 +42,7 @@
 	</header>
 	<div id="bus" class="bus middle-align">
     <p:growl id="growl" showDetail="true" sticky="true" />
-	<p:dataGrid id="bus_seats" var="busSeat" value="#{busSeatsView.busSeats}" styleClass="bus-seats" columns="4" layout="grid">
+	<p:dataGrid id="bus_seats" var="busSeat" value="#{busSeatsView.getBusSeats()}" styleClass="bus-seats" columns="4" layout="grid">
 	    <f:facet name="header" styleClass="white facet-header">
 	    	<h:outputText value="#{busSeatsView.busName}" styleClass="bus-name-header"/><br/>
     		<span class="color-dot red"/>
@@ -61,7 +61,7 @@
 		    		<p:outputLabel for="selected_seats" value="Seat no : "/>
 					<p:inputText id="selected_seats" styleClass="selected-seats" value="#{busBean.selectedSeat}"/>
 					<h:inputHidden value="1"/>
-					<p:commandButton id="pay_button" icon="fa fa-inr" styleClass="pay-button" action="#{busModel.getResult()}" value="1200"/>
+					<p:commandButton id="pay_button" icon="fa fa-inr" styleClass="pay-button" action="#{busModel.getResult()}" value="#{busSeatsView.price})"/>
 		    	</p:panelGrid>
 	    	</h:form>
 		</f:facet>

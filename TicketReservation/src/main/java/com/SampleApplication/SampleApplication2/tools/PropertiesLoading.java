@@ -11,6 +11,11 @@ public class PropertiesLoading {
 
 	private static final Logger LOGGER = LogManager.getLogger(PropertiesLoading.class);
 
+	/**
+	 * 
+	 * @param prop
+	 * @return
+	 */
 	public String getProperties(String prop) {
 		try  {
 			InputStream inputStream = PropertiesLoading.class.getClassLoader().getResourceAsStream("handshake.properties");

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +21,7 @@ import com.SampleApplication.SampleApplication2.jerseyclient.BookingClient;
 import com.SampleApplication.SampleApplication2.jerseyclient.BookingsPojo;
 
 @ManagedBean( name="paymentModel", eager=true)
-@SessionScoped
+@ViewScoped
 public class PaymentModel {
 	private static final Logger LOGGER = LogManager.getLogger(PaymentModel.class);
 
@@ -52,6 +52,10 @@ public class PaymentModel {
 
 	private BookingsPojo bookingsPojo = new BookingsPojo();
 	private BookingClient bookingClient = new BookingClient();
+	/**
+	 * 
+	 * @return
+	 */
 	public String getResult() {
 		if(paymentBean.getOtp()==paymentBean.getVerifyOtp()) {
 			LOGGER.trace("Verification Successfull");
@@ -81,6 +85,10 @@ public class PaymentModel {
 		return result;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String validate(){
 		Random random = new Random();
 		otp = random.nextInt(900000) + 100000;

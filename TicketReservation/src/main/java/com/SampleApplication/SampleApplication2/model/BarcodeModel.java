@@ -2,9 +2,11 @@ package com.SampleApplication.SampleApplication2.model;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.validation.ValidationException;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.owasp.esapi.ESAPI;
@@ -15,7 +17,7 @@ import com.SampleApplication.SampleApplication2.jerseyclient.BookingListClient;
 import com.SampleApplication.SampleApplication2.jerseyclient.BookingListPojo;
 
 @ManagedBean(name = "barcodeModel" , eager = true)
-@SessionScoped
+@ViewScoped
 public class BarcodeModel {
 	private static final Logger LOGGER = LogManager.getLogger(BarcodeModel.class);
 	
@@ -33,32 +35,46 @@ public class BarcodeModel {
               .getValue(context.getELContext());
 	private BookingListClient bookingListClient = new BookingListClient();
 //	private BookingListPojo bookingListPojo = new BookingListPojo();
+	/**
+	 * 
+	 * @return
+	 */
 	public String getResult() {
+		LOGGER.trace("Inside BarcodeModel getResult method");
+		if(null==barcodeBean) {
+			LOGGER.error("BarcodeBean null");
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Authentication failed","Id field can't be null"));
+		}
 		try {
 			boolean isvalidid = ESAPI.validator().isValidInput("barcodeid", barcodeBean.getId(), "barcodeid", 6, false);
 			LOGGER.trace("is valid "+isvalidid);
+			
 			if(isvalidid==false) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Authentication failed","Id field possess invalid data"));
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Authentication failed","Id field possess invalid data"));
 				return "authentication";
 			}
-		}catch(Exception esapiex) {
-			LOGGER.error(esapiex.getMessage());
-		}
-		try {
-			String barcodeId = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("barcodeId");
+			
+			String barcodeId = (String) context.getExternalContext().getSessionMap().get("barcodeId");
 			LOGGER.trace("BarcodeId from session "+barcodeId);
-			if(barcodeBean.getId().equals(barcodeId)) {
+			if(null==bookingListClient) {
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Authentication failed","Id mismatch"));
+				return "authentication";
+			}
+			else if(StringUtils.equals(barcodeBean.getId(), barcodeId)) {
 				bookingListPojo.setBookingList(bookingListClient.getBookingList(userBean.getUsername()));
 				LOGGER.trace("From bookinListPojo "+bookingListPojo.getBookingList());
 				result="home";
 			}
 			else {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Authentication failed","Id mismatch"));
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Authentication failed","Id mismatch"));
 			}
+		} catch(ValidationException ve) {
+			LOGGER.error("Error"+ve.getCause());
 		} catch(Exception e) {
-			LOGGER.error("Error in barcode session"+e.getMessage());
+			LOGGER.error("Error"+e.getMessage());
 		}
-		
+
+		LOGGER.trace("Leaving BarcodeModel getResult method...");
 		return result;
 	}
 

@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +18,7 @@ import com.SampleApplication.SampleApplication2.bean.PassengerSeats;
 import com.SampleApplication.SampleApplication2.bean.Seats;
 
 @ManagedBean(name = "busModel" , eager=true)
-@SessionScoped
+@ViewScoped
 public class BusModel {
 	private static final Logger LOGGER = LogManager.getLogger(BusModel.class);
 	private String result="passenger";
@@ -29,6 +29,11 @@ public class BusModel {
 	PassengerSeats passengerSeats = (PassengerSeats) context.getApplication().getExpressionFactory()
             .createValueExpression(context.getELContext(), "#{passengerSeats}", PassengerSeats.class)
 	              .getValue(context.getELContext());
+	/**
+	 * 
+	 * @return
+	 * @throws ValidationException
+	 */
 	public String getResult() throws ValidationException {
 		try {
 			boolean isvalidseats = ESAPI.validator().isValidInput("seats", busBean.getSelectedSeat(), "seats", 50, false);

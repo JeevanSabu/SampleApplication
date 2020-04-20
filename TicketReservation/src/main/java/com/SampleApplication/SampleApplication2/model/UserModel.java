@@ -11,7 +11,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import javax.validation.ValidationException;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.owasp.esapi.ESAPI;
@@ -28,11 +30,6 @@ import com.SampleApplication.SampleApplication2.tools.SessionUtils;
 public class UserModel {
     private static final Logger LOGGER = LogManager.getLogger(UserModel.class);
 	private String result = "login";
-//	@ManagedProperty(value="#{userBean}")
-//	private UserBean userBean;
-//	public void setUserBean(UserBean userBean) {
-//		this.userBean = userBean;
-//	}
 	FacesContext context = FacesContext.getCurrentInstance();
 	UserBean userBean = (UserBean) context.getApplication().getExpressionFactory()
 	            .createValueExpression(context.getELContext(), "#{userBean}", UserBean.class)
@@ -43,9 +40,16 @@ public class UserModel {
 	              .getValue(context.getELContext());
 	private User user = new User();
 	private UserPojo userPojo = new UserPojo();
+	/**
+	 * 
+	 * @return
+	 */
 	public String getResult() {
-		LOGGER.trace("Inside Usermodel");
-		LOGGER.trace("from userbean "+userBean.getUsername());
+		LOGGER.trace("Inside Usermodel getResult method");
+		if(null==userBean) {
+			LOGGER.error("userBean null");
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Login Failed","Fields can't be empty"));
+		}
 		try {
 			String validusername = ESAPI.encoder().canonicalize(userBean.getUsername());
 			String validpassword = ESAPI.encoder().canonicalize(userBean.getPassword());
@@ -54,39 +58,32 @@ public class UserModel {
 			LOGGER.trace("user "+validusername+" password "+validpassword);
 			LOGGER.trace("is valid "+isvaliduser+" "+isvalidpassword);
 			if(isvaliduser==false||isvalidpassword==false) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Invalid Credentials","Username and Password possess values that are not allowed"));
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Invalid Credentials","Username and Password possess values that are not allowed"));
 				return "login";
 			}
-//			for (Pattern scriptPattern : patterns){
-//				validpassword = scriptPattern.matcher(validpassword).replaceAll("");
-//	        }
-		}catch(Exception esapiex) {
-			LOGGER.error(esapiex.getMessage());
-		}
-//		String uname = null;
-		try {
-//		uname = user.getUser(userBean.getUsername(),userBean.getPassword());
-		userPojo = user.getUser(userBean.getUsername(),userBean.getPassword());
-		LOGGER.trace("UserName "+userPojo.getUsername());
-//			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", userBean.getUsername());
+			
+			userPojo = user.getUser(userBean.getUsername(),userBean.getPassword());
+			LOGGER.trace("UserName "+userPojo.getUsername());
+//			context).getExternalContext().getSessionMap().put("username", userBean.getUsername());
 			HttpSession session = SessionUtils.getSession();
 			session.setAttribute("username", userBean.getUsername());
-		}catch(Exception e) {
+		} catch(ValidationException ve) {
+			LOGGER.error("Error"+ve.getCause());
+		} catch(Exception e) {
 			LOGGER.error("Exception "+e.getMessage());
 		}
-		if((null!=userPojo.getUsername()&&userPojo.getUsername().equals(userBean.getUsername()))&&(null!=userPojo.getPassword()&&userPojo.getPassword().equalsIgnoreCase(userBean.getPassword()))) {
-//			HttpSession session = SessionUtils.getSession();
-//			session.setAttribute("username", userBean.getUsername());
-//			LOGGER.trace("Session user "+FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username"));
+		
+		if((null!=userPojo.getUsername()&&StringUtils.equals(userPojo.getUsername(), userBean.getUsername()))
+				&&(null!=userPojo.getPassword()&&StringUtils.equals(userPojo.getPassword(), userBean.getPassword()))) {
+
 			userBean.setLastLogin(userPojo.getLastlogin());
 			Random random = new Random();
 			int generatedId = random.nextInt(900000) + 100000;
 			
-			barcodeBean.setGenId(Integer.toString(generatedId));
-			LOGGER.error("BarcodeId "+generatedId);
+			userBean.setGenId(Integer.toString(generatedId));
+			LOGGER.trace("BarcodeId "+generatedId);
 			try {
-//				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("barcodeId", Integer.toString(generatedId));
-
+//				context.getExternalContext().getSessionMap().put("barcodeId", Integer.toString(generatedId));
 				HttpSession session = SessionUtils.getSession();
 				session.setAttribute("barcodeId", Integer.toString(generatedId));
 			}catch(Exception ex) {
@@ -97,17 +94,22 @@ public class UserModel {
 		else {
 			LOGGER.trace("No user Found");
 			try {
-				FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Invalid Credentials","Username and Password incorrect"));
+				context.getExternalContext().invalidateSession();
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Invalid Credentials","Username and Password incorrect"));
 				result="login";
 			}catch(Exception ex) {
 				LOGGER.error("Invalidate session error:"+ex.getMessage());
 			}
 		}
+		LOGGER.trace("Leaving Usermodel getResult method...");
 		return result;
 	}
+	/**
+	 * 
+	 * @return
+	 */
 	public String logout() {
-		LOGGER.trace("Inside logout");
+		LOGGER.trace("Inside logout method");
 		try {
 			Date date = new Date();
 		    SimpleDateFormat ft = new SimpleDateFormat ("d MMM y HH:mm:ss");
@@ -118,12 +120,15 @@ public class UserModel {
 		    if(status==200) {
 		     	LOGGER.trace("lastlogin saved");
 		    }
-			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-//			HttpSession session = SessionUtils.getSession();
-//			session.invalidate();
+//			context.getExternalContext().invalidateSession();	
+			HttpSession session = SessionUtils.getSession();
+			session.setAttribute("username", null);
+			session.setAttribute("barcodeId", null);
+			session.invalidate();
 		} catch(Exception inv) {
 			LOGGER.error("Invalidating Error "+inv.getMessage());
 		}
+		LOGGER.trace("Leaving Usermodel logout method");
         return "/login.xhtml?faces-redirect=true";
 	}
 }

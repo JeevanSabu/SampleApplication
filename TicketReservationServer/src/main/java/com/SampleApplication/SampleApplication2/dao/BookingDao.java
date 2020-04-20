@@ -22,7 +22,16 @@ public class BookingDao {
 	DBConnections dbConnections = new DBConnections();
 	Connection connection = dbConnections.getConnection();
 	
-	
+	/**
+	 * 
+	 * @param busid
+	 * @param username
+	 * @param seatnoslist
+	 * @param passnamelist
+	 * @param passagelist
+	 * @param passgenderlist
+	 * @return
+	 */
 	public BookingsPojo getBookings(int busid, String username, String[] seatnoslist, String[] passnamelist, String[] passagelist, String[] passgenderlist) {
 		LOGGER.trace("From arguments "+busid);
 		LOGGER.trace("From arguments "+username);

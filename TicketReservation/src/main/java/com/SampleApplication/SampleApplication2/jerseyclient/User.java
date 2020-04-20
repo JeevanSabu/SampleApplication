@@ -22,6 +22,12 @@ public class User {
 	private String handshake_user = propertiesLoading.getProperties("user");
 	private String handshake_password = propertiesLoading.getProperties("password");
 
+	/**
+	 * 
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	public UserPojo getUser(String username,String password){
 		LOGGER.trace(BASE_URL);
 		LOGGER.trace("Argument username "+username);

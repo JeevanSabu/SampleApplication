@@ -74,3 +74,9 @@ function validatehome(){
 		alert("All fields are Mandatory");
 	}
 }
+function clearHistory()
+{
+     var len = history.length;
+     history.go(-len);
+     window.location.href = "http://localhost:8080/TicketReservation/faces/login.xhtml";
+}

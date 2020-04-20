@@ -20,6 +20,11 @@ public class BookingListDao {
 	DBConnections dbConnections = new DBConnections();
 	Connection connection = dbConnections.getConnection();
 	
+	/**
+	 * 
+	 * @param username
+	 * @return
+	 */
 	public BookingListPojo getBookingList(String username) {
 		LOGGER.trace("From arguments "+username);
 		

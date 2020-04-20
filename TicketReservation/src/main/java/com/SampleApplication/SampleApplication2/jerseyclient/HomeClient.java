@@ -26,6 +26,13 @@ public class HomeClient {
 	private String handshake_user = propertiesLoading.getProperties("user");
 	private String handshake_password = propertiesLoading.getProperties("password");
 
+	/**
+	 * 
+	 * @param source
+	 * @param destination
+	 * @param date
+	 * @return
+	 */
 	public BusViewPojo getBuses(String source, String destination, String date) {
 
 		LOGGER.trace("Argument source "+source);

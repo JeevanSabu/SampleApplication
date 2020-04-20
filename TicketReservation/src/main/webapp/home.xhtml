@@ -29,7 +29,7 @@
 				        <h:outputText value="Last Login : " />
 				        <h:outputText value="#{userBean.lastLogin}" />
 				        <h:inputHidden/>
-				        <p:commandButton id="logout_button" value="Log Out" action="#{userModel.logout}" styleClass="logout-button"/>
+				        <p:commandButton id="logout_button" value="Log Out" onclick="clearHistory()" action="#{userModel.logout}" styleClass="logout-button"/>
 		    		</p:panelGrid>
 		    </p:overlayPanel>
 	    </h:form>
@@ -55,36 +55,41 @@
 		            <f:selectItem itemLabel="bangalore" itemValue="bangalore" />
 		        </p:selectOneMenu> 
 				<p:outputLabel for="date_field" value="Date:" />
-        		<p:datePicker id="date_field" value="#{homeBean.date}" showIcon="true" styleClass="width100" required="true"/>
+        		<p:datePicker id="date_field" pattern="MM/dd/yyyy" value="#{homeBean.date}" showIcon="true" styleClass="width100" required="true" mindate="#{homeBean.minDate}"/>    
         		<h:inputHidden></h:inputHidden>
 			    <p:commandButton id="search_button" onclick="validatehome()" value="Search" styleClass="search-button" action="#{homeModel.getResult()}"/>
             </h:panelGrid>
          </h:form>
         </p:tab>
         <p:tab title="My Bookings" styleClass="home-tab">
-            <p:dataTable var="list" value="#{bookingListPojo.bookingList}">
-			    <p:column headerText="Username">
-		            <h:outputText value="#{list.username}" style="font-weight: bold"/>
-			    </p:column>
+			<p:dataView id="booking_list" styleClass="booking-list bus-list" var="list" value="#{bookingListPojo.bookingList}">
+	 
+	        <p:dataViewListItem styleClass=" booking-list-tabview bus-list-dataview">
+	            <h:panelGrid columns="3" style="width:100%" styleClass="bus-list-dataview-panel" columnClasses="busitem,detail">
+	 
+	                <p:outputPanel>
+	                    <h:panelGrid columns="2" cellpadding="5">
 			 
-			    <p:column headerText="Busname">
-		            <h:outputText value="#{list.busname}" style="font-weight: bold"/>
-			    </p:column>
-			 
-			    <p:column headerText="from-to ">
-		            <h:outputText value="#{list.fromto}" style="font-weight: bold"/>
-			    </p:column>
-			 
-			    <p:column headerText="Date and ime">
-		            <h:outputText value="#{list.date}" style="font-weight: bold"/>
-			    </p:column>
-			    <p:column headerText="Booked on">
-		            <h:outputText value="#{list.bookingtime}"/>
-			    </p:column>
-			    <p:column headerText="Passengers">
-		            <h:outputText value="#{list.passengers}"/>
-			    </p:column>
-			</p:dataTable>
+					    	<h:outputText value="Busname"/>
+				            <h:outputText value="#{list.busname}" style="font-weight: bold"/>
+					 
+					    	<h:outputText value="from-to "/>
+				            <h:outputText value="#{list.fromto}" style="font-weight: bold"/>
+					 
+					    	<h:outputText value="Date and time"/>
+				            <h:outputText value="#{list.date}" style="font-weight: bold"/>
+				            
+					    	<h:outputText value="Booked on"/>
+				            <h:outputText value="#{list.bookingtime}"/>
+				            
+					    	<h:outputText value="Passengers"/>
+		            		<h:outputText value="#{list.passengers}"/>
+	                    </h:panelGrid>
+	                </p:outputPanel>
+	 
+	            </h:panelGrid>
+	        </p:dataViewListItem>
+	    </p:dataView>
         </p:tab>
     </p:tabView>
 	<footer class="footer center fixed-footer">&copy;SampleApplication.com</footer>

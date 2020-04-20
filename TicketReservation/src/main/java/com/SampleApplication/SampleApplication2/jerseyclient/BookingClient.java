@@ -23,6 +23,16 @@ public class BookingClient {
 	private String handshake_user = propertiesLoading.getProperties("user");
 	private String handshake_password = propertiesLoading.getProperties("password");
 
+	/**
+	 * 
+	 * @param busid
+	 * @param username
+	 * @param seatnos
+	 * @param passname
+	 * @param passage
+	 * @param passgender
+	 * @return
+	 */
 	public BookingsPojo book(int busid,
 			String username,
 			List<String> seatnos,
@@ -61,6 +71,17 @@ public class BookingClient {
 		}
 		return bookingsPojo;
 	}
+	
+	/**
+	 * 
+	 * @param busid
+	 * @param username
+	 * @param seatnos
+	 * @param passname
+	 * @param passage
+	 * @param passgender
+	 * @return
+	 */
 	public BookingsPojo getBookings(int busid,
 			String username,
 			List<String> seatnos,

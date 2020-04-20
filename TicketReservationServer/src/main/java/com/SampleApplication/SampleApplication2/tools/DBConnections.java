@@ -11,6 +11,10 @@ public class DBConnections {
 	
 	private static final Logger LOGGER = LogManager.getLogger(DBConnections.class);
 	
+	/**
+	 * to return connection
+	 * @return
+	 */
 	public Connection getConnection() {
 	      Connection con = null;
 	      String url = "jdbc:mysql://localhost:3306/ticket_reservation";

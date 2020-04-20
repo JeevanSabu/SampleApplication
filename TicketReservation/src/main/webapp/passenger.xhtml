@@ -29,7 +29,7 @@
 				        <h:outputText value="#{userBean.username}" />
 				        <h:outputText value="Last Login : " />
 				        <h:outputText value="#{userBean.lastLogin}" />
-				        <h:inputHidden/>
+				        <p:commandButton id="home_redirect_button" value="Home" action="home" styleClass="home-redirect-button logout-button"/>
 				        <p:commandButton id="logout_button" value="Log Out" action="#{userModel.logout}" styleClass="logout-button"/>
 		    		</p:panelGrid>
 		    </p:overlayPanel>

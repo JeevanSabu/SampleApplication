@@ -4,8 +4,8 @@ import java.text.SimpleDateFormat;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +18,7 @@ import com.SampleApplication.SampleApplication2.jerseyclient.BusViewPojo;
 import com.SampleApplication.SampleApplication2.jerseyclient.HomeClient;
 
 @ManagedBean(name = "homeModel" , eager = true)
-@SessionScoped
+@ViewScoped
 public class HomeModel {
 	private static final Logger LOGGER = LogManager.getLogger(HomeModel.class);
 	private String result;
@@ -34,6 +34,10 @@ public class HomeModel {
               .getValue(context.getELContext());
 
 	private HomeClient homeClient = new HomeClient();
+	/**
+	 * 
+	 * @return
+	 */
 	public String getResult() {
 		LOGGER.trace("HomeBean "+homeBean.getDate());
 		try {

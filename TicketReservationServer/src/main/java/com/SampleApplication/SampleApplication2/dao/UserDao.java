@@ -24,7 +24,12 @@ public class UserDao {
 	
 	DBConnections dbConnections = new DBConnections();
 	Connection connection = dbConnections.getConnection();
-	@SuppressWarnings("null")
+	/**
+	 * 
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	public UserPojo getUser(String username, String password) {
 		LOGGER.trace("From arguments "+username);
 		
@@ -70,14 +75,5 @@ public class UserDao {
 	    return userPojo;
 	      
 	}
-//	public UserPojo getList() {
-//
-//		for(UserPojo userPojo : users) {
-//			if(userPojo.getUsername().equals("Jerin")&&userPojo.getPassword().equals("Jerin@123")){
-//				return userPojo;
-//			}
-//		}
-//		return null;
-//	}
 
 }

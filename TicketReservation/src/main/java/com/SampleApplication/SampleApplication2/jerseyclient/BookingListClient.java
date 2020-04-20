@@ -23,6 +23,11 @@ public class BookingListClient {
 	private String handshake_user = propertiesLoading.getProperties("user");
 	private String handshake_password = propertiesLoading.getProperties("password");
 
+	/**
+	 * 
+	 * @param username
+	 * @return
+	 */
 	public List<BookingsPojo> getBookingList(String username) {
 		LOGGER.trace("Argument username "+username);
 		

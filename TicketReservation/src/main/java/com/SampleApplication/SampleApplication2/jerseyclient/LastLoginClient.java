@@ -21,6 +21,13 @@ public class LastLoginClient {
 	private String handshake_user = propertiesLoading.getProperties("user");
 	private String handshake_password = propertiesLoading.getProperties("password");
 
+	/**
+	 * 
+	 * @param username
+	 * @param password
+	 * @param lastlogin
+	 * @return
+	 */
 	public int logout(String username, String password, String lastlogin) {
 		LOGGER.trace("inside logout");
 		

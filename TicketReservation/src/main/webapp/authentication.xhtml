@@ -21,9 +21,9 @@
           <h:form id="authentication_form" styleClass="authentication-form">
 			<h:message for="authentication_form" showDetail="true" sticky="true" />
 		    <h2 class="text-center">User Authentication</h2>
-		    <p:panelGrid columns="2" id="barcode_panel" styleClass="barcode-panel no-border">
+		    <p:panelGrid columns="2" id="barcode_panel" styleClass="barcode-panel no-border" columnClasses="ui-g-12 ui-md-4, ui-g-12 ui-md-8">
 			    <f:facet name="header">
-    				<p:barcode value="#{barcodeBean.genId}" type="qr"/>
+    				<p:barcode value="#{userBean.genId}" type="qr"/>
 			    </f:facet>
 				<p:outputLabel for="barcode_id" value="Enter the id "/>
 				<p:inputMask id="barcode_id" value="#{barcodeBean.id}" mask="999999" styleClass="barcode-id" required="true"/>  

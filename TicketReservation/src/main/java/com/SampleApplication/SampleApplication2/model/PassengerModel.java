@@ -3,8 +3,8 @@ package com.SampleApplication.SampleApplication2.model;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +14,7 @@ import com.SampleApplication.SampleApplication2.bean.PaymentBean;
 import com.SampleApplication.SampleApplication2.bean.Seats;
 
 @ManagedBean(name="passengerModel" , eager=true)
-@SessionScoped
+@ViewScoped
 public class PassengerModel {
 	private static final Logger LOGGER = LogManager.getLogger(PassengerModel.class);
 	private String result="payment";
@@ -26,6 +26,10 @@ public class PassengerModel {
 	PaymentBean paymentBean = (PaymentBean) context.getApplication().getExpressionFactory()
 			.createValueExpression(context.getELContext(), "#{paymentBean}", PaymentBean.class)
 			.getValue(context.getELContext());
+	/**
+	 * 
+	 * @return
+	 */
 	public String getResult() {
 		LOGGER.trace("Inside Passenger Model");
 		try {

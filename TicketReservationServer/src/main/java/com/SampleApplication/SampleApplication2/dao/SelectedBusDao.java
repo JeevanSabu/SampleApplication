@@ -19,6 +19,12 @@ public class SelectedBusDao {
 	DBConnections dbConnections = new DBConnections();
 	Connection connection = dbConnections.getConnection();
 	
+	/**
+	 * 
+	 * @param id
+	 * @param name
+	 * @return
+	 */
 	public BusSeatsView getSelectedBus(int id, String name) {
 		LOGGER.trace("From arguments "+name);
 

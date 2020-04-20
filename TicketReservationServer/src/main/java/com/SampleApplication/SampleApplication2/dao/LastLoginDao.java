@@ -18,6 +18,13 @@ public class LastLoginDao {
 	DBConnections dbConnections = new DBConnections();
 	Connection connection = dbConnections.getConnection();
 	
+	/**
+	 * 
+	 * @param username
+	 * @param password
+	 * @param lastlogin
+	 * @return
+	 */
 	public String loguot(String username, String password, String lastlogin) {
 		LOGGER.trace("inside LastLoginDao "+lastlogin);
 		UserPojo userPojo = new UserPojo();

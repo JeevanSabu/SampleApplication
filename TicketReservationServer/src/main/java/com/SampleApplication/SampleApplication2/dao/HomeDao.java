@@ -23,6 +23,13 @@ public class HomeDao {
 	DBConnections dbConnections = new DBConnections();
 	Connection connection = dbConnections.getConnection();
 
+	/**
+	 * 
+	 * @param source
+	 * @param destination
+	 * @param date
+	 * @return
+	 */
 	public BusViewPojo getBuses(String source, String destination, String date) {
 
 		LOGGER.trace("From arguments "+date);
