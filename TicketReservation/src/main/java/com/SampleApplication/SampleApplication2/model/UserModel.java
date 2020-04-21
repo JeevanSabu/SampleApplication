@@ -41,7 +41,8 @@ public class UserModel {
 	private User user = new User();
 	private UserPojo userPojo = new UserPojo();
 	/**
-	 * 
+	 * method to validate username and password
+	 * returns barcode page on successfull validation
 	 * @return
 	 */
 	public String getResult() {
@@ -62,7 +63,7 @@ public class UserModel {
 				return "login";
 			}
 			
-			userPojo = user.getUser(userBean.getUsername(),userBean.getPassword());
+			userPojo = user.postUser(userBean.getUsername(),userBean.getPassword());
 			LOGGER.trace("UserName "+userPojo.getUsername());
 //			context).getExternalContext().getSessionMap().put("username", userBean.getUsername());
 			HttpSession session = SessionUtils.getSession();
@@ -106,6 +107,9 @@ public class UserModel {
 	}
 	/**
 	 * 
+	 * method to logout
+	 * invalidates session 
+	 * and returns login page
 	 * @return
 	 */
 	public String logout() {
@@ -116,15 +120,20 @@ public class UserModel {
 		    String formatteddate = ft.format(date).toString();
 		    LOGGER.trace("Logout at "+formatteddate);
 		    LastLoginClient lastLoginClient = new LastLoginClient();
-		    int status = lastLoginClient.logout(userBean.getUsername(),userBean.getPassword(),formatteddate);
-		    if(status==200) {
-		     	LOGGER.trace("lastlogin saved");
+		    if(null!=userBean) {
+//		    	int status = lastLoginClient.logout(userBean.getUsername(),userBean.getPassword(),formatteddate);
+		    	int status = lastLoginClient.logout(userBean.getUsername(),userBean.getPassword());
+		    	if(status==200) {
+		    		LOGGER.trace("lastlogin saved");
+		    	}
 		    }
-//			context.getExternalContext().invalidateSession();	
-			HttpSession session = SessionUtils.getSession();
-			session.setAttribute("username", null);
-			session.setAttribute("barcodeId", null);
-			session.invalidate();
+		    HttpSession session = SessionUtils.getSession();
+		    if(null!=session) {
+//				context.getExternalContext().invalidateSession();
+				session.setAttribute("username", null);
+				session.setAttribute("barcodeId", null);
+				session.invalidate();
+		    }
 		} catch(Exception inv) {
 			LOGGER.error("Invalidating Error "+inv.getMessage());
 		}

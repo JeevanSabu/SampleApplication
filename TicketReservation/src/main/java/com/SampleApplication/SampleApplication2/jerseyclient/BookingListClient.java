@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -28,23 +30,27 @@ public class BookingListClient {
 	 * @param username
 	 * @return
 	 */
-	public List<BookingsPojo> getBookingList(String username) {
+	public List<BookingsPojo> postBookingList(String username) {
+		LOGGER.trace("Inside BokkingLIst Client postBooking method");
 		LOGGER.trace("Argument username "+username);
 		
 		ClientConfig clientConfig = new ClientConfig();	
 	    HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(handshake_user, handshake_password);
 	    clientConfig.register( feature) ;
 		Client client = ClientBuilder.newClient(clientConfig);
-		
-		WebTarget webTarget = client.target(BASE_URL);
+		WebTarget webTarget = client.target(BASE_URL).path("/bookinglist");
 		Response response =null;
-		response = webTarget.path("/bookinglist")
-				.queryParam("username",username)
+		Form form = new Form()
+                .param("username", username);
+		response = webTarget.path("/bookinglistpost")
 				.request(MediaType.APPLICATION_JSON)
-				.get(Response.class);
-		BookingListPojo bookingListPojo = response.readEntity(BookingListPojo.class);
-		List<BookingsPojo> list = bookingListPojo.getBookingList();
-		return list;
+                .post(Entity.form(form));
+		if(response.getStatus()==200) {
+			BookingListPojo bookingListPojo = response.readEntity(BookingListPojo.class);
+			List<BookingsPojo> list = bookingListPojo.getBookingList();
+			return list;
+		}
+		LOGGER.trace("Leaving BokkingLIst Client postBooking method");
+		return null;
 	}
-
 }

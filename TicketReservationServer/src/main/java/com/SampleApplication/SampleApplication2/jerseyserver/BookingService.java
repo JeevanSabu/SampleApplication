@@ -3,7 +3,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.SampleApplication.SampleApplication2.dao.BookingDao;
+import com.SampleApplication.SampleApplication2.dao.BookingsDao;
 import com.SampleApplication.SampleApplication2.dao.UserDao;
+import com.SampleApplication.SampleApplication2.pojo.BookingDetails;
 import com.SampleApplication.SampleApplication2.pojo.BookingsPojo;
 import com.SampleApplication.SampleApplication2.pojo.UserPojo;
 
@@ -20,8 +22,9 @@ import javax.ws.rs.core.Response;
 @Path("/booking")
 public class BookingService {
 	private static final Logger LOGGER = LogManager.getLogger(BookingService.class);
-	
+
 	private BookingDao bookingDao = new BookingDao();
+	private BookingsDao bookingsDao = new BookingsDao();
 
 	@GET
 	@Path("/bookingseats")
@@ -32,6 +35,7 @@ public class BookingService {
 			@QueryParam("passname") String passname,
 			@QueryParam("passage") String passage,
 			@QueryParam("passgender") String passgender) {
+		LOGGER.trace("Inside getBookings method");
 		try {
 			seatnos = seatnos.replaceAll("[\\[\\]]", "");
 			passname = passname.replaceAll("[\\[\\]]", "");
@@ -47,10 +51,28 @@ public class BookingService {
 			return bookingsPojo;
 		}catch(NullPointerException ne) {
 			LOGGER.error("Exception "+ne.getMessage());	
-			return null;
 		}catch(Exception e) {
 				LOGGER.error("Exception "+e.getMessage());	
-				return null;
 		}
+		LOGGER.trace("Leaving getBookings method");
+		return null;
+	}
+	@GET
+	@Path("/bookingpost")
+	@Produces(MediaType.APPLICATION_JSON)
+	public BookingsPojo getBookings(BookingDetails bookingDetails) {
+		LOGGER.trace("Inside getBookings method");
+		try {
+			BookingsPojo bookingsPojo = bookingsDao.getBookings(bookingDetails.getBusId(),bookingDetails.getUsername(),bookingDetails.getAvailableSeats(),bookingDetails.getSeats());
+			LOGGER.trace("From query bookingsPojo "+ bookingsPojo.getBusname());
+			return bookingsPojo;
+		} catch(NullPointerException ne) {
+			LOGGER.error("Exception "+ne.getMessage());	
+		} catch(Exception e) {
+			LOGGER.error("Exception "+e.getMessage());	
+		}
+
+		LOGGER.trace("Leaving getBookings method");
+		return null;
 	}
 }

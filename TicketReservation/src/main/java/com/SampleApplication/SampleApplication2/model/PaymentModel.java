@@ -57,6 +57,11 @@ public class PaymentModel {
 	 * @return
 	 */
 	public String getResult() {
+		LOGGER.trace("Inside paymentModel getResult method");
+		if(null==paymentBean) {
+			LOGGER.trace("PaymentBean is null");
+			return "payment";
+		}
 		if(paymentBean.getOtp()==paymentBean.getVerifyOtp()) {
 			LOGGER.trace("Verification Successfull");
 		}
@@ -70,7 +75,8 @@ public class PaymentModel {
 		}
 		LOGGER.trace("list to string "+seatnos.toString());
 		try {
-			bookingsPojo = bookingClient.getBookings(busSeatsView.getBusId(), userBean.getUsername(), seatnos, passname, passage, passgender);
+			bookingsPojo = bookingClient.getBookings(userBean.getUsername(),paymentBean);
+//			bookingsPojo = bookingClient.getBookings(busSeatsView.getBusId(), userBean.getUsername(), seatnos, passname, passage, passgender);
 			LOGGER.trace("From BookingsPojo "+bookingsPojo.getBusname());
 			bookingSuccessfullBean.setUsername(bookingsPojo.getUsername());
 			bookingSuccessfullBean.setBusname(bookingsPojo.getBusname());
@@ -82,6 +88,8 @@ public class PaymentModel {
 			LOGGER.error(e.getMessage());
 		}
 		result="bookingsuccessfull";
+
+		LOGGER.trace("Leaving paymentModel getResult method");
 		return result;
 	}
 	
@@ -90,10 +98,13 @@ public class PaymentModel {
 	 * @return
 	 */
 	public String validate(){
+		LOGGER.trace("Inside paymentModel validate method");
 		Random random = new Random();
 		otp = random.nextInt(900000) + 100000;
 		paymentBean.setOtp(otp);
 		LOGGER.trace("OTP "+otp);
+
+		LOGGER.trace("Leaving paymentModel validate method...");
 		return "payment";
 	}
 }

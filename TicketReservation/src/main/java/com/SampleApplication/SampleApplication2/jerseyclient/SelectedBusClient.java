@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -33,6 +34,7 @@ public class SelectedBusClient {
 	 * @return
 	 */
 	public List<BusSeats> getSelectedBus(String id, String name) {
+		LOGGER.trace("Inside getSelectedBus method");
 		LOGGER.trace("Argument name "+name);
 		
 		ClientConfig clientConfig = new ClientConfig();	
@@ -40,15 +42,39 @@ public class SelectedBusClient {
 	    clientConfig.register( feature) ;
 		Client client = ClientBuilder.newClient(clientConfig);
 		
-		WebTarget webTarget = client.target(BASE_URL);
+		WebTarget webTarget = client.target(BASE_URL).path("/selectedbus");
 		
 		Response response =null;
-		response = webTarget.path("/selectedbus")
+		response = webTarget.path("/selectedbusget")
 				.queryParam("id",id)
 				.queryParam("name", name)
 				.request(MediaType.APPLICATION_JSON)
 				.get(Response.class);
 		BusSeatsView busSeatsView = response.readEntity(BusSeatsView.class);
+		LOGGER.trace("Leaving getSelectedBus method");
+		return busSeatsView.getBusSeats();
+	}
+	public List<BusSeats> postSelectedBus(Bus bus) {
+		LOGGER.trace("Inside postSelectedBus method");
+		LOGGER.trace("Argument name "+bus.getName());
+		
+		ClientConfig clientConfig = new ClientConfig();	
+	    HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(handshake_user, handshake_password);
+	    clientConfig.register( feature) ;
+		Client client = ClientBuilder.newClient(clientConfig);
+		
+		WebTarget webTarget = client.target(BASE_URL).path("/selectedbus");
+		
+		Response response =null;
+		response = webTarget.path("/selectedbuspost")
+				.request(MediaType.APPLICATION_JSON)
+				.post(Entity.entity(bus, MediaType.APPLICATION_JSON));
+		if(response.getStatus()!=200) {
+			LOGGER.trace("response"+response.getStatus());
+			return null;
+		}
+		BusSeatsView busSeatsView = response.readEntity(BusSeatsView.class);
+		LOGGER.trace("Leaving postSelectedBus method");
 		return busSeatsView.getBusSeats();
 	}
 

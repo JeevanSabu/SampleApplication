@@ -22,14 +22,17 @@ public class LastLoginClient {
 	private String handshake_password = propertiesLoading.getProperties("password");
 
 	/**
-	 * 
+	 * 	
 	 * @param username
 	 * @param password
-	 * @param lastlogin
 	 * @return
 	 */
-	public int logout(String username, String password, String lastlogin) {
+	public int logout(String username, String password) {
 		LOGGER.trace("inside logout");
+		
+		LoginPojo loginPojo = new LoginPojo();
+		loginPojo.setUsername(username);
+		loginPojo.setPassword(password);
 		
 		ClientConfig clientConfig = new ClientConfig();	
 	    HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(handshake_user, handshake_password);
@@ -39,12 +42,10 @@ public class LastLoginClient {
 		WebTarget webTarget = client.target(BASE_URL);
 		Response response =null;
 		response = webTarget.path("/logout")
-				.queryParam("username",username)
-				.queryParam("password",password)
-				.queryParam("lastlogin",lastlogin)
 				.request(MediaType.APPLICATION_JSON)
-				.get(Response.class);
+				.post(Entity.entity(loginPojo, MediaType.APPLICATION_JSON));
 		LOGGER.trace("Status "+response.getStatus());
+		LOGGER.trace("Leaving logout...");
 		return response.getStatus();
 	}
 }

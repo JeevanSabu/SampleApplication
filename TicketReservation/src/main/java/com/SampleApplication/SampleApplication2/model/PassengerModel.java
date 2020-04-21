@@ -27,22 +27,33 @@ public class PassengerModel {
 			.createValueExpression(context.getELContext(), "#{paymentBean}", PaymentBean.class)
 			.getValue(context.getELContext());
 	/**
-	 * 
+	 * To book the bus with details of the passsengers
+	 * returns payment page
 	 * @return
 	 */
 	public String getResult() {
 		LOGGER.trace("Inside Passenger Model");
+		if(null==passengerSeats) {
+			return "passenger";
+		}
+		else {
+			paymentBean.setBusId(passengerSeats.getBusId());
+			paymentBean.setBusName(passengerSeats.getBusName());
+			paymentBean.setSeats(passengerSeats.getSeats());
+		}
 		try {
 			List<Seats> seatlist = passengerSeats.getSeats();
 			LOGGER.trace("size "+passengerSeats.getSeats().size());
 			for(Seats seats:seatlist) {
-				price = price+1200;
+				price = price+passengerSeats.getPrice();
+				paymentBean.setAvailableSeats(passengerSeats.getAvailableSeats()-1);
 			}
 			paymentBean.setPrice(price);	
 		} catch(Exception e) {
 			LOGGER.error("Error "+e.getMessage());
 		}
 		LOGGER.trace("result "+result);
+		LOGGER.trace("Leaving Passenger Model...");
 		return result;
 	}
 

@@ -1,95 +1,28 @@
-package com.SampleApplication.SampleApplication2.bean;
+package com.SampleApplication.SampleApplication2.pojo;
 
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
-
-@ManagedBean(name = "paymentBean" , eager = false)
-@ViewScoped
-public class PaymentBean {
+public class BookingDetails {
+	private String username;
 	private int busId;
 	private String busName;
 	private int availableSeats;
 	private long price;
-	private int otp;
-	private int verifyOtp;
-	private long cardNo;
-	private int date;
-	private int cvv;
 	private List<Seats> seats;
-	/**
-	 * 
-	 * @return
-	 */
-	public int getOtp() {
-		return otp;
-	}
-
-	/**
-	 * 
-	 * @param otp
-	 */
-	public void setOtp(int otp) {
-		this.otp = otp;
-	}
 
 	/**
 	 * 
 	 * @return
 	 */
-	public long getCardNo() {
-		return cardNo;
-	}
-
-	/**
-	 * 
-	 * @param cardNo
-	 */
-	public void setCardNo(long cardNo) {
-		this.cardNo = cardNo;
+	public String getUsername() {
+		return username;
 	}
 	/**
 	 * 
-	 * @return
+	 * @param username
 	 */
-	public int getDate() {
-		return date;
-	}
-	/**
-	 * 
-	 * @param date
-	 */
-	public void setDate(int date) {
-		this.date = date;
-	}
-	/**
-	 * 
-	 * @return
-	 */
-	public int getCvv() {
-		return cvv;
-	}
-	/**
-	 * 
-	 * @param cvv
-	 */
-	public void setCvv(int cvv) {
-		this.cvv = cvv;
-	}
-	/**
-	 * 
-	 * @return
-	 */
-	public int getVerifyOtp() {
-		return verifyOtp;
-	}
-	/**
-	 * 
-	 * @param verifyOtp
-	 */
-	public void setVerifyOtp(int verifyOtp) {
-		this.verifyOtp = verifyOtp;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	/**
 	 * 

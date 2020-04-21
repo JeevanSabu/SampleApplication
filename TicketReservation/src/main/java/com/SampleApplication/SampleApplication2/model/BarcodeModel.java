@@ -36,7 +36,8 @@ public class BarcodeModel {
 	private BookingListClient bookingListClient = new BookingListClient();
 //	private BookingListPojo bookingListPojo = new BookingListPojo();
 	/**
-	 * 
+	 * methoed to check validate barcode id 
+	 * returns home page if validated
 	 * @return
 	 */
 	public String getResult() {
@@ -61,7 +62,7 @@ public class BarcodeModel {
 				return "authentication";
 			}
 			else if(StringUtils.equals(barcodeBean.getId(), barcodeId)) {
-				bookingListPojo.setBookingList(bookingListClient.getBookingList(userBean.getUsername()));
+				bookingListPojo.setBookingList(bookingListClient.postBookingList(userBean.getUsername()));
 				LOGGER.trace("From bookinListPojo "+bookingListPojo.getBookingList());
 				result="home";
 			}

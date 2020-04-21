@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@WebFilter(filterName = "AuthFilter", urlPatterns = { "*.xhtml" })
+@WebFilter(filterName = "AuthFilter", urlPatterns = { "*.xhtml" ,"*.jsf"})
 public class AuthorizationFilter implements Filter {
 	private static final Logger LOGGER = LogManager.getLogger(AuthorizationFilter.class);
 
@@ -58,21 +58,22 @@ public class AuthorizationFilter implements Filter {
 				chain.doFilter(request, response);
 			}
 			else {
-				LOGGER.trace("redirection");
-				resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");
-//				chain.doFilter(request, response);
+//				LOGGER.trace("redirection");
+//				resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");
+				chain.doFilter(request, response);
 			}
 
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
-//			if(reqURI.indexOf("/login.xhtml") < 0 && ses.getAttribute("username") != null && ses.getAttribute("barcodeId") != null) {
-//				LOGGER.trace("redirection to home");
-//				resp.sendRedirect(reqt.getContextPath() + "/faces/home.xhtml");
-//			}
-//			else {
-				resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");
+			if(null!=ses && null!=ses.getAttribute("username")) {
+				ses.setAttribute("username", null);
+				ses.invalidate();
+			}
+			resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");
 //			}
 		}
+
+		LOGGER.trace("Leaving Athorization Filter doFilter");
 	}
 
 	public void destroy() {

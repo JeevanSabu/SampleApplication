@@ -15,7 +15,7 @@ import com.SampleApplication.SampleApplication2.pojo.PassengerSeats;
 import com.SampleApplication.SampleApplication2.pojo.Seats;
 import com.SampleApplication.SampleApplication2.tools.DBConnections;
 
-public class BookingDao {
+public class BookingsDao {
 
 	private static final Logger LOGGER = LogManager.getLogger(BookingDao.class);
 	
@@ -32,20 +32,16 @@ public class BookingDao {
 	 * @param passgenderlist
 	 * @return
 	 */
-	public BookingsPojo getBookings(int busid, String username, String[] seatnoslist, String[] passnamelist, String[] passagelist, String[] passgenderlist) {
-		LOGGER.trace("From arguments "+busid);
+	public BookingsPojo getBookings(int busId, String username, int availableSeats, List<Seats> seats) {
+		LOGGER.trace("Inside getBookings method");
+		LOGGER.trace("From arguments "+busId);
 		PassengerSeats passengerSeats = new PassengerSeats();
 		passengerSeats.setSeats(new ArrayList<Seats>());
 		BookingsPojo bookingsPojo = new BookingsPojo();
 		try {
-			
 			bookingsPojo.setUsername(username);
-			
-			for(int i=0;i<seatnoslist.length;i++) {
-				passengerSeats.getSeats().add(new Seats(seatnoslist[i].trim(),
-						passnamelist[i].trim(),
-						Integer.parseInt(passagelist[i].trim()),
-						passgenderlist[i].trim()));
+			for (Seats seat:seats) {
+				passengerSeats.getSeats().add(seat);
 			}
 		} catch(Exception fe) {
 			LOGGER.error("At for "+fe.getMessage());
@@ -64,7 +60,7 @@ public class BookingDao {
 					+ "buslist_table_source,"
 					+ "buslist_table_destination from buslist_table where buslist_table_slno=?";
 			preparedStatement = connection.prepareStatement(statement1);
-			preparedStatement.setInt(1, busid);
+			preparedStatement.setInt(1, busId);
 			resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {
 				bookingsPojo.setBusname(resultSet.getString("buslist_table_name"));
@@ -75,11 +71,11 @@ public class BookingDao {
 			LOGGER.error("ERROR at buslist_table "+e1.getMessage());
 		}
 		
-	    for(Seats seats:passengerSeats.getSeats()) {
+	    for(Seats seat:passengerSeats.getSeats()) {
 	    	passengers = passengers
-	    			+seats.getPassengerName()
+	    			+seat.getPassengerName()
 	    			+"("
-	    			+seats.getSeatNo()
+	    			+seat.getSeatNo()
 	    			+") ";
 	    	
 	    	try {   
@@ -89,15 +85,14 @@ public class BookingDao {
 	    				+ "busseats_table_passengerage,"
 	    				+ "busseats_table_passengergender) values(?,?,?,?,?)";
 	    		preparedStatement = connection.prepareStatement(statement);
-	    		preparedStatement.setInt(1, busid);
-	    		preparedStatement.setString(2, seats.getSeatNo());
-	    		preparedStatement.setString(3, seats.getPassengerName());
-	    		preparedStatement.setInt(4, seats.getPassengerAge());
-	    		preparedStatement.setString(5, seats.getPassengerGender());
+	    		preparedStatement.setInt(1, busId);
+	    		preparedStatement.setString(2, seat.getSeatNo());
+	    		preparedStatement.setString(3, seat.getPassengerName());
+	    		preparedStatement.setInt(4, seat.getPassengerAge());
+	    		preparedStatement.setString(5, seat.getPassengerGender());
 	    		rowsAffected = preparedStatement.executeUpdate();
 	    		
 	    		LOGGER.trace("Rows Affected for busseats_table"+rowsAffected);
-	    		
 	    		
 	    	} catch (SQLException e) {
 	    		LOGGER.error("Table exception for busseats_table"+e.getMessage());
@@ -121,12 +116,23 @@ public class BookingDao {
 	    	rowsAffected = preparedStatement.executeUpdate();
 	    	
 	    	LOGGER.trace("Rows Affected for bookings_table "+rowsAffected);
+	    	
+	    	String statement3 = "update buslist_table "
+    		+ "set buslist_table_availableseats=? "
+    		+ "where where buslist_table_slno=? and where";
+			preparedStatement = connection.prepareStatement(statement3);
+	    	preparedStatement.setInt(1, availableSeats);
+	    	preparedStatement.setInt(2, busId);
+	    	rowsAffected = preparedStatement.executeUpdate();
+
+	    	LOGGER.trace("Rows Affected for bookings_table "+rowsAffected);
 		} catch (SQLException e) {
 			LOGGER.error("Exception at bookings_table"+e.getMessage());
 		}
     	
 		LOGGER.trace("Rows Affected "+rowsAffected);
-		
+
+		LOGGER.trace("Leaving getBookings method");
 	    return bookingsPojo;
 	}
 	

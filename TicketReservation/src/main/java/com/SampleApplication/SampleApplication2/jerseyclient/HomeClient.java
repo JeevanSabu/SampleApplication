@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -33,8 +35,8 @@ public class HomeClient {
 	 * @param date
 	 * @return
 	 */
-	public BusViewPojo getBuses(String source, String destination, String date) {
-
+	public BusViewPojo postBuses(String source, String destination, String date) {
+		LOGGER.trace("Inside HomeClient getBuses method ");
 		LOGGER.trace("Argument source "+source);
 
 		ClientConfig clientConfig = new ClientConfig();	
@@ -44,13 +46,14 @@ public class HomeClient {
 		
 		WebTarget webTarget = client.target(BASE_URL);
 		Response response =null;
+		Form form = new Form()
+				.param("source",source)
+				.param("destination",destination)
+				.param("date",date);
 		try {
 			response = webTarget.path("/buslist")
-					.queryParam("source",source)
-					.queryParam("destination",destination)
-					.queryParam("date",date)
-					.request(MediaType.APPLICATION_JSON)
-					.get(Response.class);
+					.request()
+	                .post(Entity.form(form));
 			LOGGER.trace("Status "+response.getStatus());
 			BusViewPojo busViewPojo = response.readEntity(BusViewPojo.class);
 			return busViewPojo;
@@ -59,5 +62,4 @@ public class HomeClient {
 			return null;
 		}
 	}
-
 }

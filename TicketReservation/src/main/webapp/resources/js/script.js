@@ -24,7 +24,7 @@ function selection(element,seatno,status,baseprice){
 	}
 	else{
 		selectedseats = selectedseats.replace(seatno+",","");
-		selectedseats = selectedseats.replace(seatno,"");
+		selectedseats = selectedseats.replace(","+seatno,"");
 		document.getElementById("bus_seats:selected_bus:selected_seats").value = selectedseats;
 		let price = parseInt(document.getElementById("bus_seats:selected_bus:pay_button").value)-baseprice;
 		document.getElementById("bus_seats:selected_bus:pay_button").value = price;

@@ -2,10 +2,12 @@ package com.SampleApplication.SampleApplication2.jerseyserver;
 
 import java.util.Date;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.logging.log4j.LogManager;
@@ -19,9 +21,12 @@ public class HomeService {
 	private static final Logger LOGGER = LogManager.getLogger(HomeService.class);
 	
 	private HomeDao homeDao = new HomeDao();
-	@GET
+	
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public BusViewPojo getBuses(@QueryParam("source") String source, @QueryParam("destination") String destination, @QueryParam("date") String date) {
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public BusViewPojo postBuses(@FormParam("source") String source, @FormParam("destination") String destination, @FormParam("date") String date) {
+		LOGGER.trace("Inside HomeService postBuses method");
 		LOGGER.trace("From query param "+ source);
 		try {
 			BusViewPojo busView = homeDao.getBuses(source,destination,date);

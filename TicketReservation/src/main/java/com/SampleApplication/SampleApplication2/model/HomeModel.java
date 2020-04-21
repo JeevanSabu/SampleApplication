@@ -6,6 +6,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.validation.ValidationException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,44 +36,54 @@ public class HomeModel {
 
 	private HomeClient homeClient = new HomeClient();
 	/**
-	 * 
+	 * Method to find bus on specified date
+	 * to and from specified locations
+	 * returns the list of booking page
 	 * @return
 	 */
 	public String getResult() {
-		LOGGER.trace("HomeBean "+homeBean.getDate());
+		LOGGER.trace("Inside HomeBean getResult method");
+		if(null==homeBean) {
+			LOGGER.error("homeBean is null");
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Data error","Fileds can't be null"));
+			return "home";
+		}
 		try {
 			boolean isvalidsource = ESAPI.validator().isValidInput("placename", homeBean.getSource(), "placename", 30, false);
 			boolean isvaliddestination = ESAPI.validator().isValidInput("placename", homeBean.getDestination(), "placename", 30, false);
 			LOGGER.trace("is valid "+isvalidsource+" "+isvaliddestination);
 			if(isvalidsource==false||isvaliddestination==false) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Data error","Invalid data"));
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Data error","Invalid data"));
 				return "home";
 			}
-		} catch(Exception esapiex) {
-			LOGGER.error(esapiex.getMessage());
-		}
-		LOGGER.trace("unformatted date "+homeBean.getDate());
-	    SimpleDateFormat ft = new SimpleDateFormat ("d MMMM y");
-	    String date = ft.format(homeBean.getDate()).toString();
-	    LOGGER.trace("Formatted Date "+date);
-		try {
+		
+			LOGGER.trace("unformatted date "+homeBean.getDate());
+		    SimpleDateFormat ft = new SimpleDateFormat ("d MMMM y");
+		    String date = ft.format(homeBean.getDate()).toString();
+		    LOGGER.trace("Formatted Date "+date);
+		    
 			if(homeBean.getSource().equals(homeBean.getDestination())) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Data error","Source and Destination can't be same"));
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Data error","Source and Destination can't be same"));
 				return "home";
 			}
-			BusViewPojo busViewPojo = homeClient.getBuses(homeBean.getSource(),homeBean.getDestination(),date);
-			busView.setBuses(busViewPojo.getBuses());
+			BusViewPojo busViewPojo = homeClient.postBuses(homeBean.getSource(),homeBean.getDestination(),date);
+			if(null!=busViewPojo) {				
+				busView.setBuses(busViewPojo.getBuses());
+			}
 			LOGGER.trace(busView.getBuses());
 			if(null==busView.getBuses()||busView.getBuses().size()<=0) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"No buses Found","Try another search"));
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"No buses Found","Try another search"));
 				return "home";
 			}
 			result="booking";
+		} catch(ValidationException ve) {
+			LOGGER.error("Error"+ve.getCause());
 		} catch(Exception e) {
-			LOGGER.trace(e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"No buses Found","Try another search"));
+			LOGGER.trace("Error"+e.getMessage());
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"No buses Found","Try another search"));
 			result="home";
 		}
+		LOGGER.trace("Leaving HomeBean getResult method...");
 		return result;
 	}
 

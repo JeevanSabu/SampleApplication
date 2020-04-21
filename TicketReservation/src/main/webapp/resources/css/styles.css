@@ -1,6 +1,12 @@
 body{
     font-size:20px;
     height:100vh;
+    /*
+    background: rgb(131,58,180);
+	background: linear-gradient(18deg, rgba(131,58,180,1) 0%, rgba(84,29,253,1) 50%, rgba(69,230,252,1) 100%);
+	*/
+	background: rgb(221,224,240);
+	background: linear-gradient(139deg, rgba(221,224,240,1) 0%, rgba(184,238,221,1) 24%, rgba(149,183,236,1) 47%, rgba(201,210,242,1) 65%, rgba(142,216,226,1) 100%);
 }
 .user-icon-form td,
 .home-tabview label,

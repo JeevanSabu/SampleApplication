@@ -12,6 +12,7 @@ public class BusSeatsView {
 	private String busName;
 	private int busId;
 	private int price;
+	private int availableSeats;
 
 	/**
 	 * 
@@ -69,6 +70,20 @@ public class BusSeatsView {
 	 */
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public int getAvailableSeats() {
+		return availableSeats;
+	}
+	/**
+	 * 
+	 * @param availableSeats
+	 */
+	public void setAvailableSeats(int availableSeats) {
+		this.availableSeats = availableSeats;
 	}
 
 }
