@@ -149,6 +149,9 @@ body{
 	float:right;
 	margin:10px 21px 0px 0px;
 }
+.hiddenButton{
+	visibility:hidden;
+}
 
 .bus-list-dataview-panel,
 .passenger-list-dataview-panel{

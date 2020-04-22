@@ -58,7 +58,11 @@
 		    </p:panelGrid>
          </h:form>
          <h:form id="payment_debit_otp_form" styleClass="payment-debit-otp-form">
-         	<p:panelGrid columns="2" cellpadding="10" styleClass="payments-panel no-border" columnClasses="ui-g-12 ui-md-5, ui-g-12 ui-md-7">
+	         <h:inputHidden value=#{paymentBean.busId}/>
+	         <h:inputHidden value=#{paymentBean.busName}/>
+	         <h:inputHidden value=#{paymentBean.availableSeats}/>
+	         <h:inputHidden value=#{paymentBean.price}/>
+         	 <p:panelGrid columns="2" cellpadding="10" styleClass="payments-panel no-border" columnClasses="ui-g-12 ui-md-5, ui-g-12 ui-md-7">
 		    	<f:facet name="header">
 		     		<h:outputText id="debit_otp_header" styleClass="otp otp-header" value="#{paymentBean.otp}"/>
 		     	</f:facet>
@@ -91,7 +95,11 @@
 		    </p:panelGrid>
 		  </h:form>
          <h:form id="payment_credit_otp_form" styleClass="payment-credit-otp-form">
-         	<p:panelGrid columns="2" cellpadding="10" styleClass="payments-panel no-border" columnClasses="ui-g-12 ui-md-6, ui-g-12 ui-md-6">
+	         <h:inputHidden value=#{paymentBean.busId}/>
+	         <h:inputHidden value=#{paymentBean.busName}/>
+	         <h:inputHidden value=#{paymentBean.availableSeats}/>
+	         <h:inputHidden value=#{paymentBean.price}/>
+         	 <p:panelGrid columns="2" cellpadding="10" styleClass="payments-panel no-border" columnClasses="ui-g-12 ui-md-6, ui-g-12 ui-md-6">
 		    	<f:facet name="header">
 		     		<h:outputText id="credit_otp_header" styleClass="otp otp-header" value="#{paymentBean.otp}"/>
 		     	</f:facet>

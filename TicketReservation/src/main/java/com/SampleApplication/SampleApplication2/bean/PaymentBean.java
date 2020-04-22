@@ -11,7 +11,7 @@ public class PaymentBean {
 	private int busId;
 	private String busName;
 	private int availableSeats;
-	private long price;
+	private int price;
 	private int otp;
 	private int verifyOtp;
 	private long cardNo;
@@ -95,14 +95,14 @@ public class PaymentBean {
 	 * 
 	 * @return
 	 */
-	public long getPrice() {
+	public int getPrice() {
 		return price;
 	}
 	/**
 	 * 
 	 * @param price
 	 */
-	public void setPrice(long price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 	/**

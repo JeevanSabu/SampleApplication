@@ -128,12 +128,10 @@ public class UserModel {
 		    	}
 		    }
 		    HttpSession session = SessionUtils.getSession();
-		    if(null!=session) {
-//				context.getExternalContext().invalidateSession();
-				session.setAttribute("username", null);
-				session.setAttribute("barcodeId", null);
-				session.invalidate();
-		    }
+//			context.getExternalContext().invalidateSession();
+			session.setAttribute("username", null);
+			session.setAttribute("barcodeId", null);
+			session.invalidate();
 		} catch(Exception inv) {
 			LOGGER.error("Invalidating Error "+inv.getMessage());
 		}

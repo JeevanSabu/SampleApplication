@@ -20,7 +20,7 @@
           <h:form id="error_form" styleClass="error login-form">
 			<h1>!Something Went Wrong!</h1>	
 		    <p:panelGrid columns="2" id="error_panel" styleClass="error-panel login-panel no-border">
-				<p:commandButton id="error_logout_button" value="Back to login" action="login" styleClass="error-logout logout-button"/>
+				<p:commandButton id="error_logout_button" value="Back to login" action="#{userModel.logout()}" styleClass="error-logout logout-button"/>
 		    </p:panelGrid>
 		  </h:form>
 		</div>

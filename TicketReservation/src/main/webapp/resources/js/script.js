@@ -25,6 +25,7 @@ function selection(element,seatno,status,baseprice){
 	else{
 		selectedseats = selectedseats.replace(seatno+",","");
 		selectedseats = selectedseats.replace(","+seatno,"");
+		selectedseats = selectedseats.replace(seatno,"");
 		document.getElementById("bus_seats:selected_bus:selected_seats").value = selectedseats;
 		let price = parseInt(document.getElementById("bus_seats:selected_bus:pay_button").value)-baseprice;
 		document.getElementById("bus_seats:selected_bus:pay_button").value = price;
@@ -73,6 +74,34 @@ function validatehome(){
 			document.getElementById("home_tabview:booking_home_form:date_field").value==""){
 		alert("All fields are Mandatory");
 	}
+}
+function onChange(element,id){
+	let selectedValue = element.value;
+	let select = document.getElementById(id);
+	let options = document.getElementsByTagName("LI");
+	let i;
+	for(i = 0; i < options.length; i++){
+		if(options[i].innerHTML == selectedValue){
+			options[i].style.display="none";
+		}
+		else{
+			options[i].style.display="block";
+		}
+	}
+}
+function updateDialog(id,name,time,price,avlseats){
+	alert("Selected bus "+name);
+	document.getElementById("booking_form:hiddenbusid").value = id;
+	document.getElementById("booking_form:hiddenbusname").value = name;
+	document.getElementById("booking_form:hiddenbustime").value = time;
+	document.getElementById("booking_form:hiddenbusprice").value = price;
+	document.getElementById("booking_form:hiddenbusavlseats").value = avlseats;
+	document.getElementById("booking_form:hiddenbutton").click();
+//	document.getElementById("booking_form:hiddenbusid").innerHTML = id;
+//	document.getElementById("booking_form:hiddenbusname").innerHTML = name;
+//	document.getElementById("booking_form:hiddenbustime").innerHTML = time;
+//	document.getElementById("booking_form:hiddenbusprice").innerHTML = price;
+//	document.getElementById("booking_form:hiddenbusavlseats").innerHTML = avlseats;
 }
 function clearHistory()
 {

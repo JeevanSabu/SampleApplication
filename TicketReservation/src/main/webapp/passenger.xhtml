@@ -36,6 +36,10 @@
 	    </h:form>
 	</header>
 	<h:form id="passenger_details_form" styleClass="passenger-details-form">
+	<h:inputHidden value="#{passengerSeats.busId}"/>
+	<h:inputHidden value="#{passengerSeats.busName}"/>
+	<h:inputHidden value="#{passengerSeats.price}"/>
+	<h:inputHidden value="#{passengerSeats.availableSeats}"/>
 	<p:dataView id="passenger_dataview" var="seats" styleClasss="passenger-dataview" value="#{passengerSeats.getSeats()}">
 	                <!--  listIcon="pi pi-bars" gridIcon="pi pi-th-large" -->
 	                 

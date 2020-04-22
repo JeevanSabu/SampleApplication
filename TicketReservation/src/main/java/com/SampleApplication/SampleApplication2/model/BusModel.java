@@ -50,7 +50,6 @@ public class BusModel {
 				return "bus1";
 			}
 			String[] seatsString = busBean.getSelectedSeat().split(",");
-			LOGGER.trace("seats "+seatsString[0]);
 			if(null!=busSeatsView) {
 				passengerSeats.setBusId(busSeatsView.getBusId());
 				passengerSeats.setBusName(busSeatsView.getBusName());
@@ -59,12 +58,12 @@ public class BusModel {
 			}
 			List<Seats> list = new ArrayList<Seats>();
 			for(int i=0;i<seatsString.length;i++) {
+				LOGGER.trace("seats "+seatsString[i]);
 //				passengerSeats.getSeats().add(new Seats(seatsString[i],"",0,""));
 				list.add(new Seats(seatsString[i],"",0,""));
 //				list.add(seats);
 			}
 			passengerSeats.setSeats(list);
-			LOGGER.trace(passengerSeats.getSeats().get(1).getSeatNo());
 		} catch(ValidationException ve) {
 			LOGGER.error(ve.getMessage());
 			return "bus1";

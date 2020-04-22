@@ -35,7 +35,7 @@
 		    </p:overlayPanel>
 	    </h:form>
 	</header>
-	<h:form id="booking_form" styleClass="booking-form">
+	<h:form id="booking_form" sgtyleClass="booking-form">
 	 
 	    <p:dataView id="bus_list" styleClass="bus-list" var="bus" value="#{busView.buses}">
 	 
@@ -55,21 +55,22 @@
 	 
 	                        <h:outputText value="Price:" />
 	                        <h:outputText value="#{bus.price}" style="font-weight: bold"/>
-
+	                        
 	                        <h:outputText value="Available Seats:" />
 	                        <h:outputText value="#{bus.availableseats}" style="font-weight: bold"/>
-	                        
+	                         
 	                    </h:panelGrid>
 	                </p:outputPanel>
-	                <!-- 
-	                <h:commandButton action="#{selectedBusModel.getBus(bus)}" value="book" styleClass="booking-page-button"/>
-	                -->
-	                <h:commandButton value="book" action="#{selectedBusModel.getResult()}" styleClass="booking-page-button">
-	                     <f:setPropertyActionListener target="#{busView.selectedBus}" value="#{bus}"/> 
-					</h:commandButton>
-	            </h:panelGrid>
+	                <p:commandButton value="book" onclick="updateDialog('#{bus.id}','#{bus.name}','#{bus.runningtime}','#{bus.price}','#{bus.availableseats}')" action="#{selectedBusModel.getResult()}"/>
+		         </h:panelGrid>
 	        </p:dataViewListItem>
 	    </p:dataView>
+		<h:inputHidden id="hiddenbusid" value="#{selectedBusBean.id}" />
+		<h:inputHidden id="hiddenbusname" value="#{selectedBusBean.name}" />
+		<h:inputHidden id="hiddenbustime" value="#{selectedBusBean.time}" />
+		<h:inputHidden id="hiddenbusprice" value="#{selectedBusBean.price}" />
+		<h:inputHidden id="hiddenbusavlseats" value="#{selectedBusBean.availableseats}"/>
+	    <p:commandButton id="hiddenbutton" styleClass="hiddenButton" action="#{selectedBusModel.getResult()}" value="Book"/>
 	</h:form>
 	<footer class="footer center">&copy;SampleApplication.com</footer>
 </h:body>

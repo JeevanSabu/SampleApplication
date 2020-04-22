@@ -65,15 +65,15 @@ public class PaymentModel {
 		if(paymentBean.getOtp()==paymentBean.getVerifyOtp()) {
 			LOGGER.trace("Verification Successfull");
 		}
-		LOGGER.trace("bus id "+busSeatsView.getBusId());
-		LOGGER.trace("passengers "+passengerSeats.getSeats().size());
-		for(Seats seats:passengerSeats.getSeats()) {
-			seatnos.add(seats.getSeatNo());
-			passname.add(seats.getPassengerName());
-			passage.add(seats.getPassengerAge());
-			passgender.add(seats.getPassengerGender());
-		}
-		LOGGER.trace("list to string "+seatnos.toString());
+//		LOGGER.trace("bus id "+busSeatsView.getBusId());
+//		LOGGER.trace("passengers "+passengerSeats.getSeats().size());
+//		for(Seats seats:passengerSeats.getSeats()) {
+//			seatnos.add(seats.getSeatNo());
+//			passname.add(seats.getPassengerName());
+//			passage.add(seats.getPassengerAge());
+//			passgender.add(seats.getPassengerGender());
+//		}
+//		LOGGER.trace("list to string "+seatnos.toString());
 		try {
 			bookingsPojo = bookingClient.getBookings(userBean.getUsername(),paymentBean);
 //			bookingsPojo = bookingClient.getBookings(busSeatsView.getBusId(), userBean.getUsername(), seatnos, passname, passage, passgender);

@@ -18,7 +18,7 @@ import com.SampleApplication.SampleApplication2.bean.Seats;
 public class PassengerModel {
 	private static final Logger LOGGER = LogManager.getLogger(PassengerModel.class);
 	private String result="payment";
-	private long price = 0;
+	private int price = 0;
 	FacesContext context = FacesContext.getCurrentInstance();
 	PassengerSeats passengerSeats = (PassengerSeats) context.getApplication().getExpressionFactory()
 			.createValueExpression(context.getELContext(), "#{passengerSeats}", PassengerSeats.class)
@@ -34,20 +34,52 @@ public class PassengerModel {
 	public String getResult() {
 		LOGGER.trace("Inside Passenger Model");
 		if(null==passengerSeats) {
+			LOGGER.trace("passengerSeats null");
+			return "passenger";
+		}
+		else if(0==passengerSeats.getBusId()) {
+			LOGGER.trace("busid of passengerSeats null");
+			return "passenger";
+		}
+		else if(null==passengerSeats.getBusName()) {
+			LOGGER.trace("busname of passengerSeats null");
+			return "passenger";
+		}
+		else if(0==passengerSeats.getPrice()) {
+			LOGGER.trace("price field of passengerSeats null");
+			return "passenger";
+		}
+		else if(0==passengerSeats.getAvailableSeats()) {
+			LOGGER.trace("available seats of passengerSeats null");
+			return "passenger";
+		}
+		else if(null==passengerSeats.getSeats()) {
+			LOGGER.trace("One or more fields of passengerSeats null");
+			return "passenger";
+		}
+		else if(0==passengerSeats.getBusId()||
+				null==passengerSeats.getBusName()||
+				0==passengerSeats.getPrice()||
+				0==passengerSeats.getAvailableSeats()||
+				null==passengerSeats.getSeats()) {
+			LOGGER.trace("One or more fields of passengerSeats null");
 			return "passenger";
 		}
 		else {
 			paymentBean.setBusId(passengerSeats.getBusId());
 			paymentBean.setBusName(passengerSeats.getBusName());
 			paymentBean.setSeats(passengerSeats.getSeats());
+			paymentBean.setAvailableSeats(passengerSeats.getAvailableSeats());
 		}
 		try {
 			List<Seats> seatlist = passengerSeats.getSeats();
+			int availableSeats = passengerSeats.getAvailableSeats();
 			LOGGER.trace("size "+passengerSeats.getSeats().size());
 			for(Seats seats:seatlist) {
 				price = price+passengerSeats.getPrice();
-				paymentBean.setAvailableSeats(passengerSeats.getAvailableSeats()-1);
+				availableSeats--;
 			}
+			paymentBean.setAvailableSeats(availableSeats);
 			paymentBean.setPrice(price);	
 		} catch(Exception e) {
 			LOGGER.error("Error "+e.getMessage());

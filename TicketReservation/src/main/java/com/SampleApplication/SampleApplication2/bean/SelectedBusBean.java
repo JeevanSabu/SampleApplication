@@ -12,7 +12,7 @@ public class SelectedBusBean {
 	private String name;
 	private String time;
 	private String price;
-	private String availableseats;
+	private int availableseats;
 	private Bus selectedBus;
 
 	/**
@@ -89,14 +89,14 @@ public class SelectedBusBean {
 	 * 
 	 * @return
 	 */
-	public String getAvailableseats() {
+	public int getAvailableseats() {
 		return availableseats;
 	}
 	/**
 	 * 
 	 * @param availableseats
 	 */
-	public void setAvailableseats(String availableseats) {
+	public void setAvailableseats(int availableseats) {
 		this.availableseats = availableseats;
 	}
 	
