@@ -32,6 +32,10 @@ public class BookingListClient {
 	 */
 	public List<BookingsPojo> postBookingList(String username) {
 		LOGGER.trace("Inside BokkingLIst Client postBooking method");
+		if(null==username) {
+			LOGGER.error("username null");
+			return null;
+		}
 		LOGGER.trace("Argument username "+username);
 		
 		ClientConfig clientConfig = new ClientConfig();	

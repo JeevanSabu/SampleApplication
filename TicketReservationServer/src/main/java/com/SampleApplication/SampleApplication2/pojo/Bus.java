@@ -25,6 +25,19 @@ public class Bus {
 	}
 	/**
 	 * 
+	 * @param id
+	 * @param name
+	 * @param price
+	 * @param availableseats
+	 */
+	public Bus(String id, String name, int price, int availableseats) {
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.availableseats = availableseats;
+	}
+	/**
+	 * 
 	 * @return
 	 */
 	public String getName() {

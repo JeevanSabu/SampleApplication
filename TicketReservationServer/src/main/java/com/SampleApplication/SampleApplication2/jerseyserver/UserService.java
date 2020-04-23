@@ -42,9 +42,6 @@ public class UserService {
 	    		return null;
 	    	}
 	    }
-//	    if(e.getName() == null) {
-//	        return Response.status(400).entity("Please provide the employee name !!").build();
-//	    }
 
 		LOGGER.trace("Leaving UserServices getUser method");
 		return userPojo;

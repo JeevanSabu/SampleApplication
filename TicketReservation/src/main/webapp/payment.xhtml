@@ -9,6 +9,7 @@
    
    <h:head>
       <title>Ticket Reservation|Passenger Details</title>
+      <meta name="viewport" content="width=device-width, user-scalable=false;"/>
       <h:outputStylesheet library = "css" name = "styles.css"  /> 
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>	
       <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
@@ -23,6 +24,7 @@
 		    <p:commandLink id="user_icon_button">
 		    	<i class="pi pi-user icon home-user-icon float-right"></i>
 		    </p:commandLink>    
+		    <p:commandButton action="passenger" value="back" styleClass="float-right back logout-button" />
 		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
 		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
 				        <h:outputText value="Username : " />
@@ -58,10 +60,10 @@
 		    </p:panelGrid>
          </h:form>
          <h:form id="payment_debit_otp_form" styleClass="payment-debit-otp-form">
-	         <h:inputHidden value=#{paymentBean.busId}/>
-	         <h:inputHidden value=#{paymentBean.busName}/>
-	         <h:inputHidden value=#{paymentBean.availableSeats}/>
-	         <h:inputHidden value=#{paymentBean.price}/>
+	         <h:inputHidden value="#{paymentBean.busId}"/>
+	         <h:inputHidden value="#{paymentBean.busName}"/>
+	         <h:inputHidden value="#{paymentBean.availableSeats}"/>
+	         <h:inputHidden value="#{paymentBean.price}"/>
          	 <p:panelGrid columns="2" cellpadding="10" styleClass="payments-panel no-border" columnClasses="ui-g-12 ui-md-5, ui-g-12 ui-md-7">
 		    	<f:facet name="header">
 		     		<h:outputText id="debit_otp_header" styleClass="otp otp-header" value="#{paymentBean.otp}"/>
@@ -95,10 +97,10 @@
 		    </p:panelGrid>
 		  </h:form>
          <h:form id="payment_credit_otp_form" styleClass="payment-credit-otp-form">
-	         <h:inputHidden value=#{paymentBean.busId}/>
-	         <h:inputHidden value=#{paymentBean.busName}/>
-	         <h:inputHidden value=#{paymentBean.availableSeats}/>
-	         <h:inputHidden value=#{paymentBean.price}/>
+	         <h:inputHidden value="#{paymentBean.busId}"/>
+	         <h:inputHidden value="#{paymentBean.busName}"/>
+	         <h:inputHidden value="#{paymentBean.availableSeats}"/>
+	         <h:inputHidden value="#{paymentBean.price}"/>
          	 <p:panelGrid columns="2" cellpadding="10" styleClass="payments-panel no-border" columnClasses="ui-g-12 ui-md-6, ui-g-12 ui-md-6">
 		    	<f:facet name="header">
 		     		<h:outputText id="credit_otp_header" styleClass="otp otp-header" value="#{paymentBean.otp}"/>

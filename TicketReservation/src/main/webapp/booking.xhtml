@@ -9,6 +9,7 @@
    
    <h:head>
       <title>Ticket Reservation|New Booking</title>
+      <meta name="viewport" content="width=device-width, user-scalable=false;"/>
       <h:outputStylesheet library = "css" name = "styles.css"  /> 
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>	
       <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
@@ -23,6 +24,7 @@
 		    <p:commandLink id="user_icon_button">
 		    	<i class="pi pi-user icon home-user-icon float-right"></i>
 		    </p:commandLink>    
+		    <p:commandButton action="home" value="back" styleClass="float-right back logout-button" />
 		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
 		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
 				        <h:outputText value="Username : " />
@@ -61,7 +63,7 @@
 	                         
 	                    </h:panelGrid>
 	                </p:outputPanel>
-	                <p:commandButton value="book" onclick="updateDialog('#{bus.id}','#{bus.name}','#{bus.runningtime}','#{bus.price}','#{bus.availableseats}')" action="#{selectedBusModel.getResult()}"/>
+	                <p:commandButton value="book" styleClass="booking-page-button" onclick="updateDialog('#{bus.id}','#{bus.name}','#{bus.runningtime}','#{bus.price}','#{bus.availableseats}')" action="#{selectedBusModel.getResult()}"/>
 		         </h:panelGrid>
 	        </p:dataViewListItem>
 	    </p:dataView>

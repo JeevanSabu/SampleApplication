@@ -28,6 +28,10 @@ public class BookingListService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public BookingListPojo bookinglist(@FormParam("username") String username) {
 		LOGGER.trace("Inside BookingLIstService bookingList method ");
+		if(null==username) {
+			LOGGER.error("username NULL");
+			return null;
+		}
 		LOGGER.trace("From from param "+ username);
 		BookingListPojo bookingListPojo = bookingListDao.getBookingList(username);
 		LOGGER.trace("Leaving BookingLIstService bookingList method ");

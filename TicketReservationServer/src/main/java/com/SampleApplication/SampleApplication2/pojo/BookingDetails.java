@@ -8,8 +8,10 @@ public class BookingDetails {
 	private String busName;
 	private int availableSeats;
 	private long price;
-	private List<Seats> seats;
-
+	private List<String> seatnos;
+	private List<String> passname;
+	private List<Integer> passage;
+	private List<String> passgender;
 	/**
 	 * 
 	 * @return
@@ -84,14 +86,56 @@ public class BookingDetails {
 	 * 
 	 * @return
 	 */
-	public List<Seats> getSeats() {
-		return seats;
+	public List<String> getSeatnos() {
+		return seatnos;
 	}
 	/**
 	 * 
-	 * @param seats
+	 * @param seatnos
 	 */
-	public void setSeats(List<Seats> seats) {
-		this.seats = seats;
+	public void setSeatnos(List<String> seatnos) {
+		this.seatnos = seatnos;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public List<String> getPassname() {
+		return passname;
+	}
+	/**
+	 * 
+	 * @param passname
+	 */
+	public void setPassname(List<String> passname) {
+		this.passname = passname;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Integer> getPassage() {
+		return passage;
+	}
+	/**
+	 * 
+	 * @param passage
+	 */
+	public void setPassage(List<Integer> passage) {
+		this.passage = passage;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public List<String> getPassgender() {
+		return passgender;
+	}
+	/**
+	 * 
+	 * @param passgender
+	 */
+	public void setPassgender(List<String> passgender) {
+		this.passgender = passgender;
 	}
 }

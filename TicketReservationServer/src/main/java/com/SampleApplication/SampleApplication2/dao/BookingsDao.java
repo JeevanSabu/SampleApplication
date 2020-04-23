@@ -17,7 +17,7 @@ import com.SampleApplication.SampleApplication2.tools.DBConnections;
 
 public class BookingsDao {
 
-	private static final Logger LOGGER = LogManager.getLogger(BookingDao.class);
+	private static final Logger LOGGER = LogManager.getLogger(BookingsDao.class);
 	
 	DBConnections dbConnections = new DBConnections();
 	Connection connection = dbConnections.getConnection();
@@ -119,13 +119,13 @@ public class BookingsDao {
 	    	
 	    	String statement3 = "update buslist_table "
     		+ "set buslist_table_availableseats=? "
-    		+ "where where buslist_table_slno=? and where";
+    		+ "where buslist_table_slno=?";
 			preparedStatement = connection.prepareStatement(statement3);
 	    	preparedStatement.setInt(1, availableSeats);
 	    	preparedStatement.setInt(2, busId);
 	    	rowsAffected = preparedStatement.executeUpdate();
 
-	    	LOGGER.trace("Rows Affected for bookings_table "+rowsAffected);
+	    	LOGGER.trace("Rows Affected for buslist_table updation "+rowsAffected);
 		} catch (SQLException e) {
 			LOGGER.error("Exception at bookings_table"+e.getMessage());
 		}

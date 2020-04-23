@@ -75,6 +75,7 @@ public class PaymentModel {
 //		}
 //		LOGGER.trace("list to string "+seatnos.toString());
 		try {
+			paymentBean.setSeats(passengerSeats.getSeats());
 			bookingsPojo = bookingClient.getBookings(userBean.getUsername(),paymentBean);
 //			bookingsPojo = bookingClient.getBookings(busSeatsView.getBusId(), userBean.getUsername(), seatnos, passname, passage, passgender);
 			LOGGER.trace("From BookingsPojo "+bookingsPojo.getBusname());

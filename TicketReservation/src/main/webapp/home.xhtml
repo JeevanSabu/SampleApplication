@@ -9,10 +9,12 @@
    
    <h:head>
       <title>Ticket Reservation|Home</title>
+      <meta name="viewport" content="width=device-width, user-scalable=false;"/>
       <h:outputStylesheet library = "css" name = "styles.css"  /> 
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>	
       <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"/>
+      <h:outputScript library = "js" name = "script.js"  /> 
     </h:head>
  
     <h:body>
@@ -55,9 +57,9 @@
 		            <f:selectItem itemLabel="bangalore" itemValue="bangalore" itemDisabled="#{homeBean.source eq 'bangalore'}"/>
 		        </p:selectOneMenu> 
 				<p:outputLabel for="date_field" value="Date:" />
-        		<p:datePicker id="date_field" pattern="MM/dd/yyyy" value="#{homeBean.date}" showIcon="true" styleClass="width100" required="true" mindate="#{homeBean.minDate}"/>    
+        		<p:datePicker id="date_field" pattern="dd/MM/yyyy" value="#{homeBean.date}" showIcon="true" styleClass="width100" required="true" mindate="#{homeBean.minDate}" maxdate="#{homeBean.maxDate}"/>    
         		<h:inputHidden></h:inputHidden>
-			    <p:commandButton id="search_button" onclick="validatehome()" value="Search" styleClass="search-button" action="#{homeModel.getResult()}"/>
+			    <p:commandButton id="search_button" onclick="validat()" value="Search" styleClass="search-button" action="#{homeModel.getResult()}"/>
             </h:panelGrid>
          </h:form>
         </p:tab>

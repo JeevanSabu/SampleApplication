@@ -9,10 +9,12 @@
    
    <h:head>
       <title>Ticket Reservation|Passenger Details</title>
+      <meta name="viewport" content="width=device-width, user-scalable=false;"/>
       <h:outputStylesheet library = "css" name = "styles.css"  /> 
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>	
       <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"/>
+      <h:outputScript library = "js" name = "script.js"  /> 
    </h:head>
  
    <h:body>
@@ -23,6 +25,11 @@
 		    <p:commandLink id="user_icon_button">
 		    	<i class="pi pi-user icon home-user-icon float-right"></i>
 		    </p:commandLink>    
+			<h:inputHidden value="#{passengerSeats.busId}"/>
+			<h:inputHidden value="#{passengerSeats.busName}"/>
+			<h:inputHidden value="#{passengerSeats.price}"/>
+			<h:inputHidden value="#{passengerSeats.availableSeats}"/>
+		    <p:commandButton action="#{passengerModel.backToBus}" value="back" styleClass="float-right back logout-button"/>
 		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
 		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
 				        <h:outputText value="Username : " />
@@ -40,7 +47,7 @@
 	<h:inputHidden value="#{passengerSeats.busName}"/>
 	<h:inputHidden value="#{passengerSeats.price}"/>
 	<h:inputHidden value="#{passengerSeats.availableSeats}"/>
-	<p:dataView id="passenger_dataview" var="seats" styleClasss="passenger-dataview" value="#{passengerSeats.getSeats()}">
+	<p:dataView id="passenger_dataview" var="seats" styleClasss="passenger-dataview" value="#{passengerSeats.seats}">
 	                <!--  listIcon="pi pi-bars" gridIcon="pi pi-th-large" -->
 	                 
 	 <!-- 

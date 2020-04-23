@@ -1,5 +1,6 @@
 package com.SampleApplication.SampleApplication2.jerseyclient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.client.Client;
@@ -28,63 +29,38 @@ public class BookingClient {
 	
 	/**
 	 * 
-	 * @param busid
 	 * @param username
-	 * @param seatnos
-	 * @param passname
-	 * @param passage
-	 * @param passgender
+	 * @param paymentBean
 	 * @return
 	 */
-	public BookingsPojo getBookings(int busid,
-			String username,
-			List<String> seatnos,
-			List<String> passname,
-			List<Integer> passage,
-			List<String> passgender){
-		LOGGER.trace("Argument username "+username);
-		
-		ClientConfig clientConfig = new ClientConfig();	
-	    HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(handshake_user, handshake_password);
-	    clientConfig.register( feature) ;
-		Client client = ClientBuilder.newClient(clientConfig);
-		
-		WebTarget webTarget = client.target(BASE_URL).path("/booking");
-		Response response =null;
-		try {
-		response = webTarget.path("/bookingseats")
-				.queryParam("busid", busid)
-				.queryParam("username", username)
-				.queryParam("seatnos", seatnos.toString())
-				.queryParam("passname", passname.toString())
-				.queryParam("passage", passage.toString())
-				.queryParam("passgender", passgender.toString())
-				.request(MediaType.APPLICATION_JSON)
-				.get(Response.class);
-
-		LOGGER.trace("Status "+response.getStatus());
-		if(response.getStatus()!=200) {
-			return null;
-		}
-		BookingsPojo bookingsPojo = response.readEntity(BookingsPojo.class);
-		return bookingsPojo;
-		}catch(Exception e) {
-			LOGGER.error("Error:"+e.getMessage());
-			return null;
-		}
-		
-	}
-	
 	public BookingsPojo getBookings(String username, PaymentBean paymentBean){
+		LOGGER.trace("Inside getBookings method");
+		if(null==username||null==paymentBean) {
+			LOGGER.error("username or paymentBean null");
+			return null;
+		}
 		LOGGER.trace("Argument busname "+paymentBean.getBusName());
 		
+		List<String> seatnos = new ArrayList<String>();
+		List<String> passname = new ArrayList<String>();
+		List<Integer> passage = new ArrayList<Integer>();
+		List<String> passgender = new ArrayList<String>();
+		for(Seats seats:paymentBean.getSeats()) {
+			seatnos.add(seats.getSeatNo());
+			passname.add(seats.getPassengerName());
+			passage.add(seats.getPassengerAge());
+			passgender.add(seats.getPassengerGender());
+		}
 		BookingDetails bookingDetails =new BookingDetails();
 		bookingDetails.setUsername(username);
 		bookingDetails.setBusId(paymentBean.getBusId());
 		bookingDetails.setBusName(paymentBean.getBusName());
 		bookingDetails.setPrice(paymentBean.getPrice());
-		bookingDetails.setSeats(paymentBean.getSeats());
 		bookingDetails.setAvailableSeats(paymentBean.getAvailableSeats());
+		bookingDetails.setSeatnos(seatnos);
+		bookingDetails.setPassname(passname);
+		bookingDetails.setPassage(passage);
+		bookingDetails.setPassgender(passgender);
 		
 		ClientConfig clientConfig = new ClientConfig();	
 	    HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(handshake_user, handshake_password);
@@ -97,8 +73,8 @@ public class BookingClient {
 		response = webTarget.path("/bookingpost")
 				.request(MediaType.APPLICATION_JSON)
 				.post(Entity.entity(bookingDetails, MediaType.APPLICATION_JSON));
-
 		LOGGER.trace("Status "+response.getStatus());
+
 		if(response.getStatus()!=200) {
 			return null;
 		}
@@ -106,8 +82,8 @@ public class BookingClient {
 		return bookingsPojo;
 		}catch(Exception e) {
 			LOGGER.error("Error:"+e.getMessage());
-			return null;
 		}
-		
+		LOGGER.trace("Leaving getBookings method");
+		return null;
 	}
 }

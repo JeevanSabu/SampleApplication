@@ -31,7 +31,10 @@ public class User {
 	 */
 	public UserPojo postUser(String username,String password){
 		LOGGER.trace("Inside User postUser method");
-		LOGGER.trace(BASE_URL);
+		if(null==username||null==password) {
+			LOGGER.trace("Username or Password null");
+			return null;
+		}
 		LoginPojo loginPojo = new LoginPojo();
 		loginPojo.setUsername(username);
 		loginPojo.setPassword(password);

@@ -12,7 +12,7 @@ public class HomeBean {
 	private String destination;
 	private Date date;
 	private Date minDate = new Date();
-	
+    private Date maxDate = new Date(minDate.getTime() + (5 * 24 * 60 * 60 * 1000));
 	/**
 	 * 
 	 * @return
@@ -68,5 +68,11 @@ public class HomeBean {
 	 */
 	public void setMinDate(Date minDate) {
 		this.minDate = minDate;
+	}
+	public Date getMaxDate() {
+		return maxDate;
+	}
+	public void setMaxDate(Date maxDate) {
+		this.maxDate = maxDate;
 	}
 }

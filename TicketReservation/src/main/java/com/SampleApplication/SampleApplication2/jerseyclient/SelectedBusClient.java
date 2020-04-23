@@ -29,33 +29,15 @@ public class SelectedBusClient {
 	
 	/**
 	 * 
-	 * @param id
-	 * @param name
+	 * @param bus
 	 * @return
 	 */
-	public List<BusSeats> getSelectedBus(String id, String name) {
-		LOGGER.trace("Inside getSelectedBus method");
-		LOGGER.trace("Argument name "+name);
-		
-		ClientConfig clientConfig = new ClientConfig();	
-	    HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(handshake_user, handshake_password);
-	    clientConfig.register( feature) ;
-		Client client = ClientBuilder.newClient(clientConfig);
-		
-		WebTarget webTarget = client.target(BASE_URL).path("/selectedbus");
-		
-		Response response =null;
-		response = webTarget.path("/selectedbusget")
-				.queryParam("id",id)
-				.queryParam("name", name)
-				.request(MediaType.APPLICATION_JSON)
-				.get(Response.class);
-		BusSeatsView busSeatsView = response.readEntity(BusSeatsView.class);
-		LOGGER.trace("Leaving getSelectedBus method");
-		return busSeatsView.getBusSeats();
-	}
 	public List<BusSeats> postSelectedBus(Bus bus) {
 		LOGGER.trace("Inside postSelectedBus method");
+		if(null==bus) {
+			LOGGER.error("bus null");
+			return null;
+		}
 		LOGGER.trace("Argument name "+bus.getName());
 		
 		ClientConfig clientConfig = new ClientConfig();	

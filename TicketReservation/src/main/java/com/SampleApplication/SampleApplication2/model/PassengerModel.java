@@ -9,9 +9,12 @@ import javax.faces.view.ViewScoped;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.SampleApplication.SampleApplication2.bean.BusSeatsView;
 import com.SampleApplication.SampleApplication2.bean.PassengerSeats;
 import com.SampleApplication.SampleApplication2.bean.PaymentBean;
 import com.SampleApplication.SampleApplication2.bean.Seats;
+import com.SampleApplication.SampleApplication2.jerseyclient.Bus;
+import com.SampleApplication.SampleApplication2.jerseyclient.SelectedBusClient;
 
 @ManagedBean(name="passengerModel" , eager=true)
 @ViewScoped
@@ -26,6 +29,10 @@ public class PassengerModel {
 	PaymentBean paymentBean = (PaymentBean) context.getApplication().getExpressionFactory()
 			.createValueExpression(context.getELContext(), "#{paymentBean}", PaymentBean.class)
 			.getValue(context.getELContext());
+	BusSeatsView busSeatsView = (BusSeatsView) context.getApplication().getExpressionFactory()
+			.createValueExpression(context.getELContext(), "#{busSeatsView}", BusSeatsView.class)
+			.getValue(context.getELContext());      
+	private SelectedBusClient selectedBusClient = new SelectedBusClient();
 	/**
 	 * To book the bus with details of the passsengers
 	 * returns payment page
@@ -35,34 +42,6 @@ public class PassengerModel {
 		LOGGER.trace("Inside Passenger Model");
 		if(null==passengerSeats) {
 			LOGGER.trace("passengerSeats null");
-			return "passenger";
-		}
-		else if(0==passengerSeats.getBusId()) {
-			LOGGER.trace("busid of passengerSeats null");
-			return "passenger";
-		}
-		else if(null==passengerSeats.getBusName()) {
-			LOGGER.trace("busname of passengerSeats null");
-			return "passenger";
-		}
-		else if(0==passengerSeats.getPrice()) {
-			LOGGER.trace("price field of passengerSeats null");
-			return "passenger";
-		}
-		else if(0==passengerSeats.getAvailableSeats()) {
-			LOGGER.trace("available seats of passengerSeats null");
-			return "passenger";
-		}
-		else if(null==passengerSeats.getSeats()) {
-			LOGGER.trace("One or more fields of passengerSeats null");
-			return "passenger";
-		}
-		else if(0==passengerSeats.getBusId()||
-				null==passengerSeats.getBusName()||
-				0==passengerSeats.getPrice()||
-				0==passengerSeats.getAvailableSeats()||
-				null==passengerSeats.getSeats()) {
-			LOGGER.trace("One or more fields of passengerSeats null");
 			return "passenger";
 		}
 		else {
@@ -88,5 +67,30 @@ public class PassengerModel {
 		LOGGER.trace("Leaving Passenger Model...");
 		return result;
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
+	public String backToBus() {
+		LOGGER.trace("Inside backToBooking method ");
+		if(null==passengerSeats) {
+			LOGGER.error("passengerSeats null");
+			return "booking";
+		}
+		try {			
+			busSeatsView.setBusId(passengerSeats.getBusId());
+			busSeatsView.setBusName(passengerSeats.getBusName());
+			busSeatsView.setPrice(passengerSeats.getPrice());
+			busSeatsView.setAvailableSeats(passengerSeats.getAvailableSeats());
+			
+			busSeatsView.setBusSeats(selectedBusClient.postSelectedBus(new Bus(""+passengerSeats.getBusId() , passengerSeats.getBusName(), passengerSeats.getPrice(), passengerSeats.getAvailableSeats())));
+			
+	//		LOGGER.trace("busSeatsView "+busSeatsView.getBusSeats().get(0).getSeatNo());
+			return "bus1";
+		} catch(Exception e) {
+			LOGGER.error(e.getCause());
+			return "passenger";
+		}
+		
+	}
 }

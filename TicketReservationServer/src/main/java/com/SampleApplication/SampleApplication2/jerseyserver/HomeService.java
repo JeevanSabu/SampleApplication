@@ -27,13 +27,18 @@ public class HomeService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public BusViewPojo postBuses(@FormParam("source") String source, @FormParam("destination") String destination, @FormParam("date") String date) {
 		LOGGER.trace("Inside HomeService postBuses method");
+		if(null==source||null==destination||null==date) {
+			LOGGER.error("One or more fields null");
+			return null;
+		}
 		LOGGER.trace("From query param "+ source);
 		try {
 			BusViewPojo busView = homeDao.getBuses(source,destination,date);
 			return busView;
 		} catch(Exception e) {
 			LOGGER.error(e.getMessage());
-			return null;
 		}
+		LOGGER.trace("Leaving HomeService postBuses method");
+		return null;
 	}
 }

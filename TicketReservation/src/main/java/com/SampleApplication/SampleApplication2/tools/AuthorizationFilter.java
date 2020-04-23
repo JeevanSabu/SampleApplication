@@ -47,12 +47,12 @@ public class AuthorizationFilter implements Filter {
 			    resp.setDateHeader("Expires", 0);
 			} 
 			
-			if(reqURI.indexOf("/login.xhtml") < 0 && (ses == null || ses.getAttribute("username") == null)){
+			if(reqURI.indexOf("/login.xhtml") < 0 && (null == ses || null == ses.getAttribute("username"))){
 				LOGGER.trace("redirection");
 				resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");
 			}
 			else if (reqURI.indexOf("/login.xhtml") >= 0
-					|| (ses != null && ses.getAttribute("username") != null)
+					|| (null != ses && null != ses.getAttribute("username"))
 					|| reqURI.indexOf("/public/") >= 0
 					|| reqURI.contains("javax.faces.resource")) {
 				chain.doFilter(request, response);

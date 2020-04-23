@@ -1,6 +1,7 @@
 function selection(element,seatno,status,baseprice){
 //	document.getElementById(id).classList.toggle("select");
 	if(status=="selected"){
+		alert("The seat is already booked");
 		return false;
 	}
 	let paybutton = "bus_seats:selected_bus:pay_button";

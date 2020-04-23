@@ -20,16 +20,6 @@ public class SelectedBusService {
 	private static final Logger LOGGER = LogManager.getLogger(SelectedBusService.class);
 	private SelectedBusDao selectedBusDao = new SelectedBusDao();
 	
-	@GET
-	@Path("/selectedbusget")
-	@Produces(MediaType.APPLICATION_JSON)
-	public BusSeatsView getBookinglist(@QueryParam("id") String id, @QueryParam("name") String name) {
-		LOGGER.trace("Inside getBookingList method");
-		LOGGER.trace("From query param "+ name);
-		BusSeatsView busSeatsView = selectedBusDao.getSelectedBus(Integer.parseInt(id),name);
-		LOGGER.trace("Leaving getBookingList method");
-		return busSeatsView;
-	}
 	@POST
 	@Path("/selectedbuspost")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -37,6 +27,7 @@ public class SelectedBusService {
 	public BusSeatsView getBookinglist(Bus bus) {
 		LOGGER.trace("Inside getBookingList method");
 		if(null==bus) {
+			LOGGER.error("Bus is null");
 			return null;
 		}
 		LOGGER.trace("From query param "+ bus.getName());

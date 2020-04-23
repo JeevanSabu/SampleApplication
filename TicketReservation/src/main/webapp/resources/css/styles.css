@@ -174,7 +174,7 @@ body{
 }
 .ui-widget-content .ui-state-default.pay-button,
 .ui-widget-header .ui-state-default.pay-button,
-.booking-page-button,
+.booking-page-button.ui-button,
 .passenger-button,
 .search-button.ui-button,
 .logout-button.ui-widget,
@@ -301,6 +301,18 @@ body{
 .login .ui-outputlabel .ui-outputlabel-rfi,
 .authentication .ui-outputlabel .ui-outputlabel-rfi{
 	display:none;
+}
+.back{
+	font-size:15px;
+}
+.back.ui-widget{
+    background: #337ab7;
+    color: white;
+    margin-right: 5px;
+    margin-top: 7px;
+}
+.error{
+    background-image: url("images/error.jpg");
 }
 
 /*Media Queries*/

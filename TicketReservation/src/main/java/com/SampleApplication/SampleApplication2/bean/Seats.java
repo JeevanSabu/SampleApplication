@@ -4,7 +4,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
 
 @ManagedBean(name = "seats" , eager=true)
-@ViewScoped
 public class Seats {
 	private String seatNo;
 	private String passengerName;

@@ -37,6 +37,10 @@ public class HomeClient {
 	 */
 	public BusViewPojo postBuses(String source, String destination, String date) {
 		LOGGER.trace("Inside HomeClient getBuses method ");
+		if(null==source||null==destination||null==date) {
+			LOGGER.error("Source , destination or date is null");
+			return null;
+		}
 		LOGGER.trace("Argument source "+source);
 
 		ClientConfig clientConfig = new ClientConfig();	
@@ -59,7 +63,8 @@ public class HomeClient {
 			return busViewPojo;
 		} catch(MessageBodyProviderNotFoundException me) {
 			LOGGER.error(me.getMessage());
-			return null;
 		}
+		LOGGER.trace("Leaving getBuses method");
+		return null;
 	}
 }

@@ -20,7 +20,6 @@ import com.SampleApplication.SampleApplication2.jerseyclient.SelectedBusClient;
 public class SelectedBusModel {
 	private static final Logger LOGGER = LogManager.getLogger(SelectedBusModel.class);
 	private String result="bus1";
-	private Bus bus;
 	FacesContext context = FacesContext.getCurrentInstance();
 	SelectedBusBean selectedBusBean = (SelectedBusBean) context.getApplication().getExpressionFactory()
 			.createValueExpression(context.getELContext(), "#{selectedBusBean}", SelectedBusBean.class)
@@ -36,45 +35,16 @@ public class SelectedBusModel {
 	 */
 	public String getResult() {
 		LOGGER.trace("Inside SelectedBusModel.getResult");
-//		if(null==selectedBusBean) {
-//			LOGGER.error("selected bus null");
-//			return "booking";
-//		}
-//		else {
-//			LOGGER.trace("Selected bus "+selectedBusBean.getSelectedBus());
-//		}
+		if(null==selectedBusBean) {
+			LOGGER.error("selected bus null");
+			return "booking";
+		}
 		try {			
-//			HttpServletRequest request = ((HttpServletRequest)context.getExternalContext().getRequest());
-//			LOGGER.trace(request.getParameter("id"));
-//			LOGGER.trace(request.getParameter("name"));
-//			LOGGER.trace(request.getParameter("time"));
-//			LOGGER.trace(request.getParameter("price"));
-//			LOGGER.trace(request.getParameter("avlseats"));
-			
-//			LOGGER.trace("id "+bus1.getId());
-			
-	//		Map<String,String> params = context.getExternalContext().getRequestParameterMap();
-	//		LOGGER.trace("Booked Bus id "+params.get("busid"));
-	//		LOGGER.trace("Booked Bus id "+busView.getSelectedBus().getId());
-//			LOGGER.trace("Booked Bus id "+selectedBusBean.getSelectedBus().getId());
-			
-//			busSeatsView.setBusId(Integer.parseInt(selectedBusBean.getSelectedBus().getId()));
-//			busSeatsView.setBusName(selectedBusBean.getSelectedBus().getName());
-//			busSeatsView.setPrice(selectedBusBean.getSelectedBus().getPrice());
-//			busSeatsView.setAvailableSeats(selectedBusBean.getSelectedBus().getAvailableseats());
 			busSeatsView.setBusId(Integer.parseInt(selectedBusBean.getId()));
 			busSeatsView.setBusName(selectedBusBean.getName());
 			busSeatsView.setPrice(Integer.parseInt(selectedBusBean.getPrice()));
 			busSeatsView.setAvailableSeats(selectedBusBean.getAvailableseats());
-//			busSeatsView.setBusId(Integer.parseInt(bus.getId()));
-//			busSeatsView.setBusName(bus.getName());
-//			busSeatsView.setPrice(bus.getPrice());
-//			busSeatsView.setAvailableSeats(bus.getAvailableseats());
 			
-//			busSeatsView.setBusSeats(selectedBusClient.getSelectedBus(selectedBusBean.getId(),selectedBusBean.getName()));
-//			busSeatsView.setBusSeats(selectedBusClient.getSelectedBus(selectedBusBean.getSelectedBus().getId(),selectedBusBean.getSelectedBus().getName()));
-//			busSeatsView.setBusSeats(selectedBusClient.postSelectedBus(selectedBusBean.getSelectedBus()));
-//			busSeatsView.setBusSeats(selectedBusClient.postSelectedBus(bus));
 			busSeatsView.setBusSeats(selectedBusClient.postSelectedBus(new Bus(selectedBusBean.getId() , selectedBusBean.getName(), selectedBusBean.getTime(), Integer.parseInt(selectedBusBean.getPrice()), selectedBusBean.getAvailableseats())));
 			
 //			LOGGER.trace("busSeatsView "+busSeatsView.getBusSeats().get(0).getSeatNo());
@@ -85,20 +55,6 @@ public class SelectedBusModel {
 		}
 		LOGGER.trace("leaving SelectedBusModel.getResult");
 		return result;
-	}
-	/**
-	 * 
-	 * @return
-	 */
-	public Bus getBus() {
-		return bus;
-	}
-	/**
-	 * 
-	 * @param bus
-	 */
-	public void setBus(Bus bus) {
-		this.bus = bus;
 	}
 
 }

@@ -9,6 +9,7 @@
    
     <h:head>
       <title>Ticket Reservation|Error</title>
+      <meta name="viewport" content="width=device-width, user-scalable=false;"/>
       <h:outputStylesheet library = "css" name = "styles.css"  /> 
       <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>	
@@ -16,12 +17,9 @@
     </h:head>
  
     <h:body>
-		<div id="error" class="login middle-align">
+		<div id="error" class="login error middle-align">
           <h:form id="error_form" styleClass="error login-form">
 			<h1>!Something Went Wrong!</h1>	
-		    <p:panelGrid columns="2" id="error_panel" styleClass="error-panel login-panel no-border">
-				<p:commandButton id="error_logout_button" value="Back to login" action="#{userModel.logout()}" styleClass="error-logout logout-button"/>
-		    </p:panelGrid>
 		  </h:form>
 		</div>
     </h:body>
