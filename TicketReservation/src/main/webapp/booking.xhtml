@@ -23,8 +23,13 @@
 	   <h:form id="user_icon_form" styleClass="user-icon-form">  
 		    <p:commandLink id="user_icon_button">
 		    	<i class="pi pi-user icon home-user-icon float-right"></i>
-		    </p:commandLink>    
+		    </p:commandLink>      
+		    <p:commandLink id="back_icon_button" action="home">
+		    	<i class="pi pi-arrow-left icon home-back-icon float-right"></i>
+		    </p:commandLink>  
+		    <!-- 
 		    <p:commandButton action="home" value="back" styleClass="float-right back logout-button" />
+		     -->
 		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
 		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
 				        <h:outputText value="Username : " />
@@ -63,7 +68,12 @@
 	                         
 	                    </h:panelGrid>
 	                </p:outputPanel>
-	                <p:commandButton value="book" styleClass="booking-page-button" onclick="updateDialog('#{bus.id}','#{bus.name}','#{bus.runningtime}','#{bus.price}','#{bus.availableseats}')" action="#{selectedBusModel.getResult()}"/>
+	                <p:outputPanel>
+	                    <h:panelGrid columns="1" cellpadding="5">
+	                    	<p:rating value="#{bus.rating}" readonly="true" />
+	                		<p:commandButton value="book" styleClass="booking-page-button" onclick="updateDialog('#{bus.id}','#{bus.name}','#{bus.runningtime}','#{bus.price}','#{bus.availableseats}')" action="#{selectedBusModel.getResult()}"/>
+	                    </h:panelGrid>
+	                </p:outputPanel>
 		         </h:panelGrid>
 	        </p:dataViewListItem>
 	    </p:dataView>
@@ -74,6 +84,6 @@
 		<h:inputHidden id="hiddenbusavlseats" value="#{selectedBusBean.availableseats}"/>
 	    <p:commandButton id="hiddenbutton" styleClass="hiddenButton" action="#{selectedBusModel.getResult()}" value="Book"/>
 	</h:form>
-	<footer class="footer center">&copy;SampleApplication.com</footer>
+	<footer class="footer center fixed-footer">&copy;SampleApplication.com</footer>
 </h:body>
 </html>

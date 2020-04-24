@@ -104,6 +104,9 @@ body{
 .home-user-icon{
 	font-size:52px;
 }
+.home-back-icon{
+	margin:5px;
+}
 .user-overlay-panel.ui-overlaypanel{
 	font-size:20px;
 	border-radius:10px;
@@ -153,6 +156,9 @@ body{
 	visibility:hidden;
 }
 
+.bus-list{
+	margin:30px 0px 30px 0px;
+}
 .bus-list-dataview-panel,
 .passenger-list-dataview-panel{
 	font-size:17px;
@@ -317,6 +323,9 @@ body{
 
 /*Media Queries*/
 @media only screen and (max-width: 991px){
+	.bus-list{
+		margin:20px 0px 20px 0px;
+	}
 }
 @media only screen and (max-width: 767px){
 	.ui-tabs.ui-tabs-left.home-tabview>.ui-tabs-left>.ui-tabs-nav{
@@ -342,6 +351,9 @@ body{
   	.payments-panel{
   		margin:auto;
   	}
+  	.bus-list{
+		margin:15px 0px 15px 0px;
+	}
 }
 @media only screen and (max-width: 640px){
   /*

@@ -28,8 +28,13 @@
 			<h:inputHidden value="#{passengerSeats.busId}"/>
 			<h:inputHidden value="#{passengerSeats.busName}"/>
 			<h:inputHidden value="#{passengerSeats.price}"/>
-			<h:inputHidden value="#{passengerSeats.availableSeats}"/>
-		    <p:commandButton action="#{passengerModel.backToBus}" value="back" styleClass="float-right back logout-button"/>
+			<h:inputHidden value="#{passengerSeats.availableSeats}"/>  
+		    <p:commandLink id="back_icon_button" action="#{passengerModel.backToBus()}">
+		    	<i class="pi pi-arrow-left icon home-back-icon float-right"></i>
+		    </p:commandLink>  
+		    <!-- 
+		    <p:commandButton action="#{passengerModel.backToBus()}" value="back" styleClass="float-right back logout-button"/>
+		     -->
 		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
 		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
 				        <h:outputText value="Username : " />
@@ -98,6 +103,6 @@
 	    </p:dataView>
 	    <p:commandButton id="passenger_button" styleClass="passenger-button" value="Book" action="#{passengerModel.getResult()}"/>
 	</h:form>
-	<footer class="footer center fixed-header">&copy;SampleApplication.com</footer>
+	<footer class="footer center fixed-footer">&copy;SampleApplication.com</footer>
    </h:body>
 </html>

@@ -23,8 +23,13 @@
 	   <h:form id="user_icon_form" styleClass="user-icon-form">  
 		    <p:commandLink id="user_icon_button">
 		    	<i class="pi pi-user icon home-user-icon float-right"></i>
-		    </p:commandLink>    
+		    </p:commandLink> 
+		    <p:commandLink id="back_icon_button" action="passenger">
+		    	<i class="pi pi-arrow-left icon home-back-icon float-right"></i>
+		    </p:commandLink>  
+		    <!-- 
 		    <p:commandButton action="passenger" value="back" styleClass="float-right back logout-button" />
+		     -->
 		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
 		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
 				        <h:outputText value="Username : " />
@@ -113,6 +118,6 @@
          </h:form>
         </p:tab>
     </p:tabView>
-   </h:body>
 	<footer class="footer center fixed-footer">&copy;SampleApplication.com</footer>
+   </h:body>
 </html>
