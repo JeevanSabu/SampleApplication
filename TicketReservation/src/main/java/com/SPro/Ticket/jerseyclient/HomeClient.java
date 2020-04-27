@@ -3,6 +3,7 @@ package com.SPro.Ticket.jerseyclient;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -19,6 +20,7 @@ import org.glassfish.jersey.message.internal.MessageBodyProviderNotFoundExceptio
 
 import com.SPro.Ticket.bean.BusView;
 import com.SPro.Ticket.tools.PropertiesLoading;
+import com.SPro.Ticket.tools.SessionUtils;
 
 public class HomeClient {
 
@@ -43,6 +45,8 @@ public class HomeClient {
 		}
 		LOGGER.trace("Argument source "+source);
 
+		HttpSession session = SessionUtils.getSession();
+		
 		ClientConfig clientConfig = new ClientConfig();	
 	    HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(handshake_user, handshake_password);
 	    clientConfig.register( feature) ;
@@ -57,6 +61,8 @@ public class HomeClient {
 		try {
 			response = webTarget.path("/buslist")
 					.request()
+				    .header("username",session.getAttribute("username"))
+				    .header("token",session.getAttribute("token"))
 	                .post(Entity.form(form));
 			LOGGER.trace("Status "+response.getStatus());
 			BusViewPojo busViewPojo = response.readEntity(BusViewPojo.class);

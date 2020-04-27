@@ -9,6 +9,7 @@
    
    <h:head>
       <title>Ticket Reservation|New Booking</title>
+      <meta name="viewport" content="width=device-width, user-scalable=false;"/>
       <h:outputStylesheet library = "css" name = "styles.css"  /> 
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>	
       <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
@@ -22,14 +23,20 @@
 	   <h:form id="user_icon_form" styleClass="user-icon-form">  
 		    <p:commandLink id="user_icon_button">
 		    	<i class="pi pi-user icon home-user-icon float-right"></i>
-		    </p:commandLink>    
+		    </p:commandLink>      
+		    <p:commandLink id="back_icon_button" action="home">
+		    	<i class="pi pi-arrow-left icon home-back-icon float-right"></i>
+		    </p:commandLink>  
+		    <!-- 
+		    <p:commandButton action="home" value="back" styleClass="float-right back logout-button" />
+		     -->
 		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
 		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
 				        <h:outputText value="Username : " />
 				        <h:outputText value="#{userBean.username}" />
 				        <h:outputText value="Last Login : " />
 				        <h:outputText value="#{userBean.lastLogin}" />
-				        <h:inputHidden/>
+				        <p:commandButton id="home_redirect_button" value="Home" action="home" styleClass="home-redirect-button logout-button"/>
 				        <p:commandButton id="logout_button" value="Log Out" action="#{userModel.logout}" styleClass="logout-button"/>
 		    		</p:panelGrid>
 		    </p:overlayPanel>
@@ -55,78 +62,28 @@
 	 
 	                        <h:outputText value="Price:" />
 	                        <h:outputText value="#{bus.price}" style="font-weight: bold"/>
-	                        <!-- 
+	                        
 	                        <h:outputText value="Available Seats:" />
 	                        <h:outputText value="#{bus.availableseats}" style="font-weight: bold"/>
-	                         -->
+	                         
 	                    </h:panelGrid>
 	                </p:outputPanel>
-	 
-	                 <!-- 
-	                    <p:commandLink update="booking_form:busDetail" oncomplete="PF('busDialog').show()" title="View Detail">
-	                    <p:commandLink action="#{bookingModel.getResult()}">
-	                        <h:outputText styleClass="ui-icon pi pi-search" style="margin:0 auto;" />
-	                    </p:commandLink>
-						   		<f:param name = "busid" value = "#{bus.id}" /> 
-	                    --> 
-	                    
-	                        <h:commandButton value="book" action="#{selectedBusModel.getResult()}" styleClass="booking-page-button">
-	                        	<f:setPropertyActionListener value="#{bus}" target="#{selectedBusBean.selectedBus}" />
-						   	</h:commandButton>
-	            </h:panelGrid>
+	                <p:outputPanel>
+	                    <h:panelGrid columns="1" cellpadding="5">
+	                    	<p:rating value="#{bus.rating}" readonly="true" />
+	                		<p:commandButton value="book" styleClass="booking-page-button" onclick="updateDialog('#{bus.id}','#{bus.name}','#{bus.runningtime}','#{bus.price}','#{bus.availableseats}')" action="#{selectedBusModel.getResult()}"/>
+	                    </h:panelGrid>
+	                </p:outputPanel>
+		         </h:panelGrid>
 	        </p:dataViewListItem>
 	    </p:dataView>
-	 <!-- 
-	 	<p:dataTable id="booking_table" var="bus" value="#{busView.buses}">
-		    <p:column headerText="Name">
-	            <h:outputText value="#{bus.name}" style="font-weight: bold"/>
-		    </p:column>
-		 
-		    <p:column headerText="Time">
-	            <h:outputText value="#{bus.runningtime}" style="font-weight: bold"/>
-		    </p:column>
-		 
-		    <p:column headerText="Price">
-	            <h:outputText value="#{bus.price}" style="font-weight: bold"/>
-		    </p:column>
-		 
-		    <p:column headerText="Available Seats">
-	            <h:outputText value="#{bus.availableseats}" style="font-weight: bold"/>
-		    </p:column>
-		    <p:column headerText="book">
-	            <p:commandButton value="book" onclick="selectedBusFunction('#{bus.id}')" action="#{bookingModel.getResult()}"/>
-		    </p:column>
-	    <f:facet name="footer">
-			<p:inputText id="selected_bus_field" styleClass="hidden" value="#{busView.selectedBus}"/>
-		</f:facet>
-		</p:dataTable>
-	  -->
-	 
-	    <p:dialog header="Bus Info" widgetVar="busDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-	        <p:outputPanel id="busDetail" style="text-align:center;">
-	            <p:panelGrid  columns="2" columnClasses="label,value">
-							<h:outputText value="Name:" />
-	                        <h:outputText value="#{busView.selectedBus.name}" style="font-weight: bold"/>
-	 
-	                        <h:outputText value="Time:" />
-	                        <h:outputText value="#{busView.selectedBus.runningtime}" style="font-weight: bold"/>
-	 
-	                        <h:outputText value="Price:" />
-	                        <h:outputText value="#{busView.selectedBus.price}" style="font-weight: bold"/>
-	                        
-	                        <h:outputText value="Available Seats:" />
-	                        <h:outputText value="#{busView.selectedBus.availableseats}" style="font-weight: bold"/>	
-	                        
-	                        <h:inputHidden/>
-	                        <h:commandButton value="book" action="#{bookingModel.getResult()}">
-						   		<f:param name = "busid" value = "#{busView.selectedBus.id}" /> 
-						   	</h:commandButton>
-	            </p:panelGrid>
-	        </p:outputPanel>
-	    </p:dialog>
-	 <!-- 
-	  -->
+		<h:inputHidden id="hiddenbusid" value="#{selectedBusBean.id}" />
+		<h:inputHidden id="hiddenbusname" value="#{selectedBusBean.name}" />
+		<h:inputHidden id="hiddenbustime" value="#{selectedBusBean.time}" />
+		<h:inputHidden id="hiddenbusprice" value="#{selectedBusBean.price}" />
+		<h:inputHidden id="hiddenbusavlseats" value="#{selectedBusBean.availableseats}"/>
+	    <p:commandButton id="hiddenbutton" styleClass="hiddenButton" action="#{selectedBusModel.getResult()}" value="Book"/>
 	</h:form>
-	<footer class="footer center">&copy;SampleApplication.com</footer>
+	<footer class="footer center fixed-footer">&copy;SampleApplication.com</footer>
 </h:body>
 </html>

@@ -31,7 +31,7 @@
 				        <h:outputText value="Last Login : " />
 				        <h:outputText value="#{userBean.lastLogin}" />
 				        <h:inputHidden/>
-				        <p:commandButton id="logout_button" value="Log Out" onclick="clearHistory()" action="#{userModel.logout}" styleClass="logout-button"/>
+				        <p:commandButton id="logout_button" value="Log Out" action="#{userModel.logout}" styleClass="logout-button"/>
 		    		</p:panelGrid>
 		    </p:overlayPanel>
 	    </h:form>

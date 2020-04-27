@@ -88,6 +88,7 @@ public class UserModel {
 			try {
 //				context.getExternalContext().getSessionMap().put("barcodeId", Integer.toString(generatedId));
 				HttpSession session = SessionUtils.getSession();
+				session.setAttribute("token", userPojo.getAccessToken());
 				session.setAttribute("barcodeId", Integer.toString(generatedId));
 				LOGGER.trace(session.getId());
 			}catch(Exception ex) {
@@ -117,6 +118,7 @@ public class UserModel {
 	 */
 	public String logout() {
 		LOGGER.trace("Inside logout method");
+
 		try {
 			Date date = new Date();
 		    SimpleDateFormat ft = new SimpleDateFormat ("d MMM y HH:mm:ss");

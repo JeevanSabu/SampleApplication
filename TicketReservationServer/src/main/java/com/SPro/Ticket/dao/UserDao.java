@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -60,14 +61,16 @@ public class UserDao {
 	    	  userPojo.setPassword(resultSet.getString("userlogin_table_password"));	
 	    	  userPojo.setLastlogin(resultSet.getString("userlogin_table_lastlogin"));
 	        }
-	    	
-//	    	String statement1 = "insert into bookings_table (bookings_table_username,bookings_table_busname,"
-//	    			+ "bookings_table_fromto,bookings_table_journeydate,bookings_table_passengers) "
-//	    			+ "values('Jeeson','Kallada','Chennai-Kerala','25 April 2020 18:30','Jeeson (17,male)')";
-//	    	preparedStatement = connection.prepareStatement(statement1);
-//	    	int row = preparedStatement.executeUpdate();
-//	    	LOGGER.trace(row);
-//	    	
+	    	String token = issueToken();
+	    	String statement1 = "update userlogin_table set userlogin_table_token=? where userlogin_table_username=? and userlogin_table_password=?";
+	    	preparedStatement = connection.prepareStatement(statement1);
+		    preparedStatement.setString(1, token);
+		    preparedStatement.setString(2, username);
+		    preparedStatement.setString(3, password);
+		    int rowsAffected = preparedStatement.executeUpdate();
+		    LOGGER.trace("Rows Affected "+rowsAffected);
+		    userPojo.setAccessToken(token);
+		    LOGGER.trace("Access token "+userPojo.getAccessToken());
 	    } catch (SQLException e) {
 	         LOGGER.error("Table exception "+e.getMessage());
 	    }
@@ -76,4 +79,13 @@ public class UserDao {
 	      
 	}
 
+	private String issueToken() {
+		Random random = new Random();
+		String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+		StringBuilder returnValue = new StringBuilder(15);
+        for (int i = 0; i < 15; i++) {
+            returnValue.append(ALPHABET.charAt(random.nextInt(ALPHABET.length())));
+        }
+        return new String(returnValue);
+    }
 }

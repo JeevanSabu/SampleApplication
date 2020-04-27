@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.owasp.esapi.ESAPI;
 
 import com.SPro.Ticket.dao.SelectedBusDao;
 import com.SPro.Ticket.pojo.Bus;
@@ -28,6 +29,12 @@ public class SelectedBusService {
 		LOGGER.trace("Inside getBookingList method");
 		if(null==bus) {
 			LOGGER.error("Bus is null");
+			return null;
+		}
+		boolean isvalidbusname = ESAPI.validator().isValidInput("busname", bus.getName(), "busname", 32, false);
+		LOGGER.trace("is valid "+isvalidbusname);
+		if(isvalidbusname==false) {
+			LOGGER.error("Esapi validation returned false");
 			return null;
 		}
 		LOGGER.trace("From query param "+ bus.getName());

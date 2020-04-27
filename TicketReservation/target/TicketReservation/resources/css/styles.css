@@ -1,6 +1,12 @@
 body{
     font-size:20px;
     height:100vh;
+    /*
+    background: rgb(131,58,180);
+	background: linear-gradient(18deg, rgba(131,58,180,1) 0%, rgba(84,29,253,1) 50%, rgba(69,230,252,1) 100%);
+	*/
+	background: rgb(221,224,240);
+	background: linear-gradient(139deg, rgba(221,224,240,1) 0%, rgba(184,238,221,1) 24%, rgba(149,183,236,1) 47%, rgba(201,210,242,1) 65%, rgba(142,216,226,1) 100%);
 }
 .user-icon-form td,
 .home-tabview label,
@@ -67,6 +73,9 @@ body{
     border-radius: 25px;
     box-shadow: 1px 1px 5px 3px;
 }
+.info-form{
+    background: rgba(0,0,0,0.9);
+}
 .no-border.ui-panelgrid>*>tr,
 .no-border.ui-panelgrid .ui-panelgrid-cell {
     border: none;
@@ -94,6 +103,9 @@ body{
 }
 .home-user-icon{
 	font-size:52px;
+}
+.home-back-icon{
+	margin:5px;
 }
 .user-overlay-panel.ui-overlaypanel{
 	font-size:20px;
@@ -140,7 +152,13 @@ body{
 	float:right;
 	margin:10px 21px 0px 0px;
 }
+.hiddenButton{
+	visibility:hidden;
+}
 
+.bus-list{
+	margin:30px 0px 30px 0px;
+}
 .bus-list-dataview-panel,
 .passenger-list-dataview-panel{
 	font-size:17px;
@@ -162,7 +180,7 @@ body{
 }
 .ui-widget-content .ui-state-default.pay-button,
 .ui-widget-header .ui-state-default.pay-button,
-.booking-page-button,
+.booking-page-button.ui-button,
 .passenger-button,
 .search-button.ui-button,
 .logout-button.ui-widget,
@@ -290,9 +308,24 @@ body{
 .authentication .ui-outputlabel .ui-outputlabel-rfi{
 	display:none;
 }
+.back{
+	font-size:15px;
+}
+.back.ui-widget{
+    background: #337ab7;
+    color: white;
+    margin-right: 5px;
+    margin-top: 7px;
+}
+.error{
+    background-image: url("images/error.jpg");
+}
 
 /*Media Queries*/
 @media only screen and (max-width: 991px){
+	.bus-list{
+		margin:20px 0px 20px 0px;
+	}
 }
 @media only screen and (max-width: 767px){
 	.ui-tabs.ui-tabs-left.home-tabview>.ui-tabs-left>.ui-tabs-nav{
@@ -318,6 +351,9 @@ body{
   	.payments-panel{
   		margin:auto;
   	}
+  	.bus-list{
+		margin:15px 0px 15px 0px;
+	}
 }
 @media only screen and (max-width: 640px){
   /*
@@ -352,6 +388,10 @@ body{
   .header{
   	font-size:30px;
   }
+  .user-icon-form .user-overlay-panel.ui-overlaypanel,
+  .logout-button.ui-widget {
+  	font-size:16px;
+  }
   .login-form, .authentication-form, .payment-form, .info-form{
   	width:90%;
   }
@@ -384,6 +424,10 @@ body{
 	.header{
 		font-size:24px;
 	}
+	.user-icon-form .user-overlay-panel.ui-overlaypanel,
+	.logout-button.ui-widget {
+	  	font-size:14px;
+	 }
 	.ui-tabs.ui-tabs-left.home-tabview>.ui-tabs-nav li a,
 	.ui-tabs.ui-tabs-left.payment-tabview>.ui-tabs-nav li a{
 		width:100%;
@@ -400,6 +444,9 @@ body{
 @media only screen and (max-width: 320px){
 	.header{
 		font-size:22px;
+	}
+	.user-overlay-panel.ui-overlaypanel{
+		right:15px;
 	}
 	.ui-tabs.ui-tabs-left.home-tabview>.ui-tabs-panels>.ui.tabs-panel{
 		padding:0px;

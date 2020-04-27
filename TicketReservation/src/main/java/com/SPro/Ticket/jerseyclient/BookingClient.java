@@ -3,6 +3,7 @@ package com.SPro.Ticket.jerseyclient;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -19,6 +20,7 @@ import org.glassfish.jersey.message.internal.MessageBodyProviderNotFoundExceptio
 import com.SPro.Ticket.bean.PaymentBean;
 import com.SPro.Ticket.bean.Seats;
 import com.SPro.Ticket.tools.PropertiesLoading;
+import com.SPro.Ticket.tools.SessionUtils;
 
 public class BookingClient {
 	private static final Logger LOGGER = LogManager.getLogger(BookingClient.class);
@@ -40,6 +42,8 @@ public class BookingClient {
 			return null;
 		}
 		LOGGER.trace("Argument busname "+paymentBean.getBusName());
+
+		HttpSession session = SessionUtils.getSession();
 		
 		List<String> seatnos = new ArrayList<String>();
 		List<String> passname = new ArrayList<String>();
@@ -72,6 +76,8 @@ public class BookingClient {
 		try {
 		response = webTarget.path("/bookingpost")
 				.request(MediaType.APPLICATION_JSON)
+			    .header("username",session.getAttribute("username"))
+			    .header("token",session.getAttribute("token"))
 				.post(Entity.entity(bookingDetails, MediaType.APPLICATION_JSON));
 		LOGGER.trace("Status "+response.getStatus());
 

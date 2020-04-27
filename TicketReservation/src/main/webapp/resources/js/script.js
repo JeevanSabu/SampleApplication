@@ -57,7 +57,7 @@ function showCreditOtp(){
 }
 function selectedBusFunction(id){
 	alert("selected bus"+id);
-//	document.getElementById("booking_form:ooking_table:selected_bus_field").value=id;
+//	document.getElementById("booking_form:booking_table:selected_bus_field").value=id;
 }
 function validateuser(){
 	if(document.getElementById("login_form:username").value==""||document.getElementById("login_form:password").value==""){
@@ -91,7 +91,7 @@ function onChange(element,id){
 	}
 }
 function updateDialog(id,name,time,price,avlseats){
-	alert("Selected bus "+name);
+//	alert("Selected bus "+name);
 	document.getElementById("booking_form:hiddenbusid").value = id;
 	document.getElementById("booking_form:hiddenbusname").value = name;
 	document.getElementById("booking_form:hiddenbustime").value = time;

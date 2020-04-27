@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.owasp.esapi.ESAPI;
 
 import com.SPro.Ticket.dao.LastLoginDao;
 import com.SPro.Ticket.pojo.LoginPojo;
@@ -32,6 +33,15 @@ public class LastLoginService {
 			LOGGER.error("LoginPojo null");
 			return null;
 		}
+		
+		boolean isvaliduser = ESAPI.validator().isValidInput("username", loginPojo.getUsername(), "username", 30, false);
+		boolean isvalidpassword = ESAPI.validator().isValidInput("password", loginPojo.getPassword(), "password", 30, false);
+		LOGGER.trace("is valid "+isvaliduser+" "+isvalidpassword);
+		if(isvaliduser==false||isvalidpassword==false) {
+			LOGGER.error("Esapi validation returned false");
+			return null;
+		}
+		
 		Date date = new Date();
 	    SimpleDateFormat ft = new SimpleDateFormat ("d MMM y HH:mm:ss");
 	    String formatteddate = ft.format(date).toString();

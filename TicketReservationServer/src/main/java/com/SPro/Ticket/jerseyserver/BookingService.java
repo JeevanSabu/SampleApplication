@@ -1,6 +1,7 @@
 package com.SPro.Ticket.jerseyserver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.owasp.esapi.ESAPI;
 
 import com.SPro.Ticket.dao.BookingDao;
 import com.SPro.Ticket.dao.BookingsDao;
@@ -37,6 +38,11 @@ public class BookingService {
 		LOGGER.trace("Inside getBookings method");
 		if(null==bookingDetails) {
 			LOGGER.error("bookingDetails is null");
+			return null;
+		}
+		boolean isvaliduser = ESAPI.validator().isValidInput("username", bookingDetails.getUsername(), "username", 30, false);
+		LOGGER.trace("is valid "+isvaliduser);
+		if(isvaliduser==false) {
 			return null;
 		}
 		List<Seats> seats = new ArrayList<Seats>();

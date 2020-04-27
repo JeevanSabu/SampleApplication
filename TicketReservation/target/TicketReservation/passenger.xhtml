@@ -9,10 +9,12 @@
    
    <h:head>
       <title>Ticket Reservation|Passenger Details</title>
+      <meta name="viewport" content="width=device-width, user-scalable=false;"/>
       <h:outputStylesheet library = "css" name = "styles.css"  /> 
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>	
       <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"/>
+      <h:outputScript library = "js" name = "script.js"  /> 
    </h:head>
  
    <h:body>
@@ -23,20 +25,34 @@
 		    <p:commandLink id="user_icon_button">
 		    	<i class="pi pi-user icon home-user-icon float-right"></i>
 		    </p:commandLink>    
+			<h:inputHidden value="#{passengerSeats.busId}"/>
+			<h:inputHidden value="#{passengerSeats.busName}"/>
+			<h:inputHidden value="#{passengerSeats.price}"/>
+			<h:inputHidden value="#{passengerSeats.availableSeats}"/>  
+		    <p:commandLink id="back_icon_button" action="#{passengerModel.backToBus()}">
+		    	<i class="pi pi-arrow-left icon home-back-icon float-right"></i>
+		    </p:commandLink>  
+		    <!-- 
+		    <p:commandButton action="#{passengerModel.backToBus()}" value="back" styleClass="float-right back logout-button"/>
+		     -->
 		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
 		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
 				        <h:outputText value="Username : " />
 				        <h:outputText value="#{userBean.username}" />
 				        <h:outputText value="Last Login : " />
 				        <h:outputText value="#{userBean.lastLogin}" />
-				        <h:inputHidden/>
+				        <p:commandButton id="home_redirect_button" value="Home" action="home" styleClass="home-redirect-button logout-button"/>
 				        <p:commandButton id="logout_button" value="Log Out" action="#{userModel.logout}" styleClass="logout-button"/>
 		    		</p:panelGrid>
 		    </p:overlayPanel>
 	    </h:form>
 	</header>
 	<h:form id="passenger_details_form" styleClass="passenger-details-form">
-	<p:dataView id="passenger_dataview" var="seats" styleClasss="passenger-dataview" value="#{passengerSeats.getSeats()}">
+	<h:inputHidden value="#{passengerSeats.busId}"/>
+	<h:inputHidden value="#{passengerSeats.busName}"/>
+	<h:inputHidden value="#{passengerSeats.price}"/>
+	<h:inputHidden value="#{passengerSeats.availableSeats}"/>
+	<p:dataView id="passenger_dataview" var="seats" styleClasss="passenger-dataview" value="#{passengerSeats.seats}">
 	                <!--  listIcon="pi pi-bars" gridIcon="pi pi-th-large" -->
 	                 
 	 <!-- 
@@ -87,6 +103,6 @@
 	    </p:dataView>
 	    <p:commandButton id="passenger_button" styleClass="passenger-button" value="Book" action="#{passengerModel.getResult()}"/>
 	</h:form>
-	<footer class="footer center fixed-header">&copy;SampleApplication.com</footer>
+	<footer class="footer center fixed-footer">&copy;SampleApplication.com</footer>
    </h:body>
 </html>

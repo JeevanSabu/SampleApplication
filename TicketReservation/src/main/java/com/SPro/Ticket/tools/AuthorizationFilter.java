@@ -2,6 +2,7 @@ package com.SPro.Ticket.tools;
 
 import java.io.IOException;
 
+import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -31,7 +32,7 @@ public class AuthorizationFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		
 		LOGGER.trace("inside Authorization Filter doFilter");
-
+		
 		HttpServletRequest reqt = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession ses = reqt.getSession();
@@ -51,7 +52,12 @@ public class AuthorizationFilter implements Filter {
 //				LOGGER.trace("redirection");
 //				resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");
 //			}
-			if (reqURI.indexOf("/login.xhtml") >= 0
+			if((reqURI.indexOf("/login.xhtml")>=0||reqURI.indexOf("/authentication.xhtml")>=0)
+					&&(null!=ses && null!=ses.getAttribute("verifiedid"))){
+				LOGGER.trace("redirection to home");
+				resp.sendRedirect(reqt.getContextPath() + "/faces/home.xhtml");
+			}
+			else if (reqURI.indexOf("/login.xhtml") >= 0
 					|| (null != ses && null != ses.getAttribute("username"))
 					|| reqURI.indexOf("/public/") >= 0
 					|| reqURI.contains("javax.faces.resource")) {

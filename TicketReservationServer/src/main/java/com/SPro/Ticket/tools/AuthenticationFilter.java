@@ -1,6 +1,9 @@
 package com.SPro.Ticket.tools;
 
 import java.lang.reflect.Method;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -13,6 +16,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
@@ -29,6 +33,7 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
      
     private static final String AUTHORIZATION_PROPERTY = "Authorization";
     private static final String AUTHENTICATION_SCHEME = "Basic";
+    private static final String AUTHENTICATION_SCHEME1 = "Bearer";
 
 	private static final Logger LOGGER = LogManager.getLogger(AuthenticationFilter.class);
       
@@ -94,6 +99,23 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
                         .entity("You cannot access this resource").build());
                     return;
                 }
+                try {
+                	String user = requestContext.getHeaderString("username");
+                	String token = requestContext.getHeaderString("token");
+                	LOGGER.trace("Token "+token);
+//
+//            // Validate the token
+//            validateToken(token);
+                	if( ! isUserAllowed(username, password, rolesSet, user, token))
+                	{
+                		requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
+                				.entity("You cannot access this resource").build());
+                		return;
+                	}
+                } catch (Exception e) {
+////            abortWithUnauthorized(requestContext);
+                	LOGGER.error("Error AT header"+e);
+                }
             }
         }
     }
@@ -117,11 +139,61 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
             //to authenticate user allowed
             if(rolesSet.contains(userRole))
             {
+            	
                 isAllowed = true;
                 
                 LOGGER.error("Role didn't match");
             }
         }
         return isAllowed;
+    }
+    private boolean isUserAllowed(final String username, final String password, final Set<String> rolesSet,final String user, final String token) {
+    	boolean isAllowed = false;
+        
+        //Step 1. Fetch password from database and match with password in argument
+        //If both match then get the defined role for user from database and continue; else return isAllowed [false]
+        //Access the database and do this part yourself
+        //String userRole = userMgr.getUserRole(username);
+         
+//        if(username.equals("SampleApplication2") && password.equals("5ampleApp2"))
+        if(username.equals(authentication_user) && password.equals(authentication_password))
+        {
+            String userRole = "ADMIN";
+
+            //Step 2. Verify user role
+            //the above isAllowed = true can be taken away 
+            //to authenticate user allowed
+            if(rolesSet.contains(userRole))
+            {
+            	
+            	if( ! isUserFound(user, token)) {
+            		isAllowed = true;
+            		LOGGER.error("Token Authenticated");
+            	}
+        		LOGGER.error("Token not Authenticated");
+            }
+        }
+        return isAllowed;
+    }
+    private boolean isUserFound(final String user, final String token) {
+    	DBConnections dbConnections = new DBConnections();
+    	Connection connection = dbConnections.getConnection();
+    	PreparedStatement preparedStatement = null;
+    	ResultSet resultSet = null;
+    	 try {   
+ 	    	String statement = "select userlogin_table_username,"
+ 	    			+ "userlogin_table_token from userlogin_table "
+ 	    			+ "where userlogin_table_username=? and userlogin_table_token=?";
+ 	    	preparedStatement = connection.prepareStatement(statement);
+ 		    preparedStatement.setString(1, user);
+ 		    preparedStatement.setString(2, token);
+ 	    	resultSet = preparedStatement.executeQuery();
+ 	    	if(resultSet.next()) {
+ 	    		return true;
+ 	    	}
+    	 } catch(Exception e) {
+    		 LOGGER.error("Error at sql "+e);
+    	 }
+    	 return false;
     }
 }

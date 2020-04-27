@@ -1,5 +1,6 @@
 package com.SPro.Ticket.jerseyserver;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -11,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.owasp.esapi.ESAPI;
 
 import com.SPro.Ticket.dao.BookingListDao;
 import com.SPro.Ticket.pojo.BookingListPojo;
@@ -30,6 +32,11 @@ public class BookingListService {
 		LOGGER.trace("Inside BookingLIstService bookingList method ");
 		if(null==username) {
 			LOGGER.error("username NULL");
+			return null;
+		}
+		boolean isvaliduser = ESAPI.validator().isValidInput("username", username, "username", 30, false);
+		LOGGER.trace("is valid "+isvaliduser);
+		if(isvaliduser==false) {
 			return null;
 		}
 		LOGGER.trace("From from param "+ username);

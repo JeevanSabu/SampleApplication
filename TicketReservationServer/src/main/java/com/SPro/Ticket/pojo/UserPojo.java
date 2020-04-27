@@ -4,6 +4,7 @@ public class UserPojo {
 	private String username;
 	private String password;
 	private String lastlogin;
+	private String accessToken;
 	
 	public UserPojo(){
 		
@@ -60,5 +61,19 @@ public class UserPojo {
 	 */
 	public void setLastlogin(String lastlogin) {
 		this.lastlogin = lastlogin;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public String getAccessToken() {
+		return accessToken;
+	}
+	/**
+	 * 
+	 * @param accessToken
+	 */
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
 	}
 }

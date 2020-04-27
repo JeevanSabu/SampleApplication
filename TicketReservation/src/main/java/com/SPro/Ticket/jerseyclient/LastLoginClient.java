@@ -1,5 +1,6 @@
 package com.SPro.Ticket.jerseyclient;
 
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -13,6 +14,7 @@ import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 
 import com.SPro.Ticket.tools.PropertiesLoading;
+import com.SPro.Ticket.tools.SessionUtils;
 
 public class LastLoginClient {
 	private static final Logger LOGGER = LogManager.getLogger(LastLoginClient.class);
@@ -29,6 +31,8 @@ public class LastLoginClient {
 	 */
 	public int logout(String username, String password) {
 		LOGGER.trace("inside logout");
+
+		HttpSession session = SessionUtils.getSession();
 		
 		LoginPojo loginPojo = new LoginPojo();
 		loginPojo.setUsername(username);
@@ -43,6 +47,8 @@ public class LastLoginClient {
 		Response response =null;
 		response = webTarget.path("/logout")
 				.request(MediaType.APPLICATION_JSON)
+			    .header("username",session.getAttribute("username"))
+			    .header("token",session.getAttribute("token"))
 				.post(Entity.entity(loginPojo, MediaType.APPLICATION_JSON));
 		LOGGER.trace("Status "+response.getStatus());
 		LOGGER.trace("Leaving logout...");

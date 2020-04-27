@@ -2,11 +2,13 @@ package com.SPro.Ticket.jerseyclient;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -16,6 +18,7 @@ import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 
 import com.SPro.Ticket.tools.PropertiesLoading;
+import com.SPro.Ticket.tools.SessionUtils;
 
 public class BookingListClient {
 
@@ -37,6 +40,8 @@ public class BookingListClient {
 			return null;
 		}
 		LOGGER.trace("Argument username "+username);
+
+		HttpSession session = SessionUtils.getSession();
 		
 		ClientConfig clientConfig = new ClientConfig();	
 	    HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(handshake_user, handshake_password);
@@ -48,13 +53,15 @@ public class BookingListClient {
                 .param("username", username);
 		response = webTarget.path("/bookinglistpost")
 				.request(MediaType.APPLICATION_JSON)
+			    .header("username",session.getAttribute("username"))
+			    .header("token",session.getAttribute("token"))
                 .post(Entity.form(form));
 		if(response.getStatus()==200) {
 			BookingListPojo bookingListPojo = response.readEntity(BookingListPojo.class);
 			List<BookingsPojo> list = bookingListPojo.getBookingList();
 			return list;
 		}
-		LOGGER.trace("Leaving BokkingLIst Client postBooking method");
+		LOGGER.trace("Leaving BookingLIst Client postBooking method");
 		return null;
 	}
 }

@@ -9,7 +9,7 @@ public class CustomApplication extends ResourceConfig
 	 */
     public CustomApplication() 
     {
-//        packages("com.SPro.Ticket.tools");
+        packages("com.SPro.Ticket.tools");
 //        register(LoggingFilter.class);
  
         //Register Auth Filter here

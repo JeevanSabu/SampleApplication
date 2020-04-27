@@ -9,10 +9,12 @@
    
    <h:head>
       <title>Ticket Reservation|Home</title>
+      <meta name="viewport" content="width=device-width, user-scalable=false;"/>
       <h:outputStylesheet library = "css" name = "styles.css"  /> 
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>	
       <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"/>
+      <h:outputScript library = "js" name = "script.js"  /> 
     </h:head>
  
     <h:body>
@@ -21,7 +23,7 @@
 	   <h:form id="user_icon_form" styleClass="user-icon-form">  
 		    <p:commandLink id="user_icon_button">
 		    	<i class="pi pi-user icon home-user-icon float-right"></i>
-		    </p:commandLink>    
+		    </p:commandLink>     
 		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
 		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
 				        <h:outputText value="Username : " />
@@ -41,50 +43,55 @@
 			<h:message for="booking_home_form" showDetail="true" sticky="true" />
             <h:panelGrid columns="2" cellpadding="10" styleClass="home-booking-panel" columnClasses="ui-g-12 ui-md-4, ui-g-12 ui-md-8">
 				<p:outputLabel for="from_field" value="Source:"/>
-				<p:selectOneMenu id="from_field" value="#{homeBean.source}" styleClass="width100" required="true">
+				<p:selectOneMenu id="from_field" value="#{homeBean.source}" styleClass="width100" required="true" onchange="onChange(this,'home_tabview:booking_home_form:to_field_items')">
 		            <f:selectItem itemLabel="Select One" itemValue="" />
-		            <f:selectItem itemLabel="chennai" itemValue="chennai" />
-		            <f:selectItem itemLabel="kerala" itemValue="kerala" />
-		            <f:selectItem itemLabel="bangalore" itemValue="bangalore" />
+		            <f:selectItem itemLabel="chennai" itemValue="chennai" itemDisabled="#{homeBean.destination eq 'chennai'}"/>
+		            <f:selectItem itemLabel="kerala" itemValue="kerala" itemDisabled="#{homeBean.destination eq 'kerala'}"/>
+		            <f:selectItem itemLabel="bangalore" itemValue="bangalore" itemDisabled="#{homeBean.destination eq 'bangalore'}"/>
 		        </p:selectOneMenu>
 				<p:outputLabel for="to_field" value="Destination:"/>
-				<p:selectOneMenu id="to_field" value="#{homeBean.destination}" styleClass="width100" required="true">
+				<p:selectOneMenu id="to_field" value="#{homeBean.destination}" styleClass="width100" required="true" onchange="onChange(this,'home_tabview:booking_home_form:from_field_items')">
 		            <f:selectItem itemLabel="Select One" itemValue="" />
-		            <f:selectItem itemLabel="chennai" itemValue="chennai" />
-		            <f:selectItem itemLabel="kerala" itemValue="kerala" />
-		            <f:selectItem itemLabel="bangalore" itemValue="bangalore" />
+		            <f:selectItem itemLabel="chennai" itemValue="chennai" itemDisabled="#{homeBean.source eq 'chennai'}"/>
+		            <f:selectItem itemLabel="kerala" itemValue="kerala" itemDisabled="#{homeBean.source eq 'kerala'}"/>
+		            <f:selectItem itemLabel="bangalore" itemValue="bangalore" itemDisabled="#{homeBean.source eq 'bangalore'}"/>
 		        </p:selectOneMenu> 
 				<p:outputLabel for="date_field" value="Date:" />
-        		<p:datePicker id="date_field" value="#{homeBean.date}" showIcon="true" styleClass="width100" required="true"/>
+        		<p:datePicker id="date_field" pattern="dd/MM/yyyy" value="#{homeBean.date}" showIcon="true" styleClass="width100" required="true" mindate="#{homeBean.minDate}" maxdate="#{homeBean.maxDate}"/>    
         		<h:inputHidden></h:inputHidden>
-			    <p:commandButton id="search_button" onclick="validatehome()" value="Search" styleClass="search-button" action="#{homeModel.getResult()}"/>
+			    <p:commandButton id="search_button" onclick="validat()" value="Search" styleClass="search-button" action="#{homeModel.getResult()}"/>
             </h:panelGrid>
          </h:form>
         </p:tab>
         <p:tab title="My Bookings" styleClass="home-tab">
-            <p:dataTable var="list" value="#{bookingListPojo.bookingList}">
-			    <p:column headerText="Username">
-		            <h:outputText value="#{list.username}" style="font-weight: bold"/>
-			    </p:column>
+			<p:dataView id="booking_list" styleClass="booking-list bus-list" var="list" value="#{bookingListPojo.bookingList}">
+	 
+	        <p:dataViewListItem styleClass=" booking-list-tabview bus-list-dataview">
+	            <h:panelGrid columns="3" style="width:100%" styleClass="bus-list-dataview-panel" columnClasses="busitem,detail">
+	 
+	                <p:outputPanel>
+	                    <h:panelGrid columns="2" cellpadding="5">
 			 
-			    <p:column headerText="Busname">
-		            <h:outputText value="#{list.busname}" style="font-weight: bold"/>
-			    </p:column>
-			 
-			    <p:column headerText="from-to ">
-		            <h:outputText value="#{list.fromto}" style="font-weight: bold"/>
-			    </p:column>
-			 
-			    <p:column headerText="Date and ime">
-		            <h:outputText value="#{list.date}" style="font-weight: bold"/>
-			    </p:column>
-			    <p:column headerText="Booked on">
-		            <h:outputText value="#{list.bookingtime}"/>
-			    </p:column>
-			    <p:column headerText="Passengers">
-		            <h:outputText value="#{list.passengers}"/>
-			    </p:column>
-			</p:dataTable>
+					    	<h:outputText value="Busname"/>
+				            <h:outputText value="#{list.busname}" style="font-weight: bold"/>
+					 
+					    	<h:outputText value="from-to "/>
+				            <h:outputText value="#{list.fromto}" style="font-weight: bold"/>
+					 
+					    	<h:outputText value="Date and time"/>
+				            <h:outputText value="#{list.date}" style="font-weight: bold"/>
+				            
+					    	<h:outputText value="Booked on"/>
+				            <h:outputText value="#{list.bookingtime}"/>
+				            
+					    	<h:outputText value="Passengers"/>
+		            		<h:outputText value="#{list.passengers}"/>
+	                    </h:panelGrid>
+	                </p:outputPanel>
+	 
+	            </h:panelGrid>
+	        </p:dataViewListItem>
+	    </p:dataView>
         </p:tab>
     </p:tabView>
 	<footer class="footer center fixed-footer">&copy;SampleApplication.com</footer>

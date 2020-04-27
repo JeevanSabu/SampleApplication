@@ -3,6 +3,7 @@ package com.SPro.Ticket.jerseyserver;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.owasp.esapi.ESAPI;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -35,6 +36,12 @@ public class UserService {
 	     
 	    else {
 			try {
+				boolean isvaliduser = ESAPI.validator().isValidInput("username", loginPojo.getUsername(), "username", 30, false);
+				boolean isvalidpassword = ESAPI.validator().isValidInput("password", loginPojo.getPassword(), "password", 30, false);
+				LOGGER.trace("is valid "+isvaliduser+" "+isvalidpassword);
+				if(isvaliduser==false||isvalidpassword==false) {
+					return null;
+				}
 				userPojo =  userDao.getUser(loginPojo.getUsername(),loginPojo.getPassword());
 	    		LOGGER.trace("From userPojo "+ userPojo.getUsername());
 	    	}catch(Exception e) {

@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.owasp.esapi.ESAPI;
 
 import com.SPro.Ticket.dao.HomeDao;
 import com.SPro.Ticket.pojo.BusViewPojo;
@@ -29,6 +30,13 @@ public class HomeService {
 		LOGGER.trace("Inside HomeService postBuses method");
 		if(null==source||null==destination||null==date) {
 			LOGGER.error("One or more fields null");
+			return null;
+		}
+		boolean isvalidsource = ESAPI.validator().isValidInput("source", source, "placename", 30, false);
+		boolean isvaliddestination = ESAPI.validator().isValidInput("destination", destination, "placename", 30, false);
+		boolean isvaliddate = ESAPI.validator().isValidInput("date", date, "date", 30, false);
+		LOGGER.trace("is valid "+isvalidsource+" "+isvaliddestination+" "+isvaliddate);
+		if(isvalidsource==false||isvaliddestination==false||isvaliddate==false) {
 			return null;
 		}
 		LOGGER.trace("From query param "+ source);
