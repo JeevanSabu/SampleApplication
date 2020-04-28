@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +25,11 @@ public class BookingListDao {
 	 * @return
 	 */
 	public BookingListPojo getBookingList(String username) {
+		LOGGER.trace("Inside getBookingList method");
+		if(null==username) {
+			LOGGER.error("No User from service");
+			return null;
+		}
 		LOGGER.trace("From arguments "+username);
 		
 		BookingListPojo bookingListPojo = new BookingListPojo();
@@ -62,7 +66,8 @@ public class BookingListDao {
 	    } catch (Exception e) {
 	    	LOGGER.error(e.getMessage());
 	    }
-	    
+
+		LOGGER.trace("Leaving getBookingList method");
 	    return bookingListPojo;
 	}
 

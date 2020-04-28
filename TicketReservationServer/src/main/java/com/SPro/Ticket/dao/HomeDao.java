@@ -5,12 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.glassfish.jersey.message.internal.MessageBodyProviderNotFoundException;
 
 import com.SPro.Ticket.pojo.Bus;
 import com.SPro.Ticket.pojo.BusViewPojo;
@@ -31,7 +28,11 @@ public class HomeDao {
 	 * @return
 	 */
 	public BusViewPojo getBuses(String source, String destination, String date) {
-
+		LOGGER.trace("Inside getBuses method");
+		if(null==source||null==destination||null==date) {
+			LOGGER.error("one or more fields none");
+			return null;
+		}
 		LOGGER.trace("From arguments "+date);
 		BusViewPojo busView = new BusViewPojo();
 		busView.setBuses(new ArrayList<Bus>());
@@ -55,7 +56,6 @@ public class HomeDao {
 	    	resultSet = preparedStatement.executeQuery();
 	    	if(resultSet.next()) {
 		    	while(resultSet.next()) {
-	//	    		Bus bus = new Bus();
 		    		busView.getBuses().add(new Bus(resultSet.getString("buslist_table_slno"),
 		    				resultSet.getString("buslist_table_name"),
 		    				resultSet.getString("buslist_table_sourcetime"),
@@ -80,7 +80,6 @@ public class HomeDao {
 			    preparedStatement.setString(3, "25 april 2020");
 		    	resultSet = preparedStatement.executeQuery();
 		    	while(resultSet.next()) {
-//		    		Bus bus = new Bus();
 		    		selectedSourceDate = resultSet.getString("buslist_table_sourcetime");
 		    		selectedSourceDate = selectedSourceDate.replaceAll("25 April 2020", date);
 		    		selectedDestinationDate = resultSet.getString("buslist_table_destinationtime");
@@ -129,7 +128,6 @@ public class HomeDao {
 					preparedStatement.setString(3, date);
 				   	resultSet = preparedStatement.executeQuery();
 					while(resultSet.next()) {
-				//		Bus bus = new Bus();
 					 	busView.getBuses().add(new Bus(resultSet.getString("buslist_table_slno"),
 					   			resultSet.getString("buslist_table_name"),
 					   			resultSet.getString("buslist_table_sourcetime"),
@@ -149,6 +147,7 @@ public class HomeDao {
 			LOGGER.error(e.getMessage());
 			return null;
 		}
+		LOGGER.trace("Leaving getBuses method");
     	return busView;
 	}
 

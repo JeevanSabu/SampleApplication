@@ -3,7 +3,6 @@ package com.SPro.Ticket.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
-import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
 //import javax.el.ELContext;

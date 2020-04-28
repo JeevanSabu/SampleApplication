@@ -4,14 +4,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.SPro.Ticket.bean.BusSeatsView;
 import com.SPro.Ticket.bean.SelectedBusBean;
-import com.SPro.Ticket.jerseyclient.Bus;
 import com.SPro.Ticket.jerseyclient.SelectedBusClient;
 
 @ManagedBean(name="bookingModel",eager=true)

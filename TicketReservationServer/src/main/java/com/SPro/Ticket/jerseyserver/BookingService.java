@@ -3,33 +3,28 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.owasp.esapi.ESAPI;
 
-import com.SPro.Ticket.dao.BookingDao;
 import com.SPro.Ticket.dao.BookingsDao;
-import com.SPro.Ticket.dao.UserDao;
 import com.SPro.Ticket.pojo.BookingDetails;
 import com.SPro.Ticket.pojo.BookingsPojo;
 import com.SPro.Ticket.pojo.Seats;
-import com.SPro.Ticket.pojo.UserPojo;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 @Path("/booking")
 public class BookingService {
 	private static final Logger LOGGER = LogManager.getLogger(BookingService.class);
 
-	private BookingDao bookingDao = new BookingDao();
 	private BookingsDao bookingsDao = new BookingsDao();
 
+    @RolesAllowed("ADMIN")
 	@POST
 	@Path("/bookingpost")
 	@Consumes(MediaType.APPLICATION_JSON)

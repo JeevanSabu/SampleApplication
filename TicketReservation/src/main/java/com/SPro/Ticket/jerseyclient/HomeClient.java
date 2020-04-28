@@ -1,24 +1,18 @@
 package com.SPro.Ticket.jerseyclient;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
-import org.glassfish.jersey.message.internal.MessageBodyProviderNotFoundException;
 
-import com.SPro.Ticket.bean.BusView;
 import com.SPro.Ticket.tools.PropertiesLoading;
 import com.SPro.Ticket.tools.SessionUtils;
 
@@ -65,10 +59,13 @@ public class HomeClient {
 				    .header("token",session.getAttribute("token"))
 	                .post(Entity.form(form));
 			LOGGER.trace("Status "+response.getStatus());
+			if(response.getStatus()!=200) {
+				return null;
+			}
 			BusViewPojo busViewPojo = response.readEntity(BusViewPojo.class);
 			return busViewPojo;
-		} catch(MessageBodyProviderNotFoundException me) {
-			LOGGER.error(me.getMessage());
+		} catch(Exception e) {
+			LOGGER.error(e.getMessage());
 		}
 		LOGGER.trace("Leaving getBuses method");
 		return null;

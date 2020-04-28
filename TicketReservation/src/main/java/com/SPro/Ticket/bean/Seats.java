@@ -1,7 +1,6 @@
 package com.SPro.Ticket.bean;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
 
 @ManagedBean(name = "seats" , eager=true)
 public class Seats {

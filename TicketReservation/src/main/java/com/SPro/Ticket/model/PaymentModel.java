@@ -15,7 +15,6 @@ import com.SPro.Ticket.bean.BookingSuccessfullBean;
 import com.SPro.Ticket.bean.BusSeatsView;
 import com.SPro.Ticket.bean.PassengerSeats;
 import com.SPro.Ticket.bean.PaymentBean;
-import com.SPro.Ticket.bean.Seats;
 import com.SPro.Ticket.bean.UserBean;
 import com.SPro.Ticket.jerseyclient.BookingClient;
 import com.SPro.Ticket.jerseyclient.BookingsPojo;

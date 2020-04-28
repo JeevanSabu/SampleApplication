@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.view.ViewScoped;
 
 import com.SPro.Ticket.jerseyclient.Bus;
+
 @ManagedBean(name="busView", eager=true)
 @SessionScoped
 public class BusView {

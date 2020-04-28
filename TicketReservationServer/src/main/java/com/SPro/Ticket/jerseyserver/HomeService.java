@@ -1,10 +1,8 @@
 package com.SPro.Ticket.jerseyserver;
 
-import java.util.Date;
-
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -22,7 +20,8 @@ public class HomeService {
 	private static final Logger LOGGER = LogManager.getLogger(HomeService.class);
 	
 	private HomeDao homeDao = new HomeDao();
-	
+
+    @RolesAllowed("ADMIN")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)

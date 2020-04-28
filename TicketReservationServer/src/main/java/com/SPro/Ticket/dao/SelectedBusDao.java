@@ -26,6 +26,11 @@ public class SelectedBusDao {
 	 * @return
 	 */
 	public BusSeatsView getSelectedBus(int id, String name) {
+		LOGGER.trace("Inside getSelectedBus method");
+		if(null==name) {
+			LOGGER.error("One or more fileds null");
+			return null;
+		}
 		LOGGER.trace("From arguments "+name);
 
 		BusSeatsView busSeatsView = new BusSeatsView();
@@ -44,20 +49,21 @@ public class SelectedBusDao {
 	    	preparedStatement = connection.prepareStatement(statement);
 			preparedStatement.setInt(1, id);
 	    	resultSet = preparedStatement.executeQuery();
-	    	if(resultSet.next()) {
-	    		while(resultSet.next()) {
-	    			for(BusSeats busSeats:busSeatsView.getBusSeats()) {
-	    				if(busSeats.getSeatNo().equals(resultSet.getString("busseats_table_seatno"))) {
-	    					busSeats.setStatus("selected");
-	    				}
+//	    	if(resultSet.next()) {
+//	    	}
+	    	while(resultSet.next()) {
+	    		for(BusSeats busSeats:busSeatsView.getBusSeats()) {
+	    			if(busSeats.getSeatNo().equals(resultSet.getString("busseats_table_seatno"))) {
+	    				busSeats.setStatus("selected");
 	    			}
 	    		}
 	    	}
-	    	return busSeatsView;
 		} catch (SQLException e) {
 			LOGGER.error("Sql Exception"+e.getMessage());
-			return null;
+//			return null;
 		}
+		LOGGER.trace("Leaving getSelectedBus method");
+	    return busSeatsView;
 	}
 
 }

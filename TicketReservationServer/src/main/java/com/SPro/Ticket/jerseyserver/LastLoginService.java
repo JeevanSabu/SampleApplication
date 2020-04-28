@@ -3,12 +3,11 @@ package com.SPro.Ticket.jerseyserver;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,13 +16,13 @@ import org.owasp.esapi.ESAPI;
 
 import com.SPro.Ticket.dao.LastLoginDao;
 import com.SPro.Ticket.pojo.LoginPojo;
-import com.SPro.Ticket.pojo.UserPojo;
 
 @Path("/logout")
 public class LastLoginService {
 	private static final Logger LOGGER = LogManager.getLogger(LastLoginService.class);
 	LastLoginDao lastLoginDao = new LastLoginDao();
 
+    @RolesAllowed("ADMIN")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

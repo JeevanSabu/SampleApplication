@@ -16,7 +16,6 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
@@ -33,7 +32,6 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
      
     private static final String AUTHORIZATION_PROPERTY = "Authorization";
     private static final String AUTHENTICATION_SCHEME = "Basic";
-    private static final String AUTHENTICATION_SCHEME1 = "Bearer";
 
 	private static final Logger LOGGER = LogManager.getLogger(AuthenticationFilter.class);
       
@@ -103,9 +101,8 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
                 	String user = requestContext.getHeaderString("username");
                 	String token = requestContext.getHeaderString("token");
                 	LOGGER.trace("Token "+token);
-//
-//            // Validate the token
-//            validateToken(token);
+
+                	// Validate the token
                 	if( ! isUserAllowed(username, password, rolesSet, user, token))
                 	{
                 		requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
@@ -113,7 +110,6 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
                 		return;
                 	}
                 } catch (Exception e) {
-////            abortWithUnauthorized(requestContext);
                 	LOGGER.error("Error AT header"+e);
                 }
             }
@@ -123,54 +119,30 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
     {
         boolean isAllowed = false;
           
-        //Step 1. Fetch password from database and match with password in argument
-        //If both match then get the defined role for user from database and continue; else return isAllowed [false]
-        //Access the database and do this part yourself
-        //String userRole = userMgr.getUserRole(username);
-         
-//        if(username.equals("SampleApplication2") && password.equals("5ampleApp2"))
         if(username.equals(authentication_user) && password.equals(authentication_password))
         {
-            String userRole = "ADMIN";
-
             isAllowed = true;
-            //Step 2. Verify user role
-            //the above isAllowed = true can be taken away 
-            //to authenticate user allowed
-            if(rolesSet.contains(userRole))
-            {
-            	
-                isAllowed = true;
-                
-                LOGGER.error("Role didn't match");
-            }
+            LOGGER.trace("User and password authenticated");
         }
         return isAllowed;
     }
     private boolean isUserAllowed(final String username, final String password, final Set<String> rolesSet,final String user, final String token) {
     	boolean isAllowed = false;
-        
-        //Step 1. Fetch password from database and match with password in argument
-        //If both match then get the defined role for user from database and continue; else return isAllowed [false]
-        //Access the database and do this part yourself
-        //String userRole = userMgr.getUserRole(username);
          
-//        if(username.equals("SampleApplication2") && password.equals("5ampleApp2"))
         if(username.equals(authentication_user) && password.equals(authentication_password))
         {
             String userRole = "ADMIN";
 
-            //Step 2. Verify user role
-            //the above isAllowed = true can be taken away 
-            //to authenticate user allowed
             if(rolesSet.contains(userRole))
             {
             	
-            	if( ! isUserFound(user, token)) {
+            	if( isUserFound(user, token)) {
             		isAllowed = true;
             		LOGGER.error("Token Authenticated");
             	}
-        		LOGGER.error("Token not Authenticated");
+            	else {
+            		LOGGER.error("Token not Authenticated");
+            	}
             }
         }
         return isAllowed;

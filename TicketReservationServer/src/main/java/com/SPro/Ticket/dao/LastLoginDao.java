@@ -2,13 +2,11 @@ package com.SPro.Ticket.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.SPro.Ticket.pojo.UserPojo;
 import com.SPro.Ticket.tools.DBConnections;
 
 public class LastLoginDao {
@@ -26,8 +24,11 @@ public class LastLoginDao {
 	 * @return
 	 */
 	public String loguot(String username, String password, String lastlogin) {
-		LOGGER.trace("inside LastLoginDao "+lastlogin);
-		UserPojo userPojo = new UserPojo();
+		LOGGER.trace("Inside LastLoginDao");
+		if(null==username||null==password||null==lastlogin) {
+			LOGGER.error("One or more fields null");
+			return null;
+		}
 		int rowsAffected;
 	    PreparedStatement preparedStatement = null;
 	    String statement = "update userlogin_table "
@@ -46,7 +47,8 @@ public class LastLoginDao {
 		} catch (SQLException e) {
 			LOGGER.error(e.getMessage());
 		}
-		return statement;
+		LOGGER.trace("Leaving LastLoginDao");
+		return null;
 	}
 
 }

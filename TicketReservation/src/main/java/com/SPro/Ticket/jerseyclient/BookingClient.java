@@ -15,7 +15,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
-import org.glassfish.jersey.message.internal.MessageBodyProviderNotFoundException;
 
 import com.SPro.Ticket.bean.PaymentBean;
 import com.SPro.Ticket.bean.Seats;

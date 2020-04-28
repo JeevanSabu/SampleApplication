@@ -2,8 +2,6 @@ package com.SPro.Ticket.jerseyclient;
 
 import java.util.List;
 
-import com.SPro.Ticket.bean.Seats;
-
 public class BookingDetails {
 	private String username;
 	private int busId;
