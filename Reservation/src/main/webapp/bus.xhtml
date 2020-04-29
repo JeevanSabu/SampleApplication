@@ -1,0 +1,88 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns = "http://www.w3.org/1999/xhtml"
+   xmlns:f = "http://java.sun.com/jsf/core"    
+   xmlns:h = "http://java.sun.com/jsf/html"
+   xmlns:p = "http://primefaces.org/ui">
+   
+   <h:head>
+      <title>Ticket Reservation|Bus Seat Selection</title>
+      <meta name="viewport" content="width=device-width, user-scalable=false;"/>
+      <h:outputStylesheet library = "css" name = "styles.css"  /> 
+      <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>	
+      <!-- 
+       -->
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+      <h:outputScript library = "js" name = "script.js"  /> 
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"/>
+   </h:head>
+
+   <h:body>
+   	  
+	<header class="header bus-header">
+	   Seat Selection
+	   <h:form id="user_icon_form" styleClass="user-icon-form">  
+		    <p:commandLink id="user_icon_button">
+		    	<i class="pi pi-user icon home-user-icon float-right"></i>
+		    </p:commandLink>      
+		    <p:commandLink id="back_icon_button" action="booking">
+		    	<i class="pi pi-arrow-left icon home-back-icon float-right"></i>
+		    </p:commandLink>  
+		    <!-- 
+		    <p:commandButton action="booking" value="back" styleClass="float-right back logout-button" />
+		     -->
+		    <p:overlayPanel id="user_overlay_panel" styleClass="user-overlay-panel" for="user_icon_button" hideEffect="fade">
+		    		<p:panelGrid columns="2" cellpadding="10" styleClass="overlay-panel-grid no-border">
+				        <h:outputText value="Username : " />
+				        <h:outputText value="#{userBean.username}" />
+				        <h:outputText value="Last Login : " />
+				        <h:outputText value="#{userBean.lastLogin}" />
+				        <p:commandButton id="home_redirect_button" value="Home" action="home" styleClass="home-redirect-button logout-button"/>
+				        <p:commandButton id="logout_button" value="Log Out" action="#{userModel.logout}" styleClass="logout-button"/>
+		    		</p:panelGrid>
+		    </p:overlayPanel>
+	    </h:form>
+	</header>
+	<div id="bus" class="bus middle-align">
+    <p:growl id="growl" showDetail="true" sticky="true" />
+	<p:dataGrid id="bus_seats" var="busSeat" value="#{busSeatsView.getBusSeats()}" styleClass="bus-seats" columns="4" layout="grid">
+	    <f:facet name="header" styleClass="white facet-header">
+	    	<h:inputHidden value="#{busSeatsView.busId}"/>
+	    	<h:outputText value="#{busSeatsView.busName}" styleClass="bus-name-header"/><br/>
+	    	<h:outputText value="#{busSeatsView.availableSeats}" styleClass="bus-available-seats bus-name-header"/><br/>
+	    	<span class="fa fa-inr" />
+	    	<h:outputText value="#{busSeatsView.price}" styleClass="bus-price bus-name-header"/><br/>
+    		<span class="color-dot red"/>
+	    	<h:outputText value="Booked seats" styleClass="booked-seats-header"/><br class="booked-seats-br"/>
+	    	<span class="color-dot green"/>
+	    	<h:outputText value="Selected seats" styleClass="booked-seats-header"/>
+		</f:facet>
+		
+		<h:outputLink value = "#" styleClass="#{busSeat.status}" onclick="selection(this,'#{busSeat.seatNo}','#{busSeat.status}',#{busSeatsView.price})">
+			<img class="bus-image" src="/Reservation/resources/images/chair.png"/>
+		</h:outputLink>
+		
+        <f:facet name="footer" styleClass="white facet-footer">
+	    	<h:form id="selected_bus" styleClass="selected-bus">
+		    	<h:inputHidden value="#{busSeatsView.busId}"/>
+		    	<h:inputHidden value="#{busSeatsView.busName}"/>
+		    	<h:inputHidden value="#{busSeatsView.availableSeats}"/>
+		    	<h:inputHidden value="#{busSeatsView.price}"/>
+		    	<p:panelGrid columns="2" styleClass="no-border" columnClasses="ui-g-12 ui-md-4, ui-g-12 ui-md-8">
+		    		<p:outputLabel for="selected_seats" value="Seat no : "/>
+					<p:inputText id="selected_seats" styleClass="selected-seats" value="#{busBean.selectedSeat}"/>
+					<h:inputHidden value="1"/>
+					<p:commandButton id="pay_button" icon="fa fa-inr" styleClass="pay-button" action="#{busModel.getResult()}" value="#{busSeatsView.price})"/>
+		    	</p:panelGrid>
+	    	</h:form>
+		</f:facet>
+    </p:dataGrid>
+	
+	</div>
+	<footer class="footer center">&copy;SampleApplication.com</footer>
+   </h:body>
+</html>
