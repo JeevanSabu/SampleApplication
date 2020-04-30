@@ -19,7 +19,7 @@ public class UserDao {
 	DBConnections dbConnections = new DBConnections();
 	Connection connection = dbConnections.getConnection();
 	/**
-	 * 
+	 * Method to fetch details of user from database
 	 * @param username
 	 * @param password
 	 * @return
@@ -70,7 +70,7 @@ public class UserDao {
 	      
 	}
 	/**
-	 * 
+	 * Method to issue token
 	 * @return
 	 */
 	private String issueToken() {

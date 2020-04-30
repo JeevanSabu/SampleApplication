@@ -52,7 +52,8 @@ public class PaymentModel {
 	private BookingsPojo bookingsPojo = new BookingsPojo();
 	private BookingClient bookingClient = new BookingClient();
 	/**
-	 * 
+	 * Method to verify the otp and 
+	 * book the seats
 	 * @return
 	 */
 	public String getResult() {
@@ -84,17 +85,17 @@ public class PaymentModel {
 	}
 	
 	/**
-	 * 
+	 * Method to generate OTP
 	 * @return
 	 */
-	public String validate(){
-		LOGGER.trace("Inside paymentModel validate method");
+	public String generateOtp(){
+		LOGGER.trace("Inside paymentModel generateOtp method");
 		Random random = new Random();
 		otp = random.nextInt(900000) + 100000;
 		paymentBean.setOtp(otp);
 		LOGGER.trace("OTP "+otp);
 
-		LOGGER.trace("Leaving paymentModel validate method...");
+		LOGGER.trace("Leaving paymentModel generateOtp method...");
 		return "payment";
 	}
 }

@@ -23,7 +23,8 @@ public class BookingsDao {
 	Connection connection = dbConnections.getConnection();
 	
 	/**
-	 * 
+	 * Method to book seats 
+	 * and return the booking details
 	 * @param busid
 	 * @param username
 	 * @param seatnoslist

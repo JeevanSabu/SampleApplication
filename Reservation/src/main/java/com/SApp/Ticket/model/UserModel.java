@@ -49,19 +49,16 @@ public class UserModel {
 			LOGGER.error("userBean null");
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Login Failed","Fields can't be empty"));
 		}
+		HttpSession session = SessionUtils.getSession();
 		try {
-			String validusername = ESAPI.encoder().canonicalize(userBean.getUsername());
-			String validpassword = ESAPI.encoder().canonicalize(userBean.getPassword());
 			boolean isvaliduser = ESAPI.validator().isValidInput("username", userBean.getUsername(), "username", 30, false);
 			boolean isvalidpassword = ESAPI.validator().isValidInput("password", userBean.getPassword(), "password", 30, false);
-			LOGGER.trace("user "+validusername+" password "+validpassword);
 			LOGGER.trace("is valid "+isvaliduser+" "+isvalidpassword);
 			if(isvaliduser==false||isvalidpassword==false) {
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Invalid Credentials","Username and Password possess values that are not allowed"));
 				return "login";
 			}
 			
-			HttpSession session = SessionUtils.getSession();
 			session.setAttribute("username", userBean.getUsername());
 			session.setMaxInactiveInterval(300);
 			LOGGER.trace(session.getId());
@@ -83,7 +80,6 @@ public class UserModel {
 			LOGGER.trace("BarcodeId "+generatedId);
 			try {
 //				context.getExternalContext().getSessionMap().put("barcodeId", Integer.toString(generatedId));
-				HttpSession session = SessionUtils.getSession();
 				session.setAttribute("token", userPojo.getAccessToken());
 				session.setAttribute("barcodeId", Integer.toString(generatedId));
 				LOGGER.trace(session.getId());

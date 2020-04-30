@@ -28,7 +28,8 @@ public class BookingListClient {
 	private String handshake_password = propertiesLoading.getProperties("password");
 
 	/**
-	 * 
+	 * Client method to fetch previous bookings
+	 * of the user
 	 * @param username
 	 * @return
 	 */

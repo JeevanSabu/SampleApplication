@@ -12,31 +12,29 @@ public class DBConnections {
 	private static final Logger LOGGER = LogManager.getLogger(DBConnections.class);
 	
 	/**
-	 * to return connection
+	 * Method to Establish connection to database
+	 * returns connection
 	 * @return
 	 */
 	public Connection getConnection() {
-	      Connection con = null;
-	      String url = "jdbc:mysql://localhost:3306/ticket_reservation";
-	      String user = "root";
-	      String password = "root";
-	      try {
+		LOGGER.trace("Inside getConnection method");
+	    Connection con = null;
+	    String url = "jdbc:mysql://localhost:3306/ticket_reservation";
+	    String user = "root";
+	    String password = "root";
+	    try {
 			Class.forName("com.mysql.jdbc.Driver");
 			LOGGER.trace("MySQL JDBC Driver Registered!");
-	      } catch (ClassNotFoundException e) {
+			con = DriverManager.getConnection(url, user, password);
+			LOGGER.trace("Connection completed");
+	    } catch (ClassNotFoundException e) {
 			LOGGER.error("Sorry, couldn't found JDBC driver. Make sure you have added JDBC Maven Dependency Correctly");
 			return null;
-	      }
-	      
-	      try {
-	         con = DriverManager.getConnection(url, user, password);
-	         LOGGER.trace("Connection completed");
-	      } catch (SQLException ex) {
+	    } catch (SQLException ex) {
 	         LOGGER.error(ex.getMessage());
-	      }
-	      
-	      finally {
-	      }
-	      return con;
+	    }  finally {
+	    }
+		LOGGER.trace("Laeving getConnection method");
+	    return con;
 	   }
 }

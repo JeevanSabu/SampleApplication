@@ -6,6 +6,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.validation.ValidationException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,12 +37,12 @@ public class PassengerModel {
 			.getValue(context.getELContext());      
 	private SelectedBusClient selectedBusClient = new SelectedBusClient();
 	/**
-	 * To book the bus with details of the passsengers
+	 * To book the bus with details of the passengers
 	 * returns payment page
 	 * @return
 	 */
 	public String getResult() {
-		LOGGER.trace("Inside Passenger Model");
+		LOGGER.trace("Inside Passenger Model getResult method");
 		if(null==passengerSeats) {
 			LOGGER.trace("passengerSeats null");
 			return "passenger";
@@ -68,19 +69,21 @@ public class PassengerModel {
 			}
 			paymentBean.setAvailableSeats(availableSeats);
 			paymentBean.setPrice(price);	
+		} catch(ValidationException ve) {
+			LOGGER.error("Error"+ve.getCause());
 		} catch(Exception e) {
 			LOGGER.error("Error "+e.getMessage());
 		}
 		LOGGER.trace("result "+result);
-		LOGGER.trace("Leaving Passenger Model...");
+		LOGGER.trace("Leaving Passenger Model getResult method...");
 		return result;
 	}
 	/**
-	 * 
+	 * Method to navigate back to the seat selection page
 	 * @return
 	 */
 	public String backToBus() {
-		LOGGER.trace("Inside backToBooking method ");
+		LOGGER.trace("Inside backToBus method ");
 		if(null==passengerSeats) {
 			LOGGER.error("passengerSeats null");
 			return "booking";
@@ -97,8 +100,8 @@ public class PassengerModel {
 			return "bus";
 		} catch(Exception e) {
 			LOGGER.error(e.getCause());
-			return "passenger";
 		}
-		
+		LOGGER.trace("Leaving backtoBus method");
+		return "passenger";		
 	}
 }

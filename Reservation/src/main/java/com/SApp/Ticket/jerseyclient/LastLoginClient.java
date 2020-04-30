@@ -24,7 +24,8 @@ public class LastLoginClient {
 	private String handshake_password = propertiesLoading.getProperties("password");
 
 	/**
-	 * 	
+	 * 	Client method to save the lastlogin time
+	 *  on database on logging out
 	 * @param username
 	 * @param password
 	 * @return

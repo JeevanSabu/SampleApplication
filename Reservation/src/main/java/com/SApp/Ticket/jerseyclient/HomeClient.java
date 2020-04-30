@@ -25,7 +25,9 @@ public class HomeClient {
 	private String handshake_password = propertiesLoading.getProperties("password");
 
 	/**
-	 * 
+	 * Client method to fetch teh list of buses
+	 * on the specified date
+	 * from and to specified source and destination
 	 * @param source
 	 * @param destination
 	 * @param date

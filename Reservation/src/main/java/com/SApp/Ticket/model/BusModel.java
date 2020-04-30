@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.validation.ValidationException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,6 +35,7 @@ public class BusModel {
 	              .getValue(context.getELContext());
 	/**
 	 * method to book selected seats
+	 * navigates to passenger details page
 	 * @return
 	 */
 	public String getResult() {
@@ -63,6 +65,8 @@ public class BusModel {
 //				list.add(seats);
 			}
 			passengerSeats.setSeats(list);
+		} catch(ValidationException ve) {
+			LOGGER.error("Error"+ve.getCause());
 		} catch(Exception e) {
 			LOGGER.error(e.getMessage());
 			return "bus";

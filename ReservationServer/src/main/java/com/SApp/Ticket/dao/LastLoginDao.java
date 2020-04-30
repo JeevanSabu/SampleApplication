@@ -17,7 +17,7 @@ public class LastLoginDao {
 	Connection connection = dbConnections.getConnection();
 	
 	/**
-	 * 
+	 * Method to update last login time of the user in the database
 	 * @param username
 	 * @param password
 	 * @param lastlogin

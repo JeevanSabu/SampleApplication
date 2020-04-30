@@ -74,7 +74,7 @@
 		    	<h:inputHidden value="#{busSeatsView.price}"/>
 		    	<p:panelGrid columns="2" styleClass="no-border" columnClasses="ui-g-12 ui-md-4, ui-g-12 ui-md-8">
 		    		<p:outputLabel for="selected_seats" value="Seat no : "/>
-					<p:inputText id="selected_seats" styleClass="selected-seats" value="#{busBean.selectedSeat}"/>
+					<p:inputText id="selected_seats" styleClass="selected-seats" value="#{busBean.selectedSeat}" readonly="#{facesContext.renderResponse}"/>
 					<h:inputHidden value="1"/>
 					<p:commandButton id="pay_button" icon="fa fa-inr" styleClass="pay-button" action="#{busModel.getResult()}" value="#{busSeatsView.price})"/>
 		    	</p:panelGrid>

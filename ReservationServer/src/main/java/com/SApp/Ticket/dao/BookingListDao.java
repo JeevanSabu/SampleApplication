@@ -20,7 +20,7 @@ public class BookingListDao {
 	Connection connection = dbConnections.getConnection();
 	
 	/**
-	 * 
+	 * Method to fetch list of bookings from the database
 	 * @param username
 	 * @return
 	 */

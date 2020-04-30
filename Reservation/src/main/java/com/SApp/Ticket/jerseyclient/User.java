@@ -26,7 +26,7 @@ public class User {
 	private String handshake_password = propertiesLoading.getProperties("password");
 	
 	/**
-	 * 
+	 * Client method to fetch the user details
 	 * @param username
 	 * @param password
 	 * @return

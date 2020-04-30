@@ -20,7 +20,8 @@ public class SelectedBusDao {
 	Connection connection = dbConnections.getConnection();
 	
 	/**
-	 * 
+	 * Method to fetch the details of
+	 * selected bus from the database
 	 * @param id
 	 * @param name
 	 * @return

@@ -4,6 +4,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.validation.ValidationException;
 
 import org.apache.commons.codec.binary.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -35,7 +36,7 @@ public class BarcodeModel {
 	private BookingListClient bookingListClient = new BookingListClient();
 //	private BookingListPojo bookingListPojo = new BookingListPojo();
 	/**
-	 * methoed to check validate barcode id 
+	 * method to check and validate barcode id 
 	 * returns home page if validated
 	 * @return
 	 */
@@ -69,8 +70,12 @@ public class BarcodeModel {
 			else {
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Authentication failed","Id mismatch"));
 			}
+		} catch(ValidationException ve) {
+			LOGGER.error("Error"+ve.getCause());
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Authentication failed","Id mismatch"));
 		} catch(Exception e) {
-			LOGGER.error("Error"+e.getMessage());
+			LOGGER.error("Error"+e.getMessage());			
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Authentication failed","Id mismatch"));
 		}
 
 		LOGGER.trace("Leaving BarcodeModel getResult method...");

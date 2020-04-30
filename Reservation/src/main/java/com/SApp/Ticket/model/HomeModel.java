@@ -78,6 +78,8 @@ public class HomeModel {
 			result="booking";
 		} catch(ValidationException ve) {
 			LOGGER.error("Error"+ve.getCause());
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"No buses Found","Try another search"));
+			result="home";
 		} catch(Exception e) {
 			LOGGER.trace("Error"+e.getMessage());
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"No buses Found","Try another search"));

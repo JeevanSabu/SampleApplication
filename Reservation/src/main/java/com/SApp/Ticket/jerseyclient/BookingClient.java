@@ -29,7 +29,7 @@ public class BookingClient {
 	private String handshake_password = propertiesLoading.getProperties("password");
 	
 	/**
-	 * 
+	 * Client method to book seats
 	 * @param username
 	 * @param paymentBean
 	 * @return

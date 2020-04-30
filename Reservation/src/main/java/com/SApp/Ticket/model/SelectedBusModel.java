@@ -27,11 +27,11 @@ public class SelectedBusModel {
 	private SelectedBusClient selectedBusClient = new SelectedBusClient();
 
 	/**
-	 * 
+	 * Method to fetch the details of selected bus
 	 * @return
 	 */
 	public String getResult() {
-		LOGGER.trace("Inside SelectedBusModel.getResult");
+		LOGGER.trace("Inside SelectedBusModel getResult method");
 		if(null==selectedBusBean) {
 			LOGGER.error("selected bus null");
 			return "booking";
@@ -50,7 +50,7 @@ public class SelectedBusModel {
 			LOGGER.error(e.getCause());
 			result="booking";
 		}
-		LOGGER.trace("leaving SelectedBusModel.getResult");
+		LOGGER.trace("leaving SelectedBusModel getResult method");
 		return result;
 	}
 

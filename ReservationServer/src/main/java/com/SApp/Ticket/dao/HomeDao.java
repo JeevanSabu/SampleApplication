@@ -21,7 +21,9 @@ public class HomeDao {
 	Connection connection = dbConnections.getConnection();
 
 	/**
-	 * 
+	 * Method to fetch buses from database on specified date 
+	 * form and to 
+	 * specified source and location
 	 * @param source
 	 * @param destination
 	 * @param date

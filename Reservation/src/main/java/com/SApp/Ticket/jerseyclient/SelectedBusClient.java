@@ -30,7 +30,7 @@ public class SelectedBusClient {
 	private String handshake_password = propertiesLoading.getProperties("password");
 	
 	/**
-	 * 
+	 * Client method to fetch the details of selected bus
 	 * @param bus
 	 * @return
 	 */
