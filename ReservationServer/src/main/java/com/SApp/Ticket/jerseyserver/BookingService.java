@@ -25,7 +25,7 @@ public class BookingService {
 
 	private BookingsDao bookingsDao = new BookingsDao();
 
-    @RolesAllowed("ADMIN")
+	@RolesAllowed("ADMIN")
 	@POST
 	@Path("/bookingpost")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -36,6 +36,16 @@ public class BookingService {
 			LOGGER.error("bookingDetails is null");
 			return null;
 		}
+//		if(null==bookingDetails.getUsername()||
+//			null==new Integer(bookingDetails.getBusId())||
+//			null==new Integer(bookingDetails.getAvailableSeats())||
+//			null==bookingDetails.getSeatnos()||
+//			null==bookingDetails.getPassname()||
+//			null==bookingDetails.getPassage()||
+//			null==bookingDetails.getPassgender()) {
+//			LOGGER.error("One or more fields of bookingDetails is null");
+//			return null;
+//		}
 		boolean isvaliduser = ESAPI.validator().isValidInput("username", bookingDetails.getUsername(), "username", 30, false);
 		LOGGER.trace("is valid "+isvaliduser);
 		if(isvaliduser==false) {

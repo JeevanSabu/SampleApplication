@@ -35,10 +35,14 @@ public class BookingsDao {
 	 */
 	public BookingsPojo getBookings(int busId, String username, int availableSeats, List<Seats> seats) {
 		LOGGER.trace("Inside getBookings method");
-		if(0==busId||null==username||null==seats) {
+		if(busId==0||null==username||null==seats) {
 			LOGGER.trace("One or more Fields null");
 			return null;
 		}
+//		if(busId==0||null==username||null==new Integer(availableSeats)||null==seats) {
+//			LOGGER.trace("One or more Fields null");
+//			return null;
+//		}
 		LOGGER.trace("From arguments "+busId);
 		PassengerSeats passengerSeats = new PassengerSeats();
 		passengerSeats.setSeats(new ArrayList<Seats>());

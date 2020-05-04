@@ -41,7 +41,7 @@ public class BusModel {
 	public String getResult() {
 		LOGGER.trace("Inside BusModel getResult method");
 		try {
-			if(null==busBean) {
+			if(null==busBean||null==busSeatsView) {
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Data error","Field can't be null"));
 				return "bus";
 			}
@@ -51,12 +51,10 @@ public class BusModel {
 				return "bus";
 			}
 			String[] seatsString = busBean.getSelectedSeat().split(",");
-			if(null!=busSeatsView) {
-				passengerSeats.setBusId(busSeatsView.getBusId());
-				passengerSeats.setBusName(busSeatsView.getBusName());
-				passengerSeats.setPrice(busSeatsView.getPrice());
-				passengerSeats.setAvailableSeats(busSeatsView.getAvailableSeats());
-			}
+			passengerSeats.setBusId(busSeatsView.getBusId());
+			passengerSeats.setBusName(busSeatsView.getBusName());
+			passengerSeats.setPrice(busSeatsView.getPrice());
+			passengerSeats.setAvailableSeats(busSeatsView.getAvailableSeats());
 			List<Seats> list = new ArrayList<Seats>();
 			for(int i=0;i<seatsString.length;i++) {
 				LOGGER.trace("seats "+seatsString[i]);

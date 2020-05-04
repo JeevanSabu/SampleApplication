@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.validation.ValidationException;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.owasp.esapi.ESAPI;
@@ -51,8 +52,9 @@ public class HomeModel {
 		try {
 			boolean isvalidsource = ESAPI.validator().isValidInput("placename", homeBean.getSource(), "placename", 30, false);
 			boolean isvaliddestination = ESAPI.validator().isValidInput("placename", homeBean.getDestination(), "placename", 30, false);
-			LOGGER.trace("is valid "+isvalidsource+" "+isvaliddestination);
-			if(isvalidsource==false||isvaliddestination==false) {
+			boolean isvaliddate = ESAPI.validator().isValidInput("date", homeBean.getDate().toString(), "date", 35, false);
+			LOGGER.trace("is valid "+isvalidsource+" "+isvaliddestination+" "+isvaliddate);
+			if(isvalidsource==false||isvaliddestination==false||isvaliddate==false) {
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Data error","Invalid data"));
 				return "home";
 			}
@@ -62,7 +64,7 @@ public class HomeModel {
 		    String date = ft.format(homeBean.getDate()).toString();
 		    LOGGER.trace("Formatted Date "+date);
 		    
-			if(homeBean.getSource().equals(homeBean.getDestination())) {
+			if(StringUtils.equals(homeBean.getSource(),homeBean.getDestination())) {
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Data error","Source and Destination can't be same"));
 				return "home";
 			}

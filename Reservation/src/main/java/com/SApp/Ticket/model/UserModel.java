@@ -1,5 +1,6 @@
 package com.SApp.Ticket.model;
 
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -15,6 +16,10 @@ import org.apache.commons.codec.binary.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.crypto.CipherText;
+import org.owasp.esapi.crypto.PlainText;
+import org.owasp.esapi.errors.EncryptionException;
+import org.owasp.esapi.reference.crypto.JavaEncryptor;
 
 import com.SApp.Ticket.bean.BarcodeBean;
 import com.SApp.Ticket.bean.UserBean;
@@ -51,6 +56,10 @@ public class UserModel {
 		}
 		HttpSession session = SessionUtils.getSession();
 		try {
+//			CipherText cText = ESAPI.encryptor().encrypt(new PlainText(userBean.getPassword()));
+			CipherText cText = JavaEncryptor.getInstance().encrypt(new PlainText(userBean.getPassword()));
+//			String encryptedPassword = ESAPI.encryptor().hash(userBean.getPassword(), userBean.getUsername());
+			LOGGER.trace("Encrypted password "+cText);
 			boolean isvaliduser = ESAPI.validator().isValidInput("username", userBean.getUsername(), "username", 30, false);
 			boolean isvalidpassword = ESAPI.validator().isValidInput("password", userBean.getPassword(), "password", 30, false);
 			LOGGER.trace("is valid "+isvaliduser+" "+isvalidpassword);
@@ -65,6 +74,8 @@ public class UserModel {
 			userPojo = user.postUser(userBean.getUsername(),userBean.getPassword());
 			LOGGER.trace("UserName "+userPojo.getUsername());
 //			context).getExternalContext().getSessionMap().put("username", userBean.getUsername());
+		} catch(EncryptionException ee) {
+			LOGGER.error("Encryption Exception "+ee.getMessage()+" cause "+ee.getCause());
 		} catch(Exception e) {
 			LOGGER.error("Exception "+e.getMessage());
 		}

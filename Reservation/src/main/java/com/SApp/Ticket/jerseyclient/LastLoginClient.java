@@ -33,6 +33,11 @@ public class LastLoginClient {
 	public int logout(String username, String password) {
 		LOGGER.trace("inside logout");
 
+		if(null==username||null==password) {
+			LOGGER.trace("Username or password is null");
+			return -1;
+		}
+		
 		HttpSession session = SessionUtils.getSession();
 		
 		LoginPojo loginPojo = new LoginPojo();
