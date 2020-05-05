@@ -35,7 +35,7 @@ public class UserService {
 	    else {
 			try {
 				boolean isvaliduser = ESAPI.validator().isValidInput("username", loginPojo.getUsername(), "username", 30, false);
-				boolean isvalidpassword = ESAPI.validator().isValidInput("password", loginPojo.getPassword(), "password", 30, false);
+				boolean isvalidpassword = ESAPI.validator().isValidInput("password", loginPojo.getPassword(), "password", 100, false);
 				LOGGER.trace("is valid "+isvaliduser+" "+isvalidpassword);
 				if(isvaliduser==false||isvalidpassword==false) {
 					return null;

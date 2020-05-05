@@ -1,6 +1,5 @@
 package com.SApp.Ticket.model;
 
-import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -16,10 +15,7 @@ import org.apache.commons.codec.binary.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.owasp.esapi.ESAPI;
-import org.owasp.esapi.crypto.CipherText;
-import org.owasp.esapi.crypto.PlainText;
 import org.owasp.esapi.errors.EncryptionException;
-import org.owasp.esapi.reference.crypto.JavaEncryptor;
 
 import com.SApp.Ticket.bean.BarcodeBean;
 import com.SApp.Ticket.bean.UserBean;
@@ -55,11 +51,8 @@ public class UserModel {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Login Failed","Fields can't be empty"));
 		}
 		HttpSession session = SessionUtils.getSession();
+		String encryptedPassword = null;
 		try {
-//			CipherText cText = ESAPI.encryptor().encrypt(new PlainText(userBean.getPassword()));
-			CipherText cText = JavaEncryptor.getInstance().encrypt(new PlainText(userBean.getPassword()));
-//			String encryptedPassword = ESAPI.encryptor().hash(userBean.getPassword(), userBean.getUsername());
-			LOGGER.trace("Encrypted password "+cText);
 			boolean isvaliduser = ESAPI.validator().isValidInput("username", userBean.getUsername(), "username", 30, false);
 			boolean isvalidpassword = ESAPI.validator().isValidInput("password", userBean.getPassword(), "password", 30, false);
 			LOGGER.trace("is valid "+isvaliduser+" "+isvalidpassword);
@@ -67,11 +60,15 @@ public class UserModel {
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Invalid Credentials","Username and Password possess values that are not allowed"));
 				return "login";
 			}
+//			CipherText cText = ESAPI.encryptor().encrypt(new PlainText(userBean.getPassword()));
+//			CipherText cText = JavaEncryptor.getInstance().encrypt(new PlainText(userBean.getPassword()));
+			encryptedPassword = ESAPI.encryptor().hash(userBean.getPassword(), userBean.getUsername());
+			LOGGER.trace("Encrypted password "+encryptedPassword);
 			
 			session.setAttribute("username", userBean.getUsername());
 			session.setMaxInactiveInterval(300);
 			LOGGER.trace(session.getId());
-			userPojo = user.postUser(userBean.getUsername(),userBean.getPassword());
+			userPojo = user.postUser(userBean.getUsername(),encryptedPassword);
 			LOGGER.trace("UserName "+userPojo.getUsername());
 //			context).getExternalContext().getSessionMap().put("username", userBean.getUsername());
 		} catch(EncryptionException ee) {
@@ -81,7 +78,7 @@ public class UserModel {
 		}
 		
 		if((null!=userPojo.getUsername()&&StringUtils.equals(userPojo.getUsername(), userBean.getUsername()))
-				&&(null!=userPojo.getPassword()&&StringUtils.equals(userPojo.getPassword(), userBean.getPassword()))) {
+				&&(null!=encryptedPassword&&StringUtils.equals(userPojo.getPassword(), encryptedPassword))) {
 
 			userBean.setLastLogin(userPojo.getLastlogin());
 			Random random = new Random();
@@ -130,7 +127,8 @@ public class UserModel {
 		    LastLoginClient lastLoginClient = new LastLoginClient();
 		    if(null!=userBean) {
 //		    	int status = lastLoginClient.logout(userBean.getUsername(),userBean.getPassword(),formatteddate);
-		    	int status = lastLoginClient.logout(userBean.getUsername(),userBean.getPassword());
+				String encryptedPassword = ESAPI.encryptor().hash(userBean.getPassword(), userBean.getUsername());
+		    	int status = lastLoginClient.logout(userBean.getUsername(),encryptedPassword);
 		    	if(status==200) {
 		    		LOGGER.trace("lastlogin saved");
 		    	}
